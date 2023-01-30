@@ -1,0 +1,1 @@
+A proxy.php fájlt megtalálod a /var/www/html weboldalban, ez pedig a http://87.229.6.116:8001/proxy.php -ként éred el. :)

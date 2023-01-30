@@ -1,0 +1,130 @@
+html{
+    
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    min-width: 100%;
+}
+
+body{
+    width: 100%;
+    height: 100%;
+    /* background-image: linear-gradient(#8938E1,#4AB3D6); */
+    background-image: linear-gradient(to right top, #8938e1, #346cf7, #2c9cf1, #00a2e9, #4ab3d6);
+   
+    background-attachment: fixed;
+    
+   
+}
+
+.container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#PlayPause{
+    margin-bottom: 20px;
+    width: 150px;
+    height: 150px;
+    background-image: url("/images/play-filled-square-button.png");
+    background-size: cover;
+    cursor: pointer;
+    border-radius: 20px;
+}
+
+.egyikclass
+{
+    background-image: url("/images/pause.png")!important;
+    border-radius: 20px;
+
+}
+
+/* .masikclass
+{
+    background-image: url("/images/play-filled-square-button.png");
+} */
+
+.link{
+    position: fixed;
+    top: 0;
+}
+
+#player_div {
+    user-select: none;
+}
+
+#messageinput, #nevinput {
+    border-radius: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 3px;
+    margin-left: 10px;
+    width: 370px;
+    
+}
+
+
+
+#gomb {
+    border-radius: 5px;
+    
+    
+    
+}
+
+#reciever {
+    border: 3px solid black;
+    height: 90%;
+    width: 60%;
+    max-width: 60%;
+    border-radius: 5px;
+    overflow-y: scroll;
+    inline-size: 400px; 
+    
+}
+
+#gomb:hover {
+background-color: lightgray;
+}
+
+.chatcucc {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border: 5px solid black;
+    height: 600px;
+    width: 150%;
+    margin-left: 20px;
+    border-radius: 5px;
+
+
+    
+}
+
+.uzenet {
+    white-space: pre-wrap; /* css-3 */
+    white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
+    white-space: -pre-wrap; /* Opera 4-6 */
+    white-space: -o-pre-wrap; /* Opera 7 */
+    word-wrap: break-word; /* Internet Explorer 5.5+ */
+    overflow-wrap: break-word;
+    background-color: lightblue;
+    border-radius: 10px;
+    padding: 10px;
+    width: 50% ;
+    margin-left: 10px;
+}
+
+.sajatuzenet {
+    white-space: pre-wrap; /* css-3 */
+    white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
+    white-space: -pre-wrap; /* Opera 4-6 */
+    white-space: -o-pre-wrap; /* Opera 7 */
+    word-wrap: break-word; /* Internet Explorer 5.5+ */
+    overflow-wrap: break-word;
+    background-color: lightblue;
+    border-radius: 20px;
+    padding: 10px;
+    width: 50% ;
+}

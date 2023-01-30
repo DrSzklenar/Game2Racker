@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/video.js@7/dist/video-js.min.css" rel="stylesheet">
+    <!-- <script src="https://cdn.jsdelivr.net/npm/video.js@7/dist/video.min.js"></script> -->
+    <link href="https://vjs.zencdn.net/7.21.1/video-js.css" rel="stylesheet" />
+    <title>Real</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="left">
+            <div class="chatcucc">
+                <h1>Csevegés</h1>
+                <div id="reciever"><p></p></div>
+            
+            <form id="chatForm">
+                
+                <input id="nevinput" type="text" placeholder="Állítsd be a nevedet!">
+                <input id="gomb" type="button" value="Beállít">
+                <br>
+                
+                <input id="messageinput" type="text" placeholder="Írj egy üzenetet..." required>
+                <input id="gomb" type="submit" value="Küldés">
+                
+            </form>
+            <input id="nevtorles" type="submit" value="nevtorles">
+            </div>
+            
+        </div>
+        <div class="right">
+            <form id="linkForm">
+                <label for="linkForm">Enter youtube video URL:</label>
+                <input id='loadVideoById' type="text" required>
+                <input type="submit" value="put">
+            </form>
+            <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
+            <!-- websocket, és tcp ip listener -->
+            <div id='player_div'></div>
+            <div id="PlayPause"></div>
+            <div id="ytvideoState"></div>
+            <!-- <iframe width="600" height="600" src="http://87.229.6.116:8001/proxy.php?url=https://www.youtube.com/watch?v=uQt2lKIU9Po"></iframe>
+                
+
+            <video tabindex="-1" class="video-stream html5-main-video" webkit-playsinline="" playsinline="" controlslist="nodownload" style="width: 775px; height: 426px; left: 0px; top: 5px;" src="blob:https://www.youtube.com/3b7656f5-cf69-43d8-a755-c3d9a46dc7bc"></video> -->
+
+
+            <video id="my-video" class="video-js" controls preload="auto" width="640" height="264"
+                poster="MY_VIDEO_POSTER.jpg" data-setup='{ "techOrder": ["youtube"], "sources": [{ "type": "video/youtube", "src": "https://www.youtube.com/watch?v=yOPVF46KuPA"}] }'>
+                <!-- <source src="/images/you_burned_my_houze.mp4" type="video/mp4" /> -->
+                <!-- <source src="https://www.youtube.com/watch?v=yOPVF46KuPA" type="video/youtube" /> -->
+                <p class="vjs-no-js">
+                    To view this video please enable JavaScript, and consider upgrading to a
+                    web browser that
+                    <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+                </p>
+            </video>
+
+            <script src="https://vjs.zencdn.net/7.8.4/video.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/videojs-youtube/2.6.1/Youtube.js"></script>
+        </div>
+    </div>
+
+
+
+    <script src="/chat.js"></script>
+
+    <script src="/button.js"></script>
+    <script src="/cutUrl.js"></script>
+</body>
+
+</html>
