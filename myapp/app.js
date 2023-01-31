@@ -26,19 +26,21 @@ const { json } = require('body-parser');
 
 const wss = new WebSocket.Server({ port: 5500 });
 
+
+
 wss.on("connection", ws => {
     console.log("Client has connected");
 
-    ws.on("open", (event) => {
-        console.log("what is happen!!!!!!!!!");
-        let i = 0;
-        wss.clients.forEach( (client) => {
-            i++;
-            let name = "Guest" + i;
-            client.send(name);
-            console.log(`Mostantól a csatlakozott kliens neve: ${name}`);   
-        });
-    });
+    // ws.on("open", () => {
+    //     console.log("what is happen!!!!!!!!!");
+        
+    //     wss.clients.forEach( (client) => {
+    //         i++;
+    //         let name = "Guest" + i;
+    //         client.send(name);
+    //         console.log(`Mostantól a csatlakozott kliens neve: ${name}`);   
+    //     });
+    // });
 
 
     

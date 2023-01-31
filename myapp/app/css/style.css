@@ -1,25 +1,91 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+
+
 html{
-    
-    overflow-x: hidden;
     scroll-behavior: smooth;
-    min-width: 100%;
 }
 
 body{
-    width: 100%;
     height: 100%;
     /* background-image: linear-gradient(#8938E1,#4AB3D6); */
     background-image: linear-gradient(to right top, #8938e1, #346cf7, #2c9cf1, #00a2e9, #4ab3d6);
    
     background-attachment: fixed;
-    
+    background-size: cover;
    
+}
+
+
+#reciever>p *{
+    width: 100%;
+    height: 100%;
 }
 
 .container{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    padding: 20px;
+}
+
+.left{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+}
+
+.right{
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    flex-direction: row;
 }
 
 #PlayPause{
@@ -67,22 +133,38 @@ body{
 
 #gomb {
     border-radius: 5px;
-    
+    z-index: 1000;
     
     
 }
 
-#reciever {
+#reciever-wrapper {
     border: 3px solid black;
-    height: 90%;
-    width: 60%;
-    max-width: 60%;
+    height: 100%;
+    max-width: 100%;
     border-radius: 5px;
+    overflow-y: hidden;
+    inline-size: 400px; 
+    position: relative;
+}
+#reciever {
+    height: 100%;
+    width: 100%;
     overflow-y: scroll;
     inline-size: 400px; 
     
 }
+#downarrow {
+    position: absolute;
+    bottom: 0px;
+    border-radius: 5px;
+    padding: 6px;
+    right: 80px;
+    left: 80px;
+    
 
+   
+}
 #gomb:hover {
 background-color: lightgray;
 }
@@ -94,12 +176,8 @@ background-color: lightgray;
     flex-direction: column;
     border: 5px solid black;
     height: 600px;
-    width: 150%;
-    margin-left: 20px;
+    width: 60%;
     border-radius: 5px;
-
-
-    
 }
 
 .uzenet {

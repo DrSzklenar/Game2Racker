@@ -15,26 +15,8 @@
 
 <body>
     <div class="container">
+
         <div class="left">
-            <div class="chatcucc">
-                <h1>Csevegés</h1>
-                <div id="reciever"><p></p></div>
-            
-            <form id="chatForm">
-                
-                <input id="nevinput" type="text" placeholder="Állítsd be a nevedet!">
-                <input id="gomb" type="button" value="Beállít">
-                <br>
-                
-                <input id="messageinput" type="text" placeholder="Írj egy üzenetet..." required>
-                <input id="gomb" type="submit" value="Küldés">
-                
-            </form>
-            <input id="nevtorles" type="submit" value="nevtorles">
-            </div>
-            
-        </div>
-        <div class="right">
             <form id="linkForm">
                 <label for="linkForm">Enter youtube video URL:</label>
                 <input id='loadVideoById' type="text" required>
@@ -52,7 +34,8 @@
 
 
             <video id="my-video" class="video-js" controls preload="auto" width="640" height="264"
-                poster="MY_VIDEO_POSTER.jpg" data-setup='{ "techOrder": ["youtube"], "sources": [{ "type": "video/youtube", "src": "https://www.youtube.com/watch?v=yOPVF46KuPA"}] }'>
+                poster="MY_VIDEO_POSTER.jpg"
+                data-setup='{ "techOrder": ["youtube"], "sources": [{ "type": "video/youtube", "src": "https://www.youtube.com/watch?v=yOPVF46KuPA"}] }'>
                 <!-- <source src="/images/you_burned_my_houze.mp4" type="video/mp4" /> -->
                 <!-- <source src="https://www.youtube.com/watch?v=yOPVF46KuPA" type="video/youtube" /> -->
                 <p class="vjs-no-js">
@@ -64,6 +47,28 @@
 
             <script src="https://vjs.zencdn.net/7.8.4/video.js"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/videojs-youtube/2.6.1/Youtube.js"></script>
+        </div>
+        <div class="right">
+            <div class="chatcucc">
+                <h1>Csevegés</h1>
+                <div id="reciever-wrapper">
+                    <div id="reciever"> <input id="downarrow" type="submit" value="Új üzenetek megtekintése ↓">
+                        <p></p>
+                    </div>
+                </div>
+
+
+                <form id="chatForm">
+
+                    <input id="nevinput" type="text" placeholder="Állítsd be a nevedet!">
+                    <br>
+
+                    <input id="messageinput" type="text" placeholder="Írj egy üzenetet..." required autofocus>
+                    <input id="gomb" type="submit" value="Küldés">
+
+                </form>
+            </div>
+
         </div>
     </div>
 
