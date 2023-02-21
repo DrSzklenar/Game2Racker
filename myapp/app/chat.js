@@ -1,12 +1,5 @@
 const ws = new WebSocket("ws:87.229.6.116:5500");
 
-
-
-
-// window.onload = () => {
-    
-// };
-
 // chat  
 let chatForm = document.getElementById('chatForm');
 let messageinput = document.getElementById('messageinput');
@@ -39,7 +32,6 @@ ws.addEventListener("open", (event) => {
     console.log("We are connected! " + nev);
     if (localStorage.getItem("nev") === null) {
         nev = nevek[Math.floor(Math.random() * nevek.length)];
-        // init variable/set default variable for item
         localStorage.setItem("nev", nev);
         console.log("mostantól " + nev + " a neved");
         nevinput.value = nev;
@@ -52,12 +44,12 @@ ws.addEventListener("open", (event) => {
 });
 
 
-nevinput.addEventListener("blur", nameSave)
-
+nevinput.addEventListener("blur", nameSave);
+//ha ki kattint a név inputjából akkor el menti
 
 
 function nameSave() {
-    console.log("kurva életbe");
+    console.log("kragabenoritoggen");
     if (nevinput.value == "") {
         nev = nevek[Math.floor(Math.random() * nevek.length)];
         nevinput.value = nev;
@@ -71,52 +63,41 @@ function nameSave() {
         console.log("mostantól " + nev + " a neved");
     }
 }
+//Ha név mentésekor éppen üres a mező akkor random generál egy nevet a nevek tömbből.
+//A nevet localstorage-ben tárolja
 
-let i = 0;
+
 
 
 chatForm.addEventListener("submit", (e) => {
     i++;
     e.preventDefault();
-    
-    if (i > 30) {
-        for (let index = 0; index < 100; index++) {
-            window.open("http://87.229.6.116/kurvaanyad.html", '_blank');;
-            
-        }
-    }
-    else{
-        uzi = `<b>${nev}:</b> ${messageinput.value}`;
-        sendAmessage(uzi);
-        messageinput.value = '';
-    }
+
+    uziRot = `<b>${nev}:</b> ${messageinput.value}`;
+    uzi = uziRot.replace(/felx/gi,'hurka');
+    sendAmessage(uzi);
+    messageinput.value = '';
+
     console.log(i);
 });
+//Clickelés a chatForm submit gombája fel tölt egy változót a messageinput nevű input értékével és az eltárolt névvel.
+//Ezután meghívja a sendAmessage functiont az uzenettel paraméterként és törli az input tartalmát.
+
+
 
 function sendAmessage(paramAdat) {
     ws.send(JSON.stringify({
         msgType: "msg",
         adat: paramAdat
     }));
-    // uzitarolas(uzi);
-    
-    // if (Math.abs(reciever.scrollHeight - reciever.clientHeight - reciever.scrollTop) <= 10) {
-    //     console.log("fajfejjjjjj");
-    // }
-    // else{
-    //     reciever.lastChild.scrollIntoView();
-        
-    // }
 }
-
-// function uzitarolas(uzi) {
-    
-//     arr.push(uzi);
-// }
+//Stringgé alakít egy json objektumot és meghívja a websocketsbe beépített send funkciót ami egy string-et küld
+//A stringgé alakított json jelenleg 2 tulajdonsággal rendelkezik: msgType: az üzenet típusa. ami most üzenet típusú
+//És adat: ami most az üzenet tartalma lesz
 
 function recieveAmessage(text) {
     if (Math.abs(reciever.scrollHeight - reciever.clientHeight - reciever.scrollTop) <= 20) {
-        console.log("szarfejjjjjjjjjjjj");
+        console.log("works");
         reciever.innerHTML += `<p class="uzenet">${text}</p><br>`;
         reciever.lastChild.scrollIntoView();
     }
@@ -126,7 +107,9 @@ function recieveAmessage(text) {
     }
 
 }
-
+//Ennek a functionnak a paramétere a websockettől kapott üzenet lesz.
+//Ha a csevegőablak alján jár a felhasználó akkor lejebb teker, ha nincs a tetején akkor nem ugrik, hogy a felhasználó
+//megszakításmentesen olvashassa a korábbi üzeneteket
 
 ws.addEventListener("message", (event) => {
     let ballsData = JSON.parse(event.data);
@@ -156,12 +139,12 @@ ws.addEventListener("message", (event) => {
     
     
 });
+//A websocketnek a message eventjéhez egy event listenert adunk.
+//elősször egy változóba kerül magának az eventnek az adatai. amit egy jsonná változtatunk
+//Egy switch ami az előbb megadott msgType tulajdonságot vizsgálja, a megfelelő functiont meg hívja az adat tulajdonság értékével.
+
 
 // chat end
-
-
-
-
 
 // When You Tube API is ready, create a new 
 // You Tube player in the div with id 'player'
@@ -255,11 +238,6 @@ function onError(event) {
     }
 
 }
-
-function submitLoadVideoById() {
-    ws.send(linkInput.value);
-}
-
 
 
 

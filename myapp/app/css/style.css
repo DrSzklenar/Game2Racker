@@ -52,7 +52,9 @@ html{
 }
 
 body{
-    height: 100%;
+    display: flex;
+    flex-direction: column;
+
     /* background-image: linear-gradient(#8938E1,#4AB3D6); */
     background-image: linear-gradient(to right top, #8938e1, #346cf7, #2c9cf1, #00a2e9, #4ab3d6);
    
@@ -98,7 +100,7 @@ body{
     border-radius: 20px;
 }
 
-.egyikclass
+.changeBGtoPause
 {
     background-image: url("/images/pause.png")!important;
     border-radius: 20px;
@@ -134,8 +136,8 @@ body{
 #gomb {
     border-radius: 5px;
     z-index: 1000;
-    
-    
+    opacity: inherit;
+    user-select: none;
 }
 
 #reciever-wrapper {
@@ -175,8 +177,8 @@ background-color: lightgray;
     align-items: center;
     flex-direction: column;
     border: 5px solid black;
-    height: 600px;
-    width: 60%;
+    height: 800px;
+    width: 80%;
     border-radius: 5px;
 }
 
