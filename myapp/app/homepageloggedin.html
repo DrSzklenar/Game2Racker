@@ -7,32 +7,30 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/css/homepageguest.css">
+    <link rel="stylesheet" href="/css/homepageloggedin.css">
     <title>Gather2Watch</title>
 </head>
 <body>
     <div class="login">
-        <input type="submit" value="Login" id="login" class="loginbtn" style="font-weight: bold; font-family: 'Rubik', sans-serif;">
-        <input type="submit" value="Sign up" id="signup" class="loginbtn"  style="font-weight: bold; font-family: 'Rubik', sans-serif;">
+       
     </div>
-    <div class="main">
-        <h1>Válassz egy becenevet és hozz létre egy szobát</h1>
-        <input type="text" id="guestname" placeholder="Becenév" style="color: white; font-family: 'Rubik', sans-serif;">
-        <div class="inputs">
-            <div class="input">
-                <div class="flex">
-                    <p>Szoba Id</p>
-                <input type="text" id="roomid" placeholder="Szoba Id" style="color: white; font-family: 'Rubik', sans-serif;">
-                </div>
-                <div class="flex">
-                    <p>Jelszó</p>
-                <input type="password" id="roompass" placeholder="Jelszó" style="color: white; font-family: 'Rubik', sans-serif;">
-                </div>
-             </div>
-        </div>
-      
-        <input type="submit" value="Szoba létrehozása/csatlakozás" id="createroom" style="font-family: 'Rubik', sans-serif;">
 
+    <div class="main">
+        <div class="flexcol">
+            <div class="flexcol">
+                <h1>Szoba Id</h1>
+                <input type="text" id="roomid" placeholder="Szoba Id" style="color: white; font-family: 'Rubik', sans-serif;">
+            </div>
+            <div class="flexcol">
+                <h1>Jelszó</h1>
+                <input type="password" id="roompass" placeholder="Jelszó" style="color: white; font-family: 'Rubik', sans-serif;">
+            </div>
+        </div>
+        
+        <input type="submit" value="Szoba létrehozása/csatlakozás" id="createroom" style="font-family: 'Rubik', sans-serif;">
+       
+            
+       
     </div>
 </body>
 </html>

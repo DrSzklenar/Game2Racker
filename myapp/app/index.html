@@ -32,12 +32,12 @@
 
             <video tabindex="-1" class="video-stream html5-main-video" webkit-playsinline="" playsinline="" controlslist="nodownload" style="width: 775px; height: 426px; left: 0px; top: 5px;" src="blob:https://www.youtube.com/3b7656f5-cf69-43d8-a755-c3d9a46dc7bc"></video> -->
 
-
-            <video id="my-video" class="video-js" controls preload="auto" width="640" height="264"
-                poster="MY_VIDEO_POSTER.jpg"
-                data-setup='{ "techOrder": ["youtube"], "sources": [{ "type": "video/youtube", "src": "https://www.youtube.com/watch?v=yOPVF46KuPA"}] }'>
-                <!-- <source src="/images/you_burned_my_houze.mp4" type="video/mp4" /> -->
-                <!-- <source src="https://www.youtube.com/watch?v=yOPVF46KuPA" type="video/youtube" /> -->
+            <form id="jsLinkPutter">
+                <label for="jsLinkPutter">Enter youtube video URL:</label>
+                <input id='VideoJsLoadVid' type="text" required>
+                <input type="submit" value="put">
+            </form>
+            <video id="myVideoJs" class="video-js" controls width="640" height="264" autoplay>
                 <p class="vjs-no-js">
                     To view this video please enable JavaScript, and consider upgrading to a
                     web browser that

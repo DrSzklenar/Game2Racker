@@ -24,12 +24,12 @@ tag.src = "https://www.youtube.com/iframe_api";
 var firstScriptTag = document.getElementsByTagName('script')[1];
 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-var player;                   // You Tube player object
+var player;                   
+// You Tube player object
 
 
 ws.addEventListener("open", (event) => {
     event.preventDefault();
-    console.log("We are connected! " + nev);
     if (localStorage.getItem("nev") === null) {
         nev = nevek[Math.floor(Math.random() * nevek.length)];
         localStorage.setItem("nev", nev);
@@ -40,8 +40,11 @@ ws.addEventListener("open", (event) => {
         nev = localStorage.getItem("nev");
         nevinput.value = nev;
     }
-
+    console.log("We are connected! " + nev);
 });
+//A websocket open eventjén ez a function fut le. Ez akkor történik amikor egy kliens csatlakozik a websocket serverhez
+//Egy random név generálásával kezd ha még még nincs név elmentve
+//localstorage-ba menti
 
 
 nevinput.addEventListener("blur", nameSave);
@@ -70,15 +73,11 @@ function nameSave() {
 
 
 chatForm.addEventListener("submit", (e) => {
-    i++;
     e.preventDefault();
-
     uziRot = `<b>${nev}:</b> ${messageinput.value}`;
     uzi = uziRot.replace(/felx/gi,'hurka');
     sendAmessage(uzi);
     messageinput.value = '';
-
-    console.log(i);
 });
 //Clickelés a chatForm submit gombája fel tölt egy változót a messageinput nevű input értékével és az eltárolt névvel.
 //Ezután meghívja a sendAmessage functiont az uzenettel paraméterként és törli az input tartalmát.
@@ -123,11 +122,13 @@ ws.addEventListener("message", (event) => {
             break;
         case "action":
             if (ballsData.adat == "pause") {
-                player.pauseVideo();
+                // player.pauseVideo();
+                jsPlayer.play()
                 isPaused = true;
             }
             else{
-                player.playVideo();
+                // player.playVideo();
+                jsPlayer.pause();
                 isPaused = false;
             }
             break;
@@ -146,6 +147,8 @@ ws.addEventListener("message", (event) => {
 
 // chat end
 
+
+
 // When You Tube API is ready, create a new 
 // You Tube player in the div with id 'player'
 function onYouTubeIframeAPIReady() {
@@ -153,12 +156,12 @@ function onYouTubeIframeAPIReady() {
         {
             videoId: 'Dfv8qgrQNKk',   // Load the initial video
             playerVars: {
-                autoplay: 0,      // Don't autoplay the initial video
+                autoplay: 1,      // Don't autoplay the initial video
                 rel: 0,           //  Don’t show related videos
                 theme: "light",   // Use a light player instead of a dark one
                 controls: 1,      // Show player controls
                 showinfo: 0,      // Don’t show title or loader
-                modestbranding: 0, // No You Tube logo on control bar
+                modestbranding: 1, // No You Tube logo on control bar
                 enablejsapi: 1
             },
             events: {
@@ -174,15 +177,40 @@ function onYouTubeIframeAPIReady() {
         });
 
 }
-
 // Callback specified to process the onReady event has been received
 // so can proceed with creating and managing You Tube player(s)
 
 
+//Ez a youtube player ért felel. publikusan elérhető a youtube api oldalán
+
 // Log state changes
 function onReady(event) {
+    player.playVideo();
+    console.log("Kaklanafffffffff");
+    setTimeout(function () {
+        player.pauseVideo();
+    }, 700);
     event.target.setVolume(5);
-    $('#PlayPause').click(function (event) {
+    // $('#PlayPause').click(function (event) {
+    //     if (isPaused == false) {
+    //         ws.send(JSON.stringify({
+    //             msgType: "action",
+    //             adat: "pause"
+    //         }));
+
+    //     }
+    //     else {
+    //         ws.send(JSON.stringify({
+    //             msgType: "action",
+    //             adat: "play"
+    //         }));
+    //     }
+        
+    // });
+    ytvideoState.innerText = player.getPlayerState();
+}
+
+$('#PlayPause').click(function (event) {
         if (isPaused == false) {
             ws.send(JSON.stringify({
                 msgType: "action",
@@ -198,13 +226,11 @@ function onReady(event) {
         }
         
     });
-    ytvideoState.innerText = player.getPlayerState();
-}
 
 // 4. The API calls this function when the player's state changes.
 function onStateChange(event) {
     ytvideoState.innerText = player.getPlayerState();
-    if (player.getPlayerState == -1) {
+    if (player.getPlayerState == '-1') {
         event.player.playVideo();
         event.player.playVideo();
         event.player.playVideo();
@@ -240,27 +266,45 @@ function onError(event) {
 }
 
 
-
 linkForm.addEventListener("submit", (e) => {
     e.preventDefault();
     VidSend();
     messageinput.value = '';
 });
 
+let jsLinkPutter = document.getElementById("jsLinkPutter");
+let VideoJsLoadVid = document.getElementById("VideoJsLoadVid");
+console.log(jsLinkPutter);
+
+let jsPlayer = videojs('myVideoJs');
+
+
+jsLinkPutter.addEventListener("submit", (e) =>{
+    e.preventDefault();
+    VidSend();
+});
+
+
+function JsPlayThis(videoURL) {
+    jsPlayer.src({ type: "video/youtube", src: videoURL});
+    jsPlayer.load();
+    isPaused = false;
+    // jsPlayer.play();
+}
 
 function VidSend() {
     ws.send(JSON.stringify({
         msgType: "video",
-        adat: linkInput.value
+        // adat: linkInput.value
+        adat: VideoJsLoadVid.value
     }));
 }
 function VidRecieve(data) {
-    player.loadVideoById({ videoId: data });
+    // player.loadVideoById({ videoId: data });
+    JsPlayThis(data);
+    document.getElementById('myVideoJs').click();
 }
 
-ws.addEventListener("video", e => {
-    console.log(e.data);
-    VidRecieve(e.data);
+document.getElementById('myVideoJs').addEventListener('click', () => {
+    console.log("Baszás!");
 });
-
-
