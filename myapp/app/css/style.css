@@ -3,10 +3,12 @@
    License: none (public domain)
 */
 
-html, body, div, span, applet, object, iframe, blockquote, pre,
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
 del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var, u, i, center,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
 dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td,
@@ -45,8 +47,6 @@ table {
 	border-spacing: 0;
 }
 
-
-
 html{
     scroll-behavior: smooth;
 }
@@ -54,27 +54,67 @@ html{
 body{
     display: flex;
     flex-direction: column;
-
     /* background-image: linear-gradient(#8938E1,#4AB3D6); */
-    background-image: linear-gradient(to right top, #8938e1, #346cf7, #2c9cf1, #00a2e9, #4ab3d6);
-   
+    background-image: linear-gradient(to right top, #8938e1, #346cf7, #2c9cf1, #00a2e9, #4ab3d6);    
     background-attachment: fixed;
     background-size: cover;
    
 }
 
+nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: rgba(0, 128, 0, 0.533);
+    width: 100%;
+    box-shadow: 0 1px 4px rgb(146 161 176 / 15%);
+    height: 8vh;
+    position: fixed;
+    top: 0px;
+    z-index: 80;
+}
+
+main{
+    padding-top: 8vh;
+}
+
+input[type="text"]{
+    padding: 10px;
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.2);
+    border: 2px solid black ;
+    width: 200px;
+}
+
+/* utils */
+
+.flexrow{
+    display: flex;
+    flex-direction: row;
+}
+
+.flexcol{
+    display: flex;
+    flex-direction: column;
+}
+
+.center{
+    align-items: center;
+    justify-content: center;
+}
+
+
+.maxheight{
+    height: 92vh;
+}
+
+/* utils end */
 
 #reciever>p *{
     width: 100%;
     height: 100%;
 }
 
-.container{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    padding: 20px;
-}
 
 .left{
     display: flex;
@@ -83,12 +123,53 @@ body{
     align-items: center;
 }
 
-.right{
-    display: flex;
-    width: 100%;
-    justify-content: flex-end;
-    flex-direction: row;
+#users{
+    
+    width: 6%;
+    background-color: rgba(255, 255, 0, 0.579);
 }
+
+#videoContainer{
+    overflow-y: scroll;
+    width: 60%;
+    background-color: rgba(0, 0, 255, 0.509);
+}
+
+#playLists{
+    width: 20%;
+    background-color: rgba(255, 0, 0, 0.452);
+}
+
+#chat{
+    box-sizing: border-box;
+    width: 20%;
+    background-color: rgba(255, 0, 255, 0.411);
+    border: 5px solid black;
+}
+
+/* users div */
+.cards{
+    margin-top: 10px;
+    width: 100%;
+    gap: 2rem;
+}
+
+.card{
+    width: 80%;
+}
+
+.card img{
+    width: 100%;
+}
+
+/* video div */
+
+.video-js{
+    position: relative !important;
+    width: 100%;
+    height: 50vh;
+}
+
 
 #PlayPause{
     margin-bottom: 20px;
@@ -107,11 +188,6 @@ body{
 
 }
 
-/* .masikclass
-{
-    background-image: url("/images/play-filled-square-button.png");
-} */
-
 .link{
     position: fixed;
     top: 0;
@@ -123,12 +199,6 @@ body{
 
 #messageinput, #nevinput {
     border-radius: 5px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    padding: 3px;
-    margin-left: 10px;
-    width: 370px;
-    
 }
 
 
@@ -140,44 +210,32 @@ body{
     user-select: none;
 }
 
-#reciever-wrapper {
+#reciever {
     border: 3px solid black;
     height: 100%;
     max-width: 100%;
     border-radius: 5px;
-    overflow-y: hidden;
+    overflow-x: scroll;
     inline-size: 400px; 
     position: relative;
 }
-#reciever {
-    height: 100%;
-    width: 100%;
-    overflow-y: scroll;
-    inline-size: 400px; 
-    
-}
 #downarrow {
     position: absolute;
-    bottom: 0px;
+    bottom: 6.5vh;
     border-radius: 5px;
-    padding: 6px;
-    right: 80px;
-    left: 80px;
-    
-
-   
 }
 #gomb:hover {
 background-color: lightgray;
 }
 
 .chatcucc {
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     border: 5px solid black;
-    height: 800px;
+    height: 80%;
     width: 80%;
     border-radius: 5px;
 }

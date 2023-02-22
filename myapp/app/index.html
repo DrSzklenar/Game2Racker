@@ -1,83 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/style.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/video.js@7/dist/video-js.min.css" rel="stylesheet">
-    <!-- <script src="https://cdn.jsdelivr.net/npm/video.js@7/dist/video.min.js"></script> -->
-    <link href="https://vjs.zencdn.net/7.21.1/video-js.css" rel="stylesheet" />
-    <title>Real</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/homepageguest.css">
+    <title>Gather2Watch</title>
 </head>
-
 <body>
-    <div class="container">
-
-        <div class="left">
-            <form id="linkForm">
-                <label for="linkForm">Enter youtube video URL:</label>
-                <input id='loadVideoById' type="text" required>
-                <input type="submit" value="put">
-            </form>
-            <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
-            <!-- websocket, és tcp ip listener -->
-            <div id='player_div'></div>
-            <div id="PlayPause"></div>
-            <div id="ytvideoState"></div>
-            <!-- <iframe width="600" height="600" src="http://87.229.6.116:8001/proxy.php?url=https://www.youtube.com/watch?v=uQt2lKIU9Po"></iframe>
-                
-
-            <video tabindex="-1" class="video-stream html5-main-video" webkit-playsinline="" playsinline="" controlslist="nodownload" style="width: 775px; height: 426px; left: 0px; top: 5px;" src="blob:https://www.youtube.com/3b7656f5-cf69-43d8-a755-c3d9a46dc7bc"></video> -->
-
-            <form id="jsLinkPutter">
-                <label for="jsLinkPutter">Enter youtube video URL:</label>
-                <input id='VideoJsLoadVid' type="text" required>
-                <input type="submit" value="put">
-            </form>
-            <video id="myVideoJs" class="video-js" controls width="640" height="264" autoplay>
-                <p class="vjs-no-js">
-                    To view this video please enable JavaScript, and consider upgrading to a
-                    web browser that
-                    <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
-                </p>
-            </video>
-
-            <script src="https://vjs.zencdn.net/7.8.4/video.js"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/videojs-youtube/2.6.1/Youtube.js"></script>
-        </div>
-        <div class="right">
-            <div class="chatcucc">
-                <h1>Csevegés</h1>
-                <div id="reciever-wrapper">
-                    <div id="reciever"> <input id="downarrow" type="submit" value="Új üzenetek megtekintése ↓">
-                        <p></p>
-                    </div>
-                </div>
-
-
-                <form id="chatForm">
-
-                    <input id="nevinput" type="text" placeholder="Állítsd be a nevedet!">
-                    <br>
-
-                    <input id="messageinput" type="text" placeholder="Írj egy üzenetet..." required autofocus maxlength="60">
-                    <input id="gomb" type="submit" value="Küldés">
-
-                </form>
+    <div class="login">
+        <input type="submit" value="Bejelentkezés" id="login" class="loginbtn" style="font-weight: bold; font-family: 'Rubik', sans-serif;">
+        <input type="submit" value="Regisztráció" id="signup" class="loginbtn"  style="font-weight: bold; font-family: 'Rubik', sans-serif;">
+                <div class="flag">
+                    <a href="homepageguesteng.html"></a>
             </div>
-
-        </div>
     </div>
+    <div class="main">
+        <h1>Válassz egy becenevet és hozz létre egy szobát</h1>
+        <input type="text" id="guestname" placeholder="Becenév" style="color: white; font-family: 'Rubik', sans-serif;">
+        <div class="inputs">
+            <div class="input">
+                <div class="flex">
+                    <p>Szoba Id</p>
+                <input type="text" id="roomid" placeholder="Szoba Id" style="color: white; font-family: 'Rubik', sans-serif;">
+                </div>
+                <div class="flex">
+                    <p>Jelszó</p>
+                <input type="password" id="roompass" placeholder="Jelszó" style="color: white; font-family: 'Rubik', sans-serif;">
+                </div>
+             </div>
+        </div>
+        <a href="mainpage.html">
+        <input type="submit" value="Szoba létrehozása/csatlakozás" id="createroom" style="font-family: 'Rubik', sans-serif;">
+        </a>
 
-
-
-    <script src="/chat.js"></script>
-    <script src="/jatek.js" ></script>
-    <script src="/button.js"></script>
-    <script src="/cutUrl.js"></script>
+    </div>
 </body>
-
 </html>

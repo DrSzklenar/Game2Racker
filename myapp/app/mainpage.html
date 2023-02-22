@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/video.js@7/dist/video-js.min.css" rel="stylesheet">
+    <!-- <script src="https://cdn.jsdelivr.net/npm/video.js@7/dist/video.min.js"></script> -->
+    <link href="https://vjs.zencdn.net/7.21.1/video-js.css" rel="stylesheet" />
+    <title>Real</title>
+</head>
+
+<body>
+    <nav class="flexrow center">
+        <form id="jsLinkPutter">
+            <label for="jsLinkPutter">Enter youtube video URL:</label>
+            <input id='VideoJsLoadVid' type="text" required>
+            <input type="submit" value="put">
+        </form>
+    </nav>
+    <main class="flexrow center">
+        <div id="users" class="flexcol maxheight">
+            <div class="cards flexcol center">
+                <div class="card">
+                    <img src="https://i.pinimg.com/originals/f1/0f/f7/f10ff70a7155e5ab666bcdd1b45b726d.jpg" alt="">
+                    <h1>Neve Oszkár</h1>
+                </div>
+                <div class="card">
+                    <img src="https://i.pinimg.com/originals/f1/0f/f7/f10ff70a7155e5ab666bcdd1b45b726d.jpg" alt="">
+                    <h1>Neve Oszkár</h1>
+                </div>
+                <div class="card">
+                    <img src="https://i.pinimg.com/originals/f1/0f/f7/f10ff70a7155e5ab666bcdd1b45b726d.jpg" alt="">
+                    <h1>Neve Oszkár</h1>
+                </div>
+            </div>
+        </div>
+
+        <div id="videoContainer" class="flexcol maxheight">
+            <div class="vidijo">
+                <video id="myVideoJs" class="video-js" controls autoplay>
+                    <p class="vjs-no-js">
+                        To view this video please enable JavaScript, and consider upgrading to a
+                        web browser that
+                        <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+                    </p>
+                </video>
+
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum, placeat pariatur perspiciatis quos
+                    voluptatibus omnis impedit laborum voluptatum vel culpa magnam iste cupiditate repudiandae eveniet
+                    ut iusto eaque non quas?</p>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum, placeat pariatur perspiciatis quos
+                    voluptatibus omnis impedit laborum voluptatum vel culpa magnam iste cupiditate repudiandae eveniet
+                    ut iusto eaque non quas?</p>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum, placeat pariatur perspiciatis quos
+                    voluptatibus omnis impedit laborum voluptatum vel culpa magnam iste cupiditate repudiandae eveniet
+                    ut iusto eaque non quas?</p>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum, placeat pariatur perspiciatis quos
+                    voluptatibus omnis impedit laborum voluptatum vel culpa magnam iste cupiditate repudiandae eveniet
+                    ut iusto eaque non quas?</p>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum, placeat pariatur perspiciatis quos
+                    voluptatibus omnis impedit laborum voluptatum vel culpa magnam iste cupiditate repudiandae eveniet
+                    ut iusto eaque non quas?</p>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum, placeat pariatur perspiciatis quos
+                    voluptatibus omnis impedit laborum voluptatum vel culpa magnam iste cupiditate repudiandae eveniet
+                    ut iusto eaque non quas?</p>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum, placeat pariatur perspiciatis quos
+                    voluptatibus omnis impedit laborum voluptatum vel culpa magnam iste cupiditate repudiandae eveniet
+                    ut iusto eaque non quas?</p>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum, placeat pariatur perspiciatis quos
+                    voluptatibus omnis impedit laborum voluptatum vel culpa magnam iste cupiditate repudiandae eveniet
+                    ut iusto eaque non quas?</p>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum, placeat pariatur perspiciatis quos
+                    voluptatibus omnis impedit laborum voluptatum vel culpa magnam iste cupiditate repudiandae eveniet
+                    ut iusto eaque non quas?</p>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum, placeat pariatur perspiciatis quos
+                    voluptatibus omnis impedit laborum voluptatum vel culpa magnam iste cupiditate repudiandae eveniet
+                    ut iusto eaque non quas?</p>
+            </div>
+        </div>
+
+        <div id="playLists" class="flexrow maxheight">
+            s
+        </div>
+
+        <div id="chat" class="flexrow maxheight center">
+            <div class="chatcucc">
+                <h1>Csevegés</h1>
+                <div id="reciever"> <input id="downarrow" type="submit" value="Új üzenetek megtekintése ↓">
+                    <p></p>
+                </div>
+
+
+                <form id="chatForm">
+                    <input id="nevinput" type="text" placeholder="Állítsd be a nevedet!">
+                    <br>
+                    <input id="messageinput" type="text" placeholder="Írj egy üzenetet..." required autofocus
+                        maxlength="60">
+                    <input id="gomb" type="submit" value="Küldés">
+                </form>
+            </div>
+        </div>
+    </main>
+
+
+    <script src="https://vjs.zencdn.net/7.8.4/video.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/videojs-youtube/2.6.1/Youtube.js"></script>
+    <script src="/chat.js"></script>
+    <script src="/jatek.js"></script>
+    <script src="/button.js"></script>
+    <script src="/cutUrl.js"></script>
+</body>
+
+</html>

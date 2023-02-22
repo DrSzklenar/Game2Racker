@@ -132,13 +132,13 @@ ws.addEventListener("message", (event) => {
                 isPaused = false;
             }
             break;
+        case "connect":
+
+            break;
         
         default:
             break;
     }
-    
-    
-    
 });
 //A websocketnek a message eventjéhez egy event listenert adunk.
 //elősször egy változóba kerül magának az eventnek az adatai. amit egy jsonná változtatunk
@@ -151,32 +151,32 @@ ws.addEventListener("message", (event) => {
 
 // When You Tube API is ready, create a new 
 // You Tube player in the div with id 'player'
-function onYouTubeIframeAPIReady() {
-    player = new YT.Player('player_div',
-        {
-            videoId: 'Dfv8qgrQNKk',   // Load the initial video
-            playerVars: {
-                autoplay: 1,      // Don't autoplay the initial video
-                rel: 0,           //  Don’t show related videos
-                theme: "light",   // Use a light player instead of a dark one
-                controls: 1,      // Show player controls
-                showinfo: 0,      // Don’t show title or loader
-                modestbranding: 1, // No You Tube logo on control bar
-                enablejsapi: 1
-            },
-            events: {
-                // Callback when onReady fires
-                onReady: onReady,
+// function onYouTubeIframeAPIReady() {
+//     player = new YT.Player('player_div',
+//         {
+//             videoId: 'Dfv8qgrQNKk',   // Load the initial video
+//             playerVars: {
+//                 autoplay: 1,      // Don't autoplay the initial video
+//                 rel: 0,           //  Don’t show related videos
+//                 theme: "light",   // Use a light player instead of a dark one
+//                 controls: 1,      // Show player controls
+//                 showinfo: 0,      // Don’t show title or loader
+//                 modestbranding: 1, // No You Tube logo on control bar
+//                 enablejsapi: 1
+//             },
+//             events: {
+//                 // Callback when onReady fires
+//                 onReady: onReady,
 
-                // Callback when onStateChange fires
-                onStateChange: onStateChange,
+//                 // Callback when onStateChange fires
+//                 onStateChange: onStateChange,
 
-                // Callback when onError fires
-                onError: onError
-            }
-        });
+//                 // Callback when onError fires
+//                 onError: onError
+//             }
+//         });
 
-}
+// }
 // Callback specified to process the onReady event has been received
 // so can proceed with creating and managing You Tube player(s)
 
@@ -184,31 +184,31 @@ function onYouTubeIframeAPIReady() {
 //Ez a youtube player ért felel. publikusan elérhető a youtube api oldalán
 
 // Log state changes
-function onReady(event) {
-    player.playVideo();
-    console.log("Kaklanafffffffff");
-    setTimeout(function () {
-        player.pauseVideo();
-    }, 700);
-    event.target.setVolume(5);
-    // $('#PlayPause').click(function (event) {
-    //     if (isPaused == false) {
-    //         ws.send(JSON.stringify({
-    //             msgType: "action",
-    //             adat: "pause"
-    //         }));
+// function onReady(event) {
+//     player.playVideo();
+//     console.log("Kaklanafffffffff");
+//     setTimeout(function () {
+//         player.pauseVideo();
+//     }, 700);
+//     event.target.setVolume(5);
+//     $('#PlayPause').click(function (event) {
+//         if (isPaused == false) {
+//             ws.send(JSON.stringify({
+//                 msgType: "action",
+//                 adat: "pause"
+//             }));
 
-    //     }
-    //     else {
-    //         ws.send(JSON.stringify({
-    //             msgType: "action",
-    //             adat: "play"
-    //         }));
-    //     }
+//         }
+//         else {
+//             ws.send(JSON.stringify({
+//                 msgType: "action",
+//                 adat: "play"
+//             }));
+//         }
         
-    // });
-    ytvideoState.innerText = player.getPlayerState();
-}
+//     });
+//     ytvideoState.innerText = player.getPlayerState();
+// }
 
 $('#PlayPause').click(function (event) {
         if (isPaused == false) {
@@ -228,49 +228,49 @@ $('#PlayPause').click(function (event) {
     });
 
 // 4. The API calls this function when the player's state changes.
-function onStateChange(event) {
-    ytvideoState.innerText = player.getPlayerState();
-    if (player.getPlayerState == '-1') {
-        event.player.playVideo();
-        event.player.playVideo();
-        event.player.playVideo();
-        console.log("puraein");
-    }
-}
+// function onStateChange(event) {
+//     ytvideoState.innerText = player.getPlayerState();
+//     if (player.getPlayerState == '-1') {
+//         event.player.playVideo();
+//         event.player.playVideo();
+//         event.player.playVideo();
+//         console.log("puraein");
+//     }
+// }
 
 
 
 // Log any errors
-function onError(event) {
-    var error = "undefined";
-    switch (event.data) {
-        case 2:
-            error = "Invalid parameter value";
-            break;
-        case 5:
-            error = "HTML 5 related error";
-            break;
-        case 100:
-            error = "Video requested is not found";
-            break;
-        case 101:
-            error = "Embedded playback forbidden by ownder";
-            break;
-        case 150:
-            error = "Error processing video request";
-            break;
-        default:
-            error = "unknown (" + event.data + ")";
-    }
+// function onError(event) {
+//     var error = "undefined";
+//     switch (event.data) {
+//         case 2:
+//             error = "Invalid parameter value";
+//             break;
+//         case 5:
+//             error = "HTML 5 related error";
+//             break;
+//         case 100:
+//             error = "Video requested is not found";
+//             break;
+//         case 101:
+//             error = "Embedded playback forbidden by ownder";
+//             break;
+//         case 150:
+//             error = "Error processing video request";
+//             break;
+//         default:
+//             error = "unknown (" + event.data + ")";
+//     }
 
-}
+// }
 
 
-linkForm.addEventListener("submit", (e) => {
-    e.preventDefault();
-    VidSend();
-    messageinput.value = '';
-});
+// linkForm.addEventListener("submit", (e) => {
+//     e.preventDefault();
+//     VidSend();
+//     messageinput.value = '';
+// });
 
 let jsLinkPutter = document.getElementById("jsLinkPutter");
 let VideoJsLoadVid = document.getElementById("VideoJsLoadVid");
