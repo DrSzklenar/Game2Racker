@@ -80,12 +80,47 @@ main{
 
 input[type="text"]{
     padding: 10px;
-    border-radius: 5px;
+    
     background-color: rgba(0, 0, 0, 0.2);
     border: 2px solid black ;
     width: 200px;
 }
 
+form {
+    border-radius: 5px;
+}
+
+#VideoJsLoadVid {
+    padding: 6px;
+    
+    background-color: rgba(0, 0, 0, 0.2);
+    border: 2px solid black ;
+    width: 300px;
+    color: white;
+}
+#littleputbtn {
+    background-image: url('/images/littleplaybtn.png');
+    background-size: cover;
+    height: 31px;
+    width: 31px;
+     
+}
+
+#inserttolist {
+    background-image: url('/images/plusicon.png');
+    background-size: cover;
+    height: 31px;
+    width: 31px;
+     
+}
+
+#littleputbtn:hover {
+    background-color: rgb(194, 194, 194);
+}
+
+#inserttolist:hover {
+    background-color: rgb(194, 194, 194);
+}
 /* utils */
 
 .flexrow{

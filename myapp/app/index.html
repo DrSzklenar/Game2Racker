@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,33 +11,52 @@
     <link rel="stylesheet" href="/css/homepageguest.css">
     <title>Gather2Watch</title>
 </head>
+
 <body>
+    <div id="textura"></div>
     <div class="login">
-        <input type="submit" value="Bejelentkezés" id="login" class="loginbtn" style="font-weight: bold; font-family: 'Rubik', sans-serif;">
-        <input type="submit" value="Regisztráció" id="signup" class="loginbtn"  style="font-weight: bold; font-family: 'Rubik', sans-serif;">
-                <div class="flag">
-                    <a href="homepageguesteng.html"></a>
-            </div>
-    </div>
-    <div class="main">
-        <h1>Válassz egy becenevet és hozz létre egy szobát</h1>
-        <input type="text" id="guestname" placeholder="Becenév" style="color: white; font-family: 'Rubik', sans-serif;">
-        <div class="inputs">
-            <div class="input">
-                <div class="flex">
-                    <p>Szoba Id</p>
-                <input type="text" id="roomid" placeholder="Szoba Id" style="color: white; font-family: 'Rubik', sans-serif;">
-                </div>
-                <div class="flex">
-                    <p>Jelszó</p>
-                <input type="password" id="roompass" placeholder="Jelszó" style="color: white; font-family: 'Rubik', sans-serif;">
-                </div>
-             </div>
-        </div>
-        <a href="mainpage.html">
-        <input type="submit" value="Szoba létrehozása/csatlakozás" id="createroom" style="font-family: 'Rubik', sans-serif;">
+        <a href="login.html"><input type="submit" value="Bejelentkezés" id="login" class="loginbtn"
+                style="font-weight: bold; font-family: 'Rubik', sans-serif;"></a>
+        <a href="register.html">
+            <input type="submit" value="Regisztráció" id="signup" class="loginbtn"
+                style="font-weight: bold; font-family: 'Rubik', sans-serif;">
         </a>
 
+        <div class="flag">
+            <a href="homepageguesteng.html"></a>
+        </div>
     </div>
+    <form action="/mainpage.html" method="get" class="main flexcol">
+        <h1>Válassz egy becenevet és hozz létre egy szobát</h1>
+
+        
+            <div class="input juscen"><input type="text" id="guestname" placeholder="Becenév"
+                style="color: white; font-family: 'Rubik', sans-serif;">
+            <input type="button" value="" id="refreshgomb"></div>
+
+            <div class="inputs">
+                <div class="input">
+                    <div class="flex flexcol">
+                        <p>Szoba ID</p>
+                        <input type="text" id="roomid" placeholder="Szoba Id"
+                            style="color: white; font-family: 'Rubik', sans-serif;">
+                    </div>
+                    <div class="flex flexcol">
+                        <p>Jelszó</p>
+                        <input type="password" id="roompass" placeholder="Jelszó"
+                            style="color: white; font-family: 'Rubik', sans-serif;">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- <a href="mainpage.html">
+        
+        </a> -->
+        <input type="submit" value="Szoba létrehozása/csatlakozás" id="createroom"
+        style="font-family: 'Rubik', sans-serif;">
+    </form>
+    
+    <script src="homepage.js"></script>
 </body>
+
 </html>

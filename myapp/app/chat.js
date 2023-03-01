@@ -10,6 +10,7 @@ let nevek = ['atrasuluj','Tron','BleachII','rainpour','lolBeardlol','NitroHead',
 
 let nev = "";
 let uzi = "";
+let roomid = "111";
 
 // youtube
 let linkInput = document.getElementById("loadVideoById");
@@ -41,6 +42,10 @@ ws.addEventListener("open", (event) => {
         nevinput.value = nev;
     }
     console.log("We are connected! " + nev);
+    ws.send(JSON.stringify({
+        msgType: "connect",
+        adat: roomid
+    }));
 });
 //A websocket open eventjén ez a function fut le. Ez akkor történik amikor egy kliens csatlakozik a websocket serverhez
 //Egy random név generálásával kezd ha még még nincs név elmentve
@@ -114,6 +119,8 @@ ws.addEventListener("message", (event) => {
     let ballsData = JSON.parse(event.data);
     console.log(event);
     switch (ballsData.msgType) {
+        //case user:
+        //function listusers
         case "msg":
             recieveAmessage(ballsData.adat);
             break;

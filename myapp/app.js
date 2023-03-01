@@ -2,13 +2,20 @@ const http = require('http');
 const fs = require('fs');
 // let arr = [];
 const express = require('express');
+const { body, validationResult } = require('express-validator');
+const { json } = require('body-parser');
 const app = express();
+const routes = require('./routes');
+
+app.set('view engine', 'ejs');
 
 app.use(express.static('app'));
+app.use(routes);
 
-app.get('/app/index.html', function (req, res) {
-    res.end
-});
+
+app.use(express.json());       
+app.use(express.urlencoded({extended: true})); 
+ 
 
 // Change the 404 message modifing the middleware
 app.use(function(req, res, next) {
@@ -21,27 +28,30 @@ app.listen(80, function () {
 });
 
 
-const WebSocket = require("ws");
-const { json } = require('body-parser');
 
+const WebSocket = require("ws");
 const wss = new WebSocket.Server({ port: 5500 });
+
+let activerooms = ['111','222'];
+let clients = 
+
+//beolvassa a neved
+
+
+// wss.clients.forEach( (client) => {
+//visszaküld egy 
+// });
+
+//
+
+
+
+
 
 
 
 wss.on("connection", ws => {
     console.log("Client has connected");
-
-    ws.on("open", () => {
-        console.log("what is happen!!!!!!!!!");
-        
-        wss.clients.forEach( (client) => {
-            i++;
-            let name = "Guest" + i;
-            client.send(name);
-            console.log(`Mostantól a csatlakozott kliens neve: ${name}`);   
-        });
-    });
-
 
     
     

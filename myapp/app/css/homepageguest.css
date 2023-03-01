@@ -70,17 +70,17 @@ body {
 
 .login {
     
-    width: 550px;
+    width: 575px;
     height: 100px;
     position: fixed;
     top: 0px;
-    right: 10px;
+    right: 15px;
     border-radius: 5px;
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
     align-items: flex-start;
-   gap: 5px;
+    gap: 3px;
 }
 
 
@@ -123,6 +123,7 @@ body {
     width: 550px;
     height: 500px;
     border-radius: 10px;
+    gap: 3vh;
 
 }
 
@@ -133,8 +134,7 @@ body {
 }
 
 #guestname {
-    margin-top: 30px;
-    margin-left: 178px;
+    
     padding: 10px;
     border-radius: 5px;
     background-color: rgba(0, 0, 0, 0.2);
@@ -151,19 +151,16 @@ body {
    flex-direction: row;
    padding: 20px;
    gap: 60px;
-   margin-top: 50px;
+   
    
 }
 
 .flex {
-    display: flex;
-    flex-direction: column;
     gap: 10px;
     text-align: center;
 }
 
 .flex input {
-    
     padding: 10px;
     border-radius: 5px;
     background-color: rgba(0, 0, 0, 0.2);
@@ -172,7 +169,7 @@ body {
 }
 
 #createroom {
-    margin-top: 80px;
+    
     margin-left: 130px;
     padding: 10px;
     width: 50%;
@@ -191,3 +188,42 @@ body {
     opacity: 0.7;
 }
 
+
+#refreshgomb{
+    background-image: url("/images/refreshgomb.png");
+    background-size: contain;
+    background-color: unset;
+    background-repeat: no-repeat;
+    border: unset;
+    cursor: pointer;
+    width: 2rem;
+
+}
+
+.flexrow{
+    display: flex;
+    flex-direction: row;
+    
+}
+.flexcol{
+    display: flex;
+    flex-direction: column;
+}
+.juscen{
+    justify-content: center;
+}
+.alcen{
+    align-items: center;
+}
+
+#textura{
+    background-image: url("/images/textura.png");
+    min-height: 100vh;
+    min-width: 100vw;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: fixed;
+    z-index: -1;
+}
