@@ -1,0 +1,402 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+    box-sizing: border-box;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+
+html,body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+main{
+    width: 100vw;
+}
+
+main,.container{
+    height: 100vh;
+}
+
+.container{
+    width: 50%;
+}
+
+
+.flexrow{
+    display: flex;
+    flex-direction: row;
+}
+
+.flexcol{
+    display: flex;
+    flex-direction: column;
+}
+
+/* #left{
+    background-color: red;
+}
+
+#right{
+    background-color: blue;
+} */
+
+
+
+
+
+/* cucc */
+
+body
+{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #1d061a
+}
+
+.container
+{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.container .box
+{
+  position: relative;
+  width: 100%;
+  height: 100%;
+  /* height: calc(100vh - 80px); */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.5s;
+}
+
+#hitbox1 , #hitbox2{
+    cursor: pointer;
+    position:absolute;
+    width: 80%;
+    height: 80%;
+    z-index: 100;
+    transition: 0.5s;
+}
+
+/* .container .box::before
+{
+  content:' ';
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+  border-radius: 8px;
+  transform: skewX(0deg);
+  transition: 0.5s;
+}
+.container .box::after
+{
+  content:'';
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  transform: skewX(0deg);
+  transition: 0.5s;
+  filter: blur(30px);
+} */
+
+
+.nice1{
+    content:' ';
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+    /* border-radius: 8px; */
+    transform: skewX(0deg);
+    transition: 0.5s;
+    
+}
+.nice2{
+    content:'';
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    transform: skewX(0deg);
+    transition: 0.5s;
+    filter: blur(30px);
+
+}
+
+
+/* 
+.container .box:hover:before,
+.container .box:hover:after
+{
+  left: 20px;
+  width: calc(100% - 90px);
+} */
+
+
+
+/* #region left */
+
+
+/* .container #leftbox:hover #nice1,
+.container #leftbox:hover #nice2
+{
+  transform: skewX(-15deg);
+} */
+#hitbox1:hover ~ #nice1,
+#hitbox1:hover ~ #nice2,
+#hitbox1:hover
+{
+  transform: skewX(-15deg);
+}
+.hoveronleft
+{
+    transform: skewX(15deg);
+}
+  
+/* #endregion left end */
+/* #region right */
+
+/* .container #rightbox:hover #nice3,
+.container #rightbox:hover #nice4
+{
+  transform: skewX(15deg);
+} */
+#hitbox2:hover ~ #nice3,
+#hitbox2:hover ~ #nice4,
+#hitbox2:hover
+{
+  transform: skewX(15deg);
+}
+.hoveronright{
+  transform: skewX(-15deg);
+}
+
+/* #endregion right */
+
+
+.container #nice1,
+.container #nice2
+{
+  background: linear-gradient(315deg, #ffbc00, #ff0058)
+}
+
+.container #nice3,
+.container #nice4
+{
+  background: linear-gradient(315deg, #03a9f4, #ff0058)
+}
+
+.container .box:nth-child(3):before,
+.container .box:nth-child(3):after
+{
+  background: linear-gradient(315deg, #4dff03, #00d0ff)
+}
+
+.container .box span
+{
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.container .box span::before
+{
+  content:'';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  opacity: 0;
+  transition: 0.1s;  
+  animation: animate 2s ease-in-out infinite;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.08)
+}
+
+.container .box:hover span::before
+{
+  top: -50px;
+  left: 50px;
+  width: 100px;
+  height: 100px;
+  opacity: 1;
+}
+
+.container .box span::after
+{
+  content:'';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  opacity: 0;
+  transition: 0.5s;
+  animation: animate 2s ease-in-out infinite;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+  animation-delay: -1s;
+}
+
+.container .box:hover span:after
+{
+  bottom: -50px;
+  right: 50px;
+  width: 100px;
+  height: 100px;
+  opacity: 1;
+}
+
+@keyframes animate
+{
+  0%, 100%
+  {
+    transform: translateY(10px);
+  }
+  
+  50%
+  {
+    transform: translate(-10px);
+  }
+}
+
+.container .box .content
+{
+  position: relative;
+  left: 0;
+  padding: 20px 40px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  z-index: 1;
+  transform: 0.5s;
+  color: #fff;
+}
+
+.container .box:hover .content
+{
+  left: -25px;
+  padding: 60px 40px;
+}
+
+.container .box .content h2
+{
+  font-size: 2em;
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+.container .box .content p
+{
+  font-size: 1.1em;
+  margin-bottom: 10px;
+  line-height: 1.4em;
+}
+
+.container .box .content a
+{
+  display: inline-block;
+  font-size: 1.1em;
+  color: #111;
+  background: #fff;
+  padding: 10px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 700;
+  margin-top: 5px;
+}
+
+.container .box .content a:hover
+{
+  background: #ffcf4d;
+  border: 1px solid rgba(255, 0, 88, 0.4);
+  box-shadow: 0 1px 15px rgba(1, 1, 1, 0.2);
+}
+
+/* #picture1{
+  position: fixed;
+    width: 100%;
+    background-image: url(/img/magyarvalogatott.jpg);
+    height: 100%;
+}
+#picture2{
+  position: fixed;
+  right: -40%;
+    width: 100%;
+    background-image: url(/img/magyarvalogatott1.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+} */
