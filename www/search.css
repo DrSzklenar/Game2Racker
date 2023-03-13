@@ -8,7 +8,6 @@
 
 html,body{
     min-height: 100vh;
-    
 }
 
 body{
@@ -16,9 +15,11 @@ body{
     margin-top: 8vh;
 }
 img{
-    border-radius: 30px;
+   
     max-height: 40rem;
+    
     object-fit: contain;
+    width: 50%;
 }
 
 .IdProperty{
@@ -31,8 +32,11 @@ img{
 .container{
     overflow: scroll;
     display: flex;
- align-items: center;
- cursor: grab;
+    align-items: flex-start;
+    cursor: grab;
+    overflow-y: hidden;
+    overflow-x: hidden;
+
  /* width: 100%;
  display: grid;
  gap: 50px;
@@ -42,19 +46,24 @@ img{
 
 .searchResults .container{
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
 }
 .card{
     display: flex;
-    flex-direction: column;
-    width: 15%;
+    flex-direction: row;
+    width: 50%;
     height: fit-content;
-    flex-wrap: wrap;
-    margin: 25px;
-    box-shadow: 0 5px 25px rgb(1 1 1 / 20%);
-    border-radius: 10px;
+    flex-wrap: nowrap;
+    margin: 5px;
+    box-shadow: 0 0px 10px rgb(1 1 1 / 10%);
+    
     padding: 10px;
     position: relative;
+    justify-content: flex-start;
+    align-items: center;
     /* display: flex;
     flex-direction: column;
     max-height: 90%;
@@ -70,19 +79,13 @@ img{
     flex-direction: row;
     align-content: center;
     justify-content: center;
-    overflow-y: hidden;
 }
 .card-header{
     text-align: center;
 
 }
-
-#wrapper2 {
-    overflow-y: hidden;
-}
-
-#wrapper {
-    overflow-y: hidden;
+h2 {
+    text-align: center;
 }
 /* .pagination {
     text-align: center;
