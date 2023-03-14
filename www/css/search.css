@@ -1,0 +1,140 @@
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    box-sizing: border-box;
+    user-select: none;
+}
+
+html,body{
+    min-height: 100vh;
+}
+
+body{
+    background-color: #f8f2f2;
+    margin-top: 8vh;
+}
+img{
+   
+    max-height: 40rem;
+    
+    object-fit: contain;
+    width: 50%;
+}
+
+.IdProperty{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+.container{
+    overflow: scroll;
+    display: flex;
+    align-items: flex-start;
+    cursor: grab;
+    overflow-y: hidden;
+    overflow-x: hidden;
+
+ /* width: 100%;
+ display: grid;
+ gap: 50px;
+ padding: 25px 25px;
+ grid-template-columns: repeat(auto-fit, minmax(min(10rem, 100%), 1fr)); */
+}
+
+.searchResults .container{
+    display: flex;
+    flex-direction: column-reverse;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+.card{
+    display: flex;
+    flex-direction: row;
+    width: 50%;
+    height: fit-content;
+    flex-wrap: nowrap;
+    margin: 5px;
+    box-shadow: 0 0px 10px rgb(1 1 1 / 10%);
+    
+    padding: 10px;
+    position: relative;
+    justify-content: flex-start;
+    align-items: center;
+    /* display: flex;
+    flex-direction: column;
+    max-height: 90%;
+    flex-wrap: wrap;
+    box-shadow: 0 5px 25px rgb(1 1 1 / 20%);
+    border-radius: 10px;
+    padding: 10px;
+    position: relative;
+    justify-content: space-between; */
+}
+.card-body{
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: center;
+}
+.card-header{
+    text-align: center;
+
+}
+h2 {
+    text-align: center;
+}
+/* .pagination {
+    text-align: center;
+    margin: 30px 30px 60px;
+    user-select: none;
+}
+
+.pagination li {
+    display: inline-block;
+    margin: 5px;
+    box-shadow: 0 5px 25px rgb(1 1 1 / 10%);
+}
+
+.pagination li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.2em;
+    line-height: 45px;
+}
+
+.previous-page,
+.next-page {
+    background: #0AB1CE;
+    width: 80px;
+    border-radius: 45px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.previous-page:hover {
+    transform: translateX(-5px);
+}
+
+.next-page:hover {
+    transform: translateX(5px);
+}
+
+.current-page,
+.dots {
+    background: #ccc;
+    width: 45px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.active {
+    background: #0AB1CE;
+}
+
+.disable {
+    background: #ccc;
+} */

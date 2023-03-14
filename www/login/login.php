@@ -28,7 +28,7 @@ if(isset($_POST['submit'])){
          if (!mysqli_query($conn, $sql_signup)) {
             echo "Error: " . mysqli_error($conn);
          }
-         setcookie("session", $token, time() + (60*60*24*7));
+         setcookie("session", $token, time() + (60*60*24*7), "/");
 
          // $_SESSION['email'] = $row['email'];
          // $_SESSION['jelszo'] = $row['jelszo'];

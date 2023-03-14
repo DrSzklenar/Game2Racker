@@ -5,7 +5,7 @@ require("dependencies/curl.php");
 $searchWord = $_GET["search"];
 
 
-$searchQuery = 'fields *,game.*,game.cover.*;where game.follows > 5; search "'.$searchWord.'"; limit 50;';
+$searchQuery = 'fields *,game.*,game.cover.*;where game.follows > 4; search "'.$searchWord.'"; limit 50;';
 $searchUrl = "https://api.igdb.com/v4/search";
 $CurledSearch = getData($searchUrl, $searchQuery);
 
@@ -20,8 +20,8 @@ $search_results = json_decode($CurledSearch);
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="search.css">
-    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="css/search.css">
+    <link rel="stylesheet" href="css/navbar.css">
     <title>Document</title>
 </head>
 

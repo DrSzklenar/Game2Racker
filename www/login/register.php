@@ -1,6 +1,6 @@
 <?php
 
-require("../connection.php");
+require("../dependencies/connection.php");
 
 if(isset($_POST['submit'])){
 
@@ -24,15 +24,17 @@ if(isset($_POST['submit'])){
          $error[] = 'Password not matched!';
       }else{
          $insert = "INSERT INTO user(nev, email, jelszo) VALUES('$name','$email','$pass')";
-         
+      
+         $sql = "SELECT * FROM user WHERE avatar IS NULL";
+         $sql = "SELECT * FROM user WHERE avatar = ''";
+
          mysqli_query($conn, $insert);
-         header('location:login.php');
+         header("Location: login/login.php");
+         exit();
       }
    }
 
 };
-
-
 ?>
 
 <!DOCTYPE html>
