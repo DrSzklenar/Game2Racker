@@ -3,9 +3,31 @@
 require("dependencies/curl.php");
 
 $searchWord = $_GET["search"];
+$searchType = $_GET["type"];
+
+// where game.follows > 4
+
+$searchQuery = '';
+
+switch ($searchType) {
+    case 'games':
+        $searchQuery = 'fields *,game.*,game.cover.*;where game.category = 0 & game.cover.url ~ *"//images.igdb.com"*; search "'.$searchWord.'"; limit 50;';
+        break;
+    case 'mod':
+        $searchQuery = 'fields *,game.*,game.cover.*; where game.category = 5 & game.cover.url ~ *"//images.igdb.com"* ; search "'.$searchWord.'"; limit 50;';
+        break;
+    case 'dlc':
+        $searchQuery = 'fields *,game.*,game.cover.*; where game.category = 1 | game.category = 2 | game.category = 7 | game.category = 3 & game.cover.url ~ *"//images.igdb.com"* ; search "'.$searchWord.'"; limit 50;';
+        break;
+    default:
+    $searchQuery = 'fields *,game.*,game.cover.*; where game.cover.url ~ *"//images.igdb.com"*; search "'.$searchWord.'"; limit 50;';
+    break;
+        
+        
+}
 
 
-$searchQuery = 'fields *,game.*,game.cover.*;where game.follows > 4; search "'.$searchWord.'"; limit 50;';
+
 $searchUrl = "https://api.igdb.com/v4/search";
 $CurledSearch = getData($searchUrl, $searchQuery);
 
@@ -22,14 +44,14 @@ $search_results = json_decode($CurledSearch);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/search.css">
     <link rel="stylesheet" href="css/navbar.css">
-    <title>Document</title>
+    <title>Game2Racker</title>
 </head>
 
 <body>
     <?php include("dependencies/navbar.php"); ?>
 
     <div class="searchResults">
-        <h2>Search for: <?php echo $searchWord ?></h2>
+        <h2>Result(s): <?php echo $searchWord ?></h2>
         <div id="wrapper" class="container card-content">
 
             <?php

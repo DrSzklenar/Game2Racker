@@ -5,6 +5,11 @@
     box-sizing: border-box;
 }
 
+body{
+    background-color: #f8f2f2;
+    margin-top: 8vh;
+}
+
 
 :root{
     font-size: 20px;
@@ -25,7 +30,7 @@ nav{
     z-index: 10;
 }
 
-nav input{
+.search input{
     display: inline-block;
     height: 100%;
     padding: 0 10px;
@@ -193,6 +198,10 @@ select{
     transform: translateY(0%) !important;
 }
 
+#signOut{
+    cursor: pointer;
+}
+
 
 
 /* The scrollbar on all pages */
@@ -216,4 +225,15 @@ background: brown;
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
 background: #b30000; 
+}
+
+.searchbtn {
+    background-image: url('../img/magnifying.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 40px;
+}
+
+.searchbtn:hover {
+    background-color: rgb(221, 221, 221);
 }

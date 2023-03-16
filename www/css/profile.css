@@ -1,0 +1,10 @@
+
+
+#submitRate{
+    cursor: pointer;
+    border: 1px solid;
+}
+
+.slidecontainer{
+    user-select: none;
+}

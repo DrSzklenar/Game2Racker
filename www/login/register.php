@@ -25,9 +25,6 @@ if(isset($_POST['submit'])){
       }else{
          $insert = "INSERT INTO user(nev, email, jelszo) VALUES('$name','$email','$pass')";
       
-         $sql = "SELECT * FROM user WHERE avatar IS NULL";
-         $sql = "SELECT * FROM user WHERE avatar = ''";
-
          mysqli_query($conn, $insert);
          header("Location: login/login.php");
          exit();

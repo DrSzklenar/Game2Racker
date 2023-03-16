@@ -12,7 +12,7 @@ $web = "https://api.igdb.com/v4/websites";
 $dataQuery = 'f game.id, game.name,url,game.first_release_date,game.summary,game.platforms.slug,game.platforms.name,game.genres.name; where id ='.$id.'; l 1;';
 $screenQuery = 'f url; where game = '.$gameid.';';
 $steamQuery = 'f url; w game = '.$gameid.' & url ~ *"steam"*;';
-$epicQuery = 'f url; w game = '.$gameid.' & url ~ *"epicgames"*;';
+$epicQuery = 'f url; w game = '.$gameid.' & url ~ *"epicgames.com/store"*;';
 $CurledData = getData($url, $dataQuery);
 $CurledScreen = getData($urlscreen, $screenQuery);
 $Curledsteam = getData($web, $steamQuery);
@@ -68,24 +68,62 @@ $epicweb_data = json_decode($Curledepic);
             }
 
             echo "<div class = \"webflex\">";
-            echo "<div class = \"steam\">";
-            foreach ($web_data as $steam) {
-                echo "<a href=\"$steam->url \"></a>";
-            }
-            echo "</div>";
 
-            echo "<div class = \"epic\">";
-            foreach ($epicweb_data as $epic) {
-                echo "<a href=\"$epic->url \"></a>";
+
+            foreach ($web_data as $steam) {
+                $steam1 = $steam->url;
+
+                if ($steam1 == "") {
+                    echo "<div class = \"epic\">";
+                    foreach ($epicweb_data as $epic) {
+                        echo "<a href=\"$epic->url \"></a>";
+                    }
+                  
+                    echo "</div>";
+
+                }
+                else {
+                    echo "<div class = \"steam\">";
+                    foreach ($web_data as $steam) {
+                        echo "<a href=\"$steam->url \"></a>";
+                    }
+                    echo "</div>";
+
+              
+                }
             }
-          
-            echo "</div>";
+
+            foreach ($epicweb_data as $epic) {
+                $epic1 = $epic->url;
+
+                if ($epic1 == "") {
+                    echo "<div class = \"steam\">";
+                    foreach ($web_data as $steam) {
+                        echo "<a href=\"$steam->url \"></a>";
+                    }
+                    echo "</div>";
+                } 
+                else {
+                    echo "<div class = \"epic\">";
+                    foreach ($epicweb_data as $epic) {
+                        echo "<a href=\"$epic->url \"></a>";
+                    }
+                  
+                    echo "</div>";
+                }
+
+            }
+
+
             echo "</div>";
 
             echo "</div>";
             echo "<div class = \"flexkep\"";
             echo "<div class = \"kep\">";
             echo "<img src=\"https://" . str_replace("t_thumb", "t_1080p", $game->url) . "\">";
+
+
+
             echo "Rating";
             echo "<div class = \"rating\"";
             echo "
@@ -114,10 +152,17 @@ $epicweb_data = json_decode($Curledepic);
             echo "Completed";
             echo "</div>";
 
+            echo "<div id = \"addtolist\">";
+            echo "<img src = \"img/addsymbol.png\">";
+            echo "Add to a list";
+            echo "</div>";
+
             echo "<div id = \"wishlist\">";
             echo "<img src = \"img/bookmark.png\">";
             echo "Wishlist";
             echo "</div>";
+
+
             echo "</div>";
             echo "</div>";
             echo "</div>";

@@ -235,3 +235,16 @@ p {
     align-items: flex-end;
     gap: 2px;
  }
+
+ #addtolist img {
+    width: 22px;
+    height: 22px;
+    border: none;
+ }
+
+ #addtolist {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    gap: 2px;
+ }

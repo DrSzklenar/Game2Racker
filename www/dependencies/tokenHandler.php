@@ -1,30 +1,57 @@
 <?php
+//TODO: vizsgálni, hogy valid-e még a token aktuális dátum szerint (exőires mező táblában)
+//invalidate expired tokens
+$queryAll = "UPDATE `sessions` SET `active`='0' WHERE expires < '".date("Y-m-d H:i:s")."'";
 
-$tokenQuery = "SELECT * FROM `user` right JOIN sessions on sessions.userID = user.id WHERE sessions.token = '".$_COOKIE['session']."';";
+mysqli_query($conn, $queryAll);
 
-$result = mysqli_query($conn, $tokenQuery);
+
+
+$tokenQuery = "
+    SELECT 
+        * 
+    FROM 
+        `user`
+    RIGHT JOIN sessions on sessions.userID = user.id
+    WHERE sessions.token = '{$_COOKIE["session"]}'
+    AND active = '1'
+";
+
+/*
+//1. eset ez a mostani megoldás: 
+//ha igaz:
+$userData = array(...);
+//ha hamis
+$userData = false (boolean);
+
+//2. erre lehetne dosni: 
+//ha igaz:
+$userData = array(userdata));
+//ha hamis
+$userData = array(ürestömb)
+*/
+
+// $result = mysqli_query($conn, $tokenQuery);
+
+
+
 
 function isThereValidToken($result){
     if (mysqli_num_rows($result) === 1) {
-        echo "True et";
         return true;
     } else {
         return false;
-        echo "False et";
     }
     return false;
 }
 
 function getUserData($result){
     if (isThereValidToken(($result))) {
-        echo $ehoe = mysqli_fetch_array($result);
         return mysqli_fetch_array($result);
     }
     else {
-        echo "error";
-        return $error[] = 'ERROR ERROR';
+        return false;
     }
-
 }
 
 

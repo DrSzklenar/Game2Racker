@@ -2,7 +2,9 @@
 
 require("../dependencies/connection.php");
 
-// session_start();
+
+$error = [];
+session_start();
 
 if(isset($_POST['submit'])){
 
@@ -22,21 +24,22 @@ if(isset($_POST['submit'])){
          $bytes = random_bytes(20);
          $token = bin2hex($bytes);
          
-         $sql = "INSERT INTO `sessions`(`userID`, `active`, `token`, `acquired`, `expires`) VALUES ('".$row['id']."',   true,'$token','".date("Y-m-d H:i:s")."','".$NewDate=date('Y-m-d H:i:s', strtotime('+7 days'))."')";
+         $sql = "INSERT INTO `sessions`(`userID`, `active`, `token`, `acquired`, `expires`) VALUES ('".$row['id']."',   true,'$token','".date("Y-m-d H:i:s")."','".$NewDate=date('Y-m-d H:i:s', strtotime('+3 days'))."')";
          // $sql = "INSERT INTO `sessions`(`userID`, `active`, `token`, `acquired`, `expires`) VALUES ()";
          mysqli_query($conn, $sql);
          if (!mysqli_query($conn, $sql_signup)) {
-            echo "Error: " . mysqli_error($conn);
+            array_push($error,"Problem with connection");
          }
          setcookie("session", $token, time() + (60*60*24*7), "/");
 
          // $_SESSION['email'] = $row['email'];
          // $_SESSION['jelszo'] = $row['jelszo'];
-         header("Location: ../index.php ");
+         sleep(1);
+         header("Location: ". $_SESSION['current_page']);
       }
      
    }else{
-      $error[] = 'incorrect email or password!';
+      array_push($error,"incorrect password or email");
    }
 
 };
@@ -48,7 +51,8 @@ if(isset($_POST['submit'])){
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>login form</title>
+   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+   <title>Game2Racker</title>
 
    
    <link rel="stylesheet" href="../css/style.css">
