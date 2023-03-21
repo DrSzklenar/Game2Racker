@@ -7,7 +7,7 @@
 
 body{
     background-color: #f8f2f2;
-    margin-top: 8vh;
+    margin-top: 10vh;
 }
 
 
@@ -184,7 +184,7 @@ select{
 #menu{
     position: fixed;
     top: 8vh;
-    right: 0;
+    right: 3vw;
     background-color: white;
     width: 20%;
     height: 40%;
@@ -199,26 +199,79 @@ select{
 }
 
 #signOut{
+    width: 100%;
     cursor: pointer;
+    bottom: 0;
+    /* left: 50%; */
+    position: absolute;
+    height: 10%;
+    background: brown;
+    color: white;
+    font-size: 1.2rem;
 }
 
+#signOut:hover{
+    background-color: #b00000;
+}
+
+.RedBar{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: brown;
+    z-index: -10;
+}
+
+.FirstOption{
+    position: relative;
+    height: 7vh;
+    width: 100%;
+    background-color: #fcf8ef;
+    display: flex
+}
+
+.viewProfile .profileLink{
+    width: 80%;
+}
+
+.viewProfile{
+    display: grid;
+    height: 100%;
+    place-items: center;
+    width: 80%;
+}
+
+.settings{
+    position: relative;
+    background-color: rgb(146, 143, 143);
+    width: 20%;
+}
+
+.settings img{
+    width: 100%;
+    height: 100%;
+}
 
 
 /* The scrollbar on all pages */
 
 ::-webkit-scrollbar {
     width: 10px;
+    /* border-radius: 10px; */
   }
   
 /* Track */
 ::-webkit-scrollbar-track {
-box-shadow: inset 0 0 5px rgb(138, 136, 136); 
+box-shadow: inset 0 0 5px rgb(0, 0, 0); 
 
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
 background: brown; 
+/* border-radius: 10px; */
 
 }
 

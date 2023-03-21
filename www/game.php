@@ -142,8 +142,16 @@ $epicweb_data = json_decode($Curledepic);
                 ";
             echo "</div>";
 
+
+             echo "<button type=\"submit\" id = \"stillplaying\"><img src = \"img/stillplaying.png\"></button>"
+             
+             
+             
+             
+             ;
+
             echo "<div id = \"stillplaying\">";
-            echo "<img src = \"img/stillplaying.png\">";
+           
             echo "Playing";
             echo "</div>";
 
@@ -161,6 +169,8 @@ $epicweb_data = json_decode($Curledepic);
             echo "<img src = \"img/bookmark.png\">";
             echo "Wishlist";
             echo "</div>";
+
+
 
 
             echo "</div>";

@@ -2,9 +2,9 @@
 
 require("dependencies/curl.php");
 
-$trendingQuery = 'f game.id,game.name,url,game.genres.name,game.first_release_date,game.summary,game.platforms.slug; s id asc; where id >= 1 & game.first_release_date > 1672527600 & game.first_release_date < 1704063599 & game.follows >= 4; l 500;';
+$trendingQuery = 'f game.id,game.name,url,game.genres.name,game.first_release_date,game.summary,game.platforms.slug; s id asc; where id >= 1 & game.first_release_date > 1672527600 & game.first_release_date < 1704063599 & game.follows >= 3  & game.cover.url ~ *"//images.igdb.com"*; l 500;';
 $topQuery = 'f game.name,url,game.genres.name,game.first_release_date,game.summary,game.platforms.slug,game.platforms.name, game.follows;
-where game.platforms.slug = "win" & game.follows > 100; l 500;';
+where game.platforms.slug = "win" & game.follows > 100 & game.cover.url ~ *"//images.igdb.com"*; l 500;';
 $url = "https://api.igdb.com/v4/covers";
 $CurledTrending = getData($url, $trendingQuery);
 $CurledTop = getData($url, $topQuery);
@@ -32,6 +32,7 @@ if ($err) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/homepage.css">
     <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/footer.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <title>Game2Racker</title>
 </head>
@@ -101,6 +102,10 @@ if ($err) {
         //     }
         // });
     </script>
+    <?php
+
+require("dependencies/footer.html");
+?>
 </body>
 
 </html>

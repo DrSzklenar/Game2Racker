@@ -147,6 +147,7 @@ p {
 
 ::-webkit-scrollbar {
     width: 20px;
+    border-radius: 10px;
   }
   
  
@@ -157,6 +158,8 @@ p {
    
   ::-webkit-scrollbar-thumb {
     background: brown; 
+    border-radius: 10px;
+    
     
   }
   

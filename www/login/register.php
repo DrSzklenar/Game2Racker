@@ -10,7 +10,7 @@ if(isset($_POST['submit'])){
    $cpass = md5($_POST['cpassword']);
    
 
-   $select = " SELECT * FROM user WHERE email = '$email' && jelszo = '$pass' ";
+   $select = " SELECT * FROM user WHERE email = '$email' OR nev = '$name' ";
 
    $result = mysqli_query($conn, $select);
 
@@ -26,7 +26,7 @@ if(isset($_POST['submit'])){
          $insert = "INSERT INTO user(nev, email, jelszo) VALUES('$name','$email','$pass')";
       
          mysqli_query($conn, $insert);
-         header("Location: login/login.php");
+         header("Location: login.php");
          exit();
       }
    }
@@ -44,10 +44,11 @@ if(isset($_POST['submit'])){
 
    
    <link rel="stylesheet" href="../css/style.css">
+   
 
 </head>
 <body>
-   
+  
 <div class="form-container">
 
    <form action="" method="post">
@@ -64,7 +65,7 @@ if(isset($_POST['submit'])){
       <input type="password" name="password" required placeholder="Enter your password">
       <input type="password" name="cpassword" required placeholder="Confirm your password">
       <input type="submit" name="submit" value="Register now" class="form-btn">
-      <p>Already have an account? <a href="login.php">Login now</a></p>
+      <p id="account">Already have an account? <a href="login.php">Login now</a></p>
    </form>
 
 </div>

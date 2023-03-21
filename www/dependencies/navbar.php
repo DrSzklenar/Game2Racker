@@ -31,16 +31,26 @@ function printBar($userData) {
     if ($userData) {
        // $userData = mysqli_fetch_array($result);
 
-       $avatar = $userData['avatar'] == "" ? "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" : $userData['avatar'];
+       $navAvatar = $userData['avatar'] == "" ? "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" : $userData['avatar'];
         
        $bar = "<div class=\"profile\">
         <h1 id=\"name\">{$userData['nev']}</h1>
         <div class=\"avatar\">
-            <img class=\"avatarPic\" src=\"{$avatar}\" alt=\"\">
+            <img class=\"avatarPic\" src=\"{$navAvatar}\" alt=\"\">
             <a href=\"profile.php?user=".$userData['nev']."&userid=".$userData['userID']."\"class=\"profileLink\"></a>
         </div>
         <div id=\"menu\">
-            <input type=\"button\" value=\"Kilépés\" id=\"signOut\">
+            <div class=\"FirstOption\">
+                <div class=\"viewProfile\">
+                    <p>View Profile</p>
+                    <a href=\"profile.php?user=".$userData['nev']."&userid=".$userData['userID']."\"class=\"profileLink\"></a>  
+                </div>
+                <div class=\"settings\">
+                    <img src=\"../img/Settings.png\" alt=\"\">  
+                    <a href=\"settings.php?user=".$userData['nev']."&userid=".$userData['userID']."\"class=\"profileLink\"></a>  
+                </div>
+            </div>
+            <input type=\"button\" value=\"Sign Out\" id=\"signOut\">
             <script>
             let signOut = document.getElementById(\"signOut\");
             signOut.addEventListener('click', () => {
@@ -84,14 +94,11 @@ function printBar($userData) {
 
         </form>
     </div>
+    <div class="RedBar"></div>
     <?php
 printBar($userData);
 ?>
-    <?php
     
-    
-    
-    ?>
-        
     </nav>
+
     <script src="js/navbar.js" defer></script>

@@ -1,0 +1,29 @@
+#informamos{
+    width: 30px;
+    cursor: pointer;
+    position: relative;
+}
+
+#informamos img{
+    width: 100%;
+}
+
+#informamos::after{
+    content: '';
+}
+
+#informamos:hover::after{
+    content: "Information: We only accept urls, (pictures already uploaded to the internet). We dont store pictures!";
+    display: block;
+    width: max-content;
+    position: absolute;
+    top: 5px;
+    left: 35px;
+}
+
+.Text{
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+}

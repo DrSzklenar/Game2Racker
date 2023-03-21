@@ -24,7 +24,6 @@ if (mysqli_num_rows($queriedUser) === 1) {
 $ratingrow = mysqli_fetch_array($queriedUserRating);
 if ($ratingrow['realrating'] != NULL) {
     $rating = $ratingrow['realrating'];
-    echo $rating;
 } else {
     $rating = "0";
 }
@@ -49,45 +48,56 @@ if ($ratingrow['realrating'] != NULL) {
     <?php require("dependencies/navbar.php"); ?>
 
 
+        <div class="profilemain">
+        <div class="profilePicture">
+        <img class="avatar" src="<?php echo $avatar ?>" alt="">
+        </div>
+        <div class="profiletexts">
+        <h1 class="name"><?php echo $row['nev']; ?></h1>
+        <h3 class="rating">Score: <?php echo $rating ?></h3>
+        <?php
 
-    <h1 class="name"><?php echo $row['nev']; ?></h1>
-    <img class="avatar" src="<?php echo $avatar ?>" alt="">
-    <h1 class="rating">Score: <?php echo $rating ?></h1>
-    <?php
+            if ($userData['userID'] != $id) {
+                echo "<div class=\"slidecontainer\">
+                    <input type=\"range\" min=\"1\" max=\"10\" value=\"\" class=\"slider\" id=\"ratingSlider\">
+                    <input id=\"submitRate\" type=\"button\" value=\"Rate\">
+                    </div>";
 
-    if ($userData['userID'] != $id) {
-        echo "<div class=\"slidecontainer\">
-            <input type=\"range\" min=\"1\" max=\"10\" value=\"\" class=\"slider\" id=\"ratingSlider\">
-            <input id=\"submitRate\" type=\"button\" value=\"Rate\">
-            </div>";
+                echo "<script>
+                let range = document.getElementById(\"ratingSlider\");
+                let submitRate = document.getElementById(\"submitRate\");
 
-        echo "<script>
-        let range = document.getElementById(\"ratingSlider\");
-        let submitRate = document.getElementById(\"submitRate\");
-
-        submitRate.addEventListener('click',() => {
-            let dataForPHP = new FormData();
-            dataForPHP.append(\"ratedUser\", {$id});
-            dataForPHP.append(\"ratedBy\", {$userData['userID']});
-            dataForPHP.append(\"rating\", range.value);
-    
-            fetch(`dependencies/pushRating.php`, {
-                    method: \"POST\",
-                    body: dataForPHP
-                })
-                .then(response => response.text())
-                .then(data => {
-                    console.log(data);
-                })
-                .catch(error => console.log(error));
-                console.log(\"gag\");
+                submitRate.addEventListener('click',() => {
+                    let dataForPHP = new FormData();
+                    dataForPHP.append(\"ratedUser\", {$id});
+                    dataForPHP.append(\"ratedBy\", {$userData['userID']});
+                    dataForPHP.append(\"rating\", range.value);
             
-        });
-    </script>";
-    }
+                    fetch(`dependencies/pushRating.php`, {
+                            method: \"POST\",
+                            body: dataForPHP
+                        })
+                        .then(response => response.text())
+                        .then(data => {
+                            console.log(data);
+                        })
+                        .catch(error => console.log(error));
+                        console.log(\"gag\");
+                    
+                });
+            </script>";
+            }
 
-    ?>
+            ?>
 
+        </div>
+        </div>
+       
+   
+
+
+    
+    
     
 
 

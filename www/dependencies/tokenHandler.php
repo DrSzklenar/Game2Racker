@@ -1,6 +1,4 @@
 <?php
-//TODO: vizsgálni, hogy valid-e még a token aktuális dátum szerint (exőires mező táblában)
-//invalidate expired tokens
 $queryAll = "UPDATE `sessions` SET `active`='0' WHERE expires < '".date("Y-m-d H:i:s")."'";
 
 mysqli_query($conn, $queryAll);
