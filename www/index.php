@@ -30,6 +30,7 @@ if ($err) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <link rel="stylesheet" href="css/homepage.css">
     <link rel="stylesheet" href="css/navbar.css">
     <link rel="stylesheet" href="css/footer.css">
@@ -78,6 +79,10 @@ if ($err) {
             ?>
         </div>
     </div>
+
+    
+    <?php require("dependencies/footer.html"); ?>
+
     <script src="js/vanilla.kinetic.js"></script>
     <script type="text/javascript" charset="utf-8">
         var $id = function(id) {
@@ -104,7 +109,6 @@ if ($err) {
     </script>
     <?php
 
-require("dependencies/footer.html");
 ?>
 </body>
 

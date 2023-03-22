@@ -3,7 +3,7 @@ $id = (int)$_GET['id'];
 $gameid = $_GET['gameid'];
 
 
-
+require("dependencies/connection.php");
 require("dependencies/curl.php");
 
 $url = "https://api.igdb.com/v4/covers";
@@ -30,7 +30,6 @@ $game_data = json_decode($CurledData);
 $screen_data = json_decode($CurledScreen);
 $web_data = json_decode($Curledsteam);
 $epicweb_data = json_decode($Curledepic);
-
 ?>
 
 <!DOCTYPE html>
@@ -51,6 +50,9 @@ $epicweb_data = json_decode($Curledepic);
 <?php include("dependencies/navbar.php") ?> 
     <div class="container">
         <?php
+        
+
+
         foreach ($game_data as $game) {
 
             echo "<div class = \"flex\">";
@@ -125,53 +127,22 @@ $epicweb_data = json_decode($Curledepic);
 
 
             echo "Rating";
-            echo "<div class = \"rating\"";
-            echo "
-        
-                <input type=\"radio\">
-                <input type=\"radio\">
-                <input type=\"radio\">
-                <input type=\"radio\">
-                <input type=\"radio\">
-                <input type=\"radio\">
-                <input type=\"radio\">
-                <input type=\"radio\">
-                <input type=\"radio\">
-                <input type=\"radio\">
-                <input type=\"radio\">
-                ";
+            require("dependencies/rating.php");
+
+
             echo "</div>";
 
-
-             echo "<button type=\"submit\" id = \"stillplaying\"><img src = \"img/stillplaying.png\"></button>"
+            echo "<div class = \"buttonflex\">
+            
+             <button type=\"submit\" class = \"buttonsize\" id = \"stillplaying\" class = \"stillplayingcolor\" title = \"Playing\"></button>
+             <button type=\"submit\" class = \"buttonsize\" id = \"completed\" class = \"completedcolor\" title = \"Completed\"></button>
+             <button type=\"submit\" class = \"buttonsize\" id = \"addtolist\" class = \"addtolistcolor\" title = \"Add to a list\"></button>
+             <button type=\"submit\" class = \"buttonsize\" id = \"wishlist\" class = \"wishlistcolor\" title = \"Wishlist\"></button>
+             <button type=\"submit\" class = \"buttonsize\" id = \"favorite\" class = \"favoritecolor\" title = \"Favorite\"></button>
+            
+            
+            </div>"; 
              
-             
-             
-             
-             ;
-
-            echo "<div id = \"stillplaying\">";
-           
-            echo "Playing";
-            echo "</div>";
-
-            echo "<div id = \"completed\">";
-            echo "<img src = \"img/checkmark.png\">";
-            echo "Completed";
-            echo "</div>";
-
-            echo "<div id = \"addtolist\">";
-            echo "<img src = \"img/addsymbol.png\">";
-            echo "Add to a list";
-            echo "</div>";
-
-            echo "<div id = \"wishlist\">";
-            echo "<img src = \"img/bookmark.png\">";
-            echo "Wishlist";
-            echo "</div>";
-
-
-
 
             echo "</div>";
             echo "</div>";
@@ -225,6 +196,7 @@ $epicweb_data = json_decode($Curledepic);
        
     </script>
     <script src="js/modal.js"></script>
+    <script src="js/imgswap.js"></script>
 </body>
 
 </html>

@@ -51,16 +51,10 @@ function printBar($userData) {
                 </div>
             </div>
             <input type=\"button\" value=\"Sign Out\" id=\"signOut\">
-            <script>
-            let signOut = document.getElementById(\"signOut\");
-            signOut.addEventListener('click', () => {
-                document.cookie = \"session=''; expires=Thu, 18 Dec 2013 12:00:00 UTC; path=/\";
-                window.location.reload();
-            });
-
-        </script>
-        
-        </div>
+            
+            
+            </div>
+            <div id=\"closeMenu\"></div>
         </div>";    
     } else {
         $bar = "<div class=\"logins\">
@@ -100,5 +94,8 @@ printBar($userData);
 ?>
     
     </nav>
+
+    
+
 
     <script src="js/navbar.js" defer></script>

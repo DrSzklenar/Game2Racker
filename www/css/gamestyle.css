@@ -1,4 +1,4 @@
-@import "compass/css3";
+
 
 
 * {
@@ -200,54 +200,61 @@ p {
     gap: 5px;
  }
 
- #wishlist img {
-    width: 22px;
-    height: 22px;
+ .buttonflex {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+ }
+
+ .buttonsize {
+    background-size: contain;
+    width: 31px;
+    height: 31px;
     border: none;
  }
 
  #wishlist {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-end;
-    gap: 2px;
- }
-
- #completed img {
-    width: 22px;
-    height: 22px;
-    border: none;
+    background-image: url("../img/bookmark.png");
  }
 
  #completed {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-end;
-    gap: 2px;
- }
-
- #stillplaying img {
-    width: 22px;
-    height: 22px;
-    border: none;
+    background-image: url("../img/checkmark.png");
  }
 
  #stillplaying {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-end;
-    gap: 2px;
- }
+    background-image: url("../img/stillplaying.png");
 
- #addtolist img {
-    width: 22px;
-    height: 22px;
-    border: none;
  }
 
  #addtolist {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-end;
-    gap: 2px;
+    background-image: url("../img/addsymbol.png");
+ }
+
+ #favorite {
+    background-image: url("../img/favorite.png");
+ }
+ .stillplayingcolor
+ {
+     background-image: url("../img/stillplayingcolor.png") !important;
+ }
+
+ .completedcolor
+ {
+     background-image: url("../img/checkmarkcolor.png") !important;
+ }
+
+ .addtolistcolor
+ {
+     background-image: url("../img/addsymbolcolor.png") !important;
+ }
+
+ .wishlistcolor
+ {
+     background-image: url("../img/bookmarkcolor.png") !important;
+ }
+
+ .favoritecolor
+ {
+     background-image: url("../img/favoritecolor.png") !important;
+
  }

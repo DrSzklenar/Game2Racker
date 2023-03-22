@@ -28,6 +28,11 @@ nav{
     background-color: brown;
     font-family: 'Algerian', sans-serif;
     z-index: 10;
+    isolation: isolate;
+}
+
+nav * {
+    user-select: none;
 }
 
 .search input{
@@ -145,7 +150,6 @@ select{
     display: flex;
     flex-direction: row;
     align-content: center;
-    justify-content: center;
     align-items: center;
     position: relative;
     background: brown;
@@ -153,6 +157,11 @@ select{
     width: 20%;
     height: 100%;
 }
+
+.profile *{
+    z-index: 7;
+}
+
 
 .avatar{
     position: relative;
@@ -179,24 +188,43 @@ select{
     height: 100%;
 }
 
+nav img{
+    border-radius: 30px;
+    max-height: 40rem;
+    object-fit: contain;
+    max-width: -webkit-fill-available;
+}
+
+
 /* menu */
 
 #menu{
     position: fixed;
     top: 8vh;
-    right: 3vw;
+    right: 4vw;
     background-color: white;
     width: 20%;
     height: 40%;
     transform: translateY(-200%);
     transition: transform 0.5s ease-in-out;
-    z-index: -10000000000000;
+    z-index: -2;
 }
 
 
 .menuShown{
     transform: translateY(0%) !important;
 }
+
+
+.wideMan{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -3;
+}
+
 
 #signOut{
     width: 100%;
@@ -221,7 +249,7 @@ select{
     width: 100%;
     height: 100%;
     background-color: brown;
-    z-index: -10;
+    z-index: -1;
 }
 
 .FirstOption{
@@ -254,6 +282,49 @@ select{
     height: 100%;
 }
 
+/* range on all pages */
+/* The slider itself */
+.slidecontainer{
+    width: 20rem;
+}
+.slider {
+    -webkit-appearance: none;  /* Override default CSS styles */
+    appearance: none;
+    width: 100%; /* Full-width */
+    height: 2rem; /* Specified height */
+    background: url("http://cdn.onlinewebfonts.com/svg/img_323913.png"); /* Grey background */
+    background-size: 2rem;
+    background-repeat: repeat-x;
+    outline: none; /* Remove outline */
+    opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+    -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+    transition: opacity .2s;
+  }
+  
+  /* Mouse-over effects */
+  .slider:hover {
+    opacity: 1; /* Fully shown on mouse-over */
+  }
+  
+  /* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+  .slider::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Override default look */
+    appearance: none;
+    width: 2rem; /* Set a specific slider handle width */
+    height: 2rem; /* Slider handle height */
+    background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Star_icon_stylized.svg/2153px-Star_icon_stylized.svg.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    cursor: pointer; /* Cursor on hover */
+  }
+  
+  .slider::-moz-range-thumb {
+    width: 2rem; /* Set a specific slider handle width */
+    height: 2rem; /* Slider handle height */
+    background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Star_icon_stylized.svg/2153px-Star_icon_stylized.svg.png');
+    background-size: contain;
+    cursor: pointer; /* Cursor on hover */
+  }
 
 /* The scrollbar on all pages */
 
