@@ -10,7 +10,6 @@ nameBtn.addEventListener('click', () => {
     closeMenu.classList.add("wideMan");
     console.log("répa");
 });
-console.log("répa");
 
 
 closeMenu.addEventListener('click', () => {

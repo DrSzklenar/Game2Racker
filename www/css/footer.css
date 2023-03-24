@@ -12,14 +12,14 @@ footer ul{
 }
 footer {
   background-color: #24262b;
-    padding: 70px 0;
+    padding: 80px 0;
 }
 footer .footer-col{
    width: 25%;
    padding: 0 15px;
 }
 footer .footer-col h4{
-  font-size: 18px;
+  font-size: 20px;
   color: #ffffff;
   text-transform: capitalize;
   margin-bottom: 35px;
@@ -40,7 +40,7 @@ footer .footer-col ul li:not(:last-child){
   margin-bottom: 10px;
 }
 footer .footer-col ul li a{
-  font-size: 16px;
+  font-size: 18px;
   text-transform: capitalize;
   color: #ffffff;
   text-decoration: none;

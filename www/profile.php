@@ -21,74 +21,32 @@ if (mysqli_num_rows($queriedUser) === 1) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/navbar.css">
     <link rel="stylesheet" href="css/profile.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <title>Game2Racker</title>
 </head>
-
 <body>
     <?php require("dependencies/navbar.php"); ?>
 
 
-        <div class="profilemain">
+    <div class="profilemain">
         <div class="profilePicture">
-        <img class="avatar" src="<?php echo $avatar ?>" alt="">
+            <img class="avatar" src="<?php echo $avatar ?>" alt="">
         </div>
         <div class="profiletexts">
-        <h1 class="name"><?php echo $row['nev']; ?></h1>
-        <?php
-            require("dependencies/rating.php");
-            // if ($userData['userID'] != $id) {
-            //     echo "<div class=\"slidecontainer\">
-            //             <input type=\"range\" min=\"1\" max=\"10\" value=\"\" class=\"slider\" id=\"ratingSlider\">
-            //         <input id=\"submitRate\" type=\"button\" value=\"Rate\">
-            //         </div>";
-
-            //     echo "<script>
-            //     let range = document.getElementById(\"ratingSlider\");
-            //     let submitRate = document.getElementById(\"submitRate\");
-
-            //     submitRate.addEventListener('click',() => {
-            //         let dataForPHP = new FormData();
-            //         dataForPHP.append(\"ratedThing\", {$id});
-            //         dataForPHP.append(\"ratedBy\", {$userData['userID']});
-            //         dataForPHP.append(\"rating\", range.value);
-            //         dataForPHP.append(\"type\", \"user\");
-            
-            //         fetch(`dependencies/pushRating.php`, {
-            //                 method: \"POST\",
-            //                 body: dataForPHP
-            //             })
-            //             .then(response => response.text())
-            //             .then(data => {
-            //                 console.log(data);
-            //             })
-            //             .catch(error => console.log(error));
-            //             console.log(\"gag\");
-                    
-            //     });
-            // </script>";
-            // }
-
-            ?>
-
+            <h1 class="name"><?php echo $row['nev']; ?></h1>
+            <?php require("dependencies/rating.php"); ?>
         </div>
-        </div>
-       
-   
+    </div>
 
+    <?php require("dependencies/comments.php"); ?>
 
-    
-    
-    
-
-
-
+    <?php require("dependencies/footer.php"); ?>
 </body>
-
 </html>

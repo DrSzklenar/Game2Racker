@@ -3,7 +3,7 @@
 require("connection.php");
 require("tokenHandler.php");
 
-$result = mysqli_query($conn, $tokenQuery);
+// $result = mysqli_query($conn, $tokenQuery);
 
 session_start();
 $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
@@ -12,6 +12,7 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
  * $
  */
 $userData = getUserData($result);
+
 //$isTokenValid = isThereValidToken($result);
 
 //echo $isTokenValid;
@@ -28,7 +29,7 @@ function printBar($userData) {
     echo "</pre>";
     */
 
-    if ($userData) {
+    if ($userData != "") {
        // $userData = mysqli_fetch_array($result);
 
        $navAvatar = $userData['avatar'] == "" ? "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" : $userData['avatar'];

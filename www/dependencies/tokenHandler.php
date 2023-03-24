@@ -4,16 +4,14 @@ $queryAll = "UPDATE `sessions` SET `active`='0' WHERE expires < '".date("Y-m-d H
 mysqli_query($conn, $queryAll);
 
 
-
 $tokenQuery = "
-    SELECT 
-        * 
-    FROM 
-        `user`
-    RIGHT JOIN sessions on sessions.userID = user.id
-    WHERE sessions.token = '{$_COOKIE["session"]}'
-    AND active = '1'
+SELECT 
+user.id,user.nev,user.avatar,user.email,sessions.id,sessions.userID,sessions.active,sessions.token,sessions.acquired,sessions.expires
+FROM `user` RIGHT JOIN sessions on sessions.userID = user.id
+WHERE sessions.token = '{$_COOKIE["session"]}'
+AND active = '1'
 ";
+
 
 /*
 //1. eset ez a mostani megoldás: 
@@ -29,7 +27,7 @@ $userData = array(userdata));
 $userData = array(ürestömb)
 */
 
-// $result = mysqli_query($conn, $tokenQuery);
+$result = mysqli_query($conn, $tokenQuery);
 
 
 
@@ -48,7 +46,7 @@ function getUserData($result){
         return mysqli_fetch_array($result);
     }
     else {
-        return false;
+        return array();
     }
 }
 

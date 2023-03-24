@@ -2,7 +2,8 @@
 
 require("dependencies/curl.php");
 
-$trendingQuery = 'f game.id,game.name,url,game.genres.name,game.first_release_date,game.summary,game.platforms.slug; s id asc; where id >= 1 & game.first_release_date > 1672527600 & game.first_release_date < 1704063599 & game.follows >= 3  & game.cover.url ~ *"//images.igdb.com"*; l 500;';
+$trendingQuery = 'f game.id,game.name,url,game.genres.name,game.first_release_date,game.summary,game.platforms.slug; where id >= 1 & game.first_release_date > 1672527600 & game.first_release_date < 1704063599 & 
+game.follows >= 3 & game.platforms.slug = "win"  & game.cover.url ~ *"//images.igdb.com"*; l 500;';
 $topQuery = 'f game.name,url,game.genres.name,game.first_release_date,game.summary,game.platforms.slug,game.platforms.name, game.follows;
 where game.platforms.slug = "win" & game.follows > 100 & game.cover.url ~ *"//images.igdb.com"*; l 500;';
 $url = "https://api.igdb.com/v4/covers";
@@ -81,7 +82,7 @@ if ($err) {
     </div>
 
     
-    <?php require("dependencies/footer.html"); ?>
+    <?php require("dependencies/footer.php"); ?>
 
     <script src="js/vanilla.kinetic.js"></script>
     <script type="text/javascript" charset="utf-8">
@@ -107,9 +108,8 @@ if ($err) {
         //     }
         // });
     </script>
-    <?php
+    
 
-?>
 </body>
 
 </html>
