@@ -2,10 +2,10 @@
 
 require("dependencies/curl.php");
 
-$trendingQuery = 'f game.id,game.name,url,game.genres.name,game.first_release_date,game.summary,game.platforms.slug; where id >= 1 & game.first_release_date > 1672527600 & game.first_release_date < 1704063599 & 
-game.follows >= 3 & game.platforms.slug = "win"  & game.cover.url ~ *"//images.igdb.com"*; l 500;';
+$trendingQuery = 'f game.id,game.name,url,game.genres.name,game.first_release_date,game.summary,game.platforms.slug; where id >= 1 & game.category = 0 & game.first_release_date > 1672527600 & game.first_release_date < 1688162399 & game.platforms.slug = "win" & game.follows >= 1 & game.hypes >= 1 & game.cover.url ~ *"//images.igdb.com"*; l 500;';
 $topQuery = 'f game.name,url,game.genres.name,game.first_release_date,game.summary,game.platforms.slug,game.platforms.name, game.follows;
 where game.platforms.slug = "win" & game.follows > 100 & game.cover.url ~ *"//images.igdb.com"*; l 500;';
+
 $url = "https://api.igdb.com/v4/covers";
 $CurledTrending = getData($url, $trendingQuery);
 $CurledTop = getData($url, $topQuery);
@@ -75,8 +75,9 @@ if ($err) {
                         <div class=\"card-body\"> ";
                 echo        "<img loading=\"lazy\" src=\"https://" . str_replace("t_thumb", "t_cover_big", $game->url) . "\">";
                 echo    "</div>
-                    </div>";
+                    </div>";                   
             }
+
             ?>
         </div>
     </div>
@@ -86,7 +87,9 @@ if ($err) {
 
     <script src="js/vanilla.kinetic.js"></script>
     <script type="text/javascript" charset="utf-8">
-        var $id = function(id) {
+        const mediaQuery = window.matchMedia('(min-width: 800px)')
+        if (mediaQuery.matches) {
+            var $id = function(id) {
             return document.getElementById(id);
         };
         let element = document.getElementById("wrapper");
@@ -99,6 +102,8 @@ if ($err) {
 
         new VanillaKinetic(element);
         new VanillaKinetic(element2);
+        }
+        
 
         // new VanillaKinetic(document.getElementById('wrapper'), {
         //     filterTarget: function(target, e) {

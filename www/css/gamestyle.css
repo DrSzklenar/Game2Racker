@@ -1,6 +1,3 @@
-
-
-
 * {
     margin: 0;
     padding: 0;
@@ -38,12 +35,13 @@ h1 {
     flex-direction: row-reverse;
     align-items: flex-start;
     justify-content: center;
-    gap: 200px;
-    margin-top: 50px;
+    gap: 10vw;
+    margin-top: 5vh;
+    
 }
 
  .container img {
-    height: 400px;
+    height: 40vh;
     border: 5px solid black;
     
 }
@@ -54,9 +52,17 @@ h1 {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
-    width: 500px;
+    gap: 1vh;
+    width: 28vw;
     
+}
+
+.mediaflex {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1vh;
+    width: 28vw;
 }
 
 p {
@@ -65,36 +71,40 @@ p {
     text-align: center;
 }
 
-
+.summary p {
+    word-wrap: break-word;
+    text-align: center;
+}
 
 .flex3 {
     display: flex;
     justify-content: space-evenly;
-    gap: 20px;
+    gap: 2vw;
 }
 
 .flexkep {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
+    gap: 0.5vw;
 }
 
 .summary {
     display: flex;
-    width: 1020px;
+    /* width: 1020px; */
     text-align: center;
-    /* align-items: center; */
-    padding: 29px;
+    align-items: center;
+    padding: 3vh 16vw;
     word-break: normal;
-    margin-left: 400px;
+    /* margin-left: 400px; */
+    /* margin: auto;*/
     
    
 }
 
 #screenshots {
     display: flex;
-    height: 281px;
+    height: 280px;
     width: 100%;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -102,6 +112,8 @@ p {
     align-items: stretch;
     overflow-x: scroll;
     overflow-y: hidden;
+    user-select: none;
+    
    
     
     
@@ -110,7 +122,8 @@ p {
 #screenshots img {
     height: 100%;
     border: 5px solid black;
-    
+    cursor: zoom-in;
+    user-select: none;
 }
 
 #modal {
@@ -120,6 +133,8 @@ p {
     height: 100vh;  
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 20;
+    user-select: none;
+    cursor: pointer;
 }
 
 #modal.hidden {
@@ -262,3 +277,36 @@ p {
      background-image: url("../img/favoritecolor.png") !important;
 
  }
+
+ @media (max-width: 800px) {
+    .flex {
+        display: flex;
+        flex-direction: column-reverse;
+        gap: 5vw;
+        margin-top: 5vh;
+        align-items: stretch;
+       
+
+        
+    }
+    .mediaflex {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        /* text-align: center; */
+        margin-left: 70vw;
+    }
+    #screenshots {
+        display: flex;
+        height: 210px;
+        width: 100%;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        align-items: center;
+        overflow-x: scroll;
+        overflow-y: hidden;
+        user-select: none;
+    }
+        
+    }

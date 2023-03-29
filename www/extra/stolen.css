@@ -1,0 +1,143 @@
+
+/*#region burgir */
+#hamburger-lines.menushown span:nth-child(1) {
+    transform: rotate(-45deg);
+}
+#hamburger-lines.menushown span:nth-child(2) {
+    width: 0rem;
+}
+#hamburger-lines.menushown span:nth-child(3) {
+    transform: rotate(45deg);
+}
+#hamburger-lines {
+    display: none;
+}
+#hamburger-lines span {
+    width: 1.4rem;
+    height: 0.2rem;
+    background-color: var(--szin4);
+    border-radius: 0.1rem;
+    transition: 0.5s ease;
+    transform: rotate(0deg);
+    transition-property: transform, width;
+    transform-origin: right center;
+}
+/*#endregion burgir end */
+
+
+/* nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: var(--szin2);
+    width: 100%;
+    box-shadow: 0 1px 4px rgb(146 161 176 / 15%);
+    height: 8vh;
+    position: fixed;
+    top: 0px;
+    z-index: 80;
+} */
+
+
+
+
+
+
+
+/* media query 1 */
+@media (max-width: 1300px) {
+
+
+    #hamburger-lines {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 0.3rem;
+    }
+
+  
+
+    #menu {
+        display: flex;
+        z-index: 79;
+        text-align: center;
+        background-color: #90B77D;
+    }
+
+    .menumobile {
+        position: fixed;
+        right: 0px;
+        top: 8vh;
+        max-height: 75%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        transition: transform 0.5s ease-in-out;
+        z-index: 79;
+        transform: translateX(100%);
+        text-align: center;
+        background-color: #90B77D;
+    }
+
+    #menu.menushown {
+        transform: translateX(55%);
+    }
+
+    /* figure:hover figcaption {
+        transform: translateY(55%);
+    } */
+}
+
+
+@media (max-width: 768px) {
+    
+    #menu.menushown {
+        transform: translateX(0%);
+    }
+
+    
+    nav {
+        display: flex;
+        position: fixed;
+    }
+
+    #hamburger-lines {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 0.3rem;
+    }
+
+
+    #menu {
+        display: flex;
+        z-index: 79;
+        text-align: center;
+        background-color: #90B77D;
+    }
+
+    .menumobile {
+        position: fixed;
+        right: 0px;
+        top: 8vh;
+        max-height: 75%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        transition: transform 0.5s ease-in-out;
+        z-index: 79;
+        transform: translateX(100%);
+        text-align: center;
+        background-color: #90B77D;
+    }
+
+    .menu-button {
+        margin-right: 5vw;
+    }
+
+    #menu.menushown {
+        transform: translateX(55%);
+    }
+
+    
+}

@@ -29,16 +29,16 @@ function printBar($userData) {
     echo "</pre>";
     */
 
-    if ($userData != "") {
+    if ($userData != array()) {
        // $userData = mysqli_fetch_array($result);
-
        $navAvatar = $userData['avatar'] == "" ? "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" : $userData['avatar'];
         
        $bar = "<div class=\"profile\">
         <h1 id=\"name\">{$userData['nev']}</h1>
         <div class=\"avatar\">
-            <img class=\"avatarPic\" src=\"{$navAvatar}\" alt=\"\">
-            <a href=\"profile.php?user=".$userData['nev']."&userid=".$userData['userID']."\"class=\"profileLink\"></a>
+            <a href=\"profile.php?user=".$userData['nev']."&userid=".$userData['userID']."\"class=\"profileLink\">
+                <img class=\"avatarPic\" src=\"{$navAvatar}\" alt=\"\">
+            </a>
         </div>
         <div id=\"menu\">
             <div class=\"FirstOption\">
@@ -55,24 +55,23 @@ function printBar($userData) {
             
             
             </div>
-            <div id=\"closeMenu\"></div>
-        </div>";    
-    } else {
-        $bar = "<div class=\"logins\">
-        <div class=\"buttonParent\">
-        <a id=\"login\" href=\"/login/login.php\">Login</a>
-        </div>
-        <div class=\"buttonParent\">
-        <a  id=\"register\"  href=\"/login/register.php\">Sign Up</a>
-        </div>
-        </div>";    
+            </div>";    
+        } else if($userData === array()) {
+            $bar = "<div class=\"logins\">
+            <div class=\"buttonParent\">
+            <a id=\"login\" href=\"/login/login.php\">Login</a>
+            </div>
+            <div class=\"buttonParent\">
+            <a  id=\"register\"  href=\"/login/register.php\">Sign Up</a>
+            </div>
+            </div>";    
+        }
+        print_r($bar);    
     }
-    print_r($bar);    
-}
-
+    
 ?>
 <nav>
-    <a class="banner" href="/">Game2Racker</a>
+    <a class="banner" href="/"><img id="logo" src="https://fos.hu/14ud" alt=""><p id="g2r" >Game2Racker</p></a>
     <div class="search">
         <form class="searchForm" action="/search.php" method="get">
             <div class="selectParent">
@@ -86,17 +85,14 @@ function printBar($userData) {
             </div>
             <input type="text" name="search" id="searchInput" placeholder="Search games, DLC, mods and users">
             <input id="submit" type="submit" value="" class="searchbtn">
-
         </form>
     </div>
+    <?php printBar($userData); ?>
     <div class="RedBar"></div>
-    <?php
-printBar($userData);
-?>
-    
-    </nav>
+</nav>
+<div id="closeMenu"></div>
 
     
 
-
-    <script src="js/navbar.js" defer></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="js/navbar.js" defer></script>

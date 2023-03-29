@@ -14,13 +14,14 @@ body{
     background-color: #f8f2f2;
     margin-top: 8vh;
 }
-img{
+.card-body img{
    
     max-height: 40rem;
-    
     object-fit: contain;
     width: 50%;
 }
+
+
 
 .IdProperty{
     position: absolute;
@@ -80,13 +81,33 @@ img{
     align-content: center;
     justify-content: center;
 }
-.card-header{
-    text-align: center;
-
+@media (min-width: 801px) {
+    .card-header{
+        text-align: center;
+    
+    }
 }
+
 h2 {
     text-align: center;
 }
+
+
+@media (max-width: 800px) {
+    .card-header{
+        text-align: center;
+        font-size: small;
+    
+    }
+}
+
+
+
+
+
+
+
+
 /* .pagination {
     text-align: center;
     margin: 30px 30px 60px;

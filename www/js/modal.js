@@ -7,6 +7,6 @@ for (const image of images) {
     });
 }
 
-modal.children[1].addEventListener("click", () => {
+modal.addEventListener("click", () => {
     modal.classList.add("hidden");
 });

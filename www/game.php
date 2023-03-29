@@ -9,7 +9,7 @@ require("dependencies/curl.php");
 $url = "https://api.igdb.com/v4/covers";
 $urlscreen = "https://api.igdb.com/v4/screenshots";
 $web = "https://api.igdb.com/v4/websites";
-$dataQuery = 'f game.id, game.name,url,game.first_release_date,game.summary,game.platforms.slug,game.platforms.name,game.genres.name,game.involved_companies.company.name,game.videos.video_id; where id =' . $id . '; l 1;';
+$dataQuery = 'f game.id, game.name,url,game.first_release_date,game.summary,game.platforms.slug,game.platforms.name,game.genres.name,game.involved_companies.company.name,game.videos.video_id,game.game_modes.name; where id =' . $id . '; l 1;';
 $screenQuery = 'f url; where game = ' . $gameid . ';';
 $steamQuery = 'f url; w game = ' . $gameid . ' & url ~ *"steam"*;';
 $epicQuery = 'f url; w game = ' . $gameid . ' & url ~ *"epicgames.com/store"*;';
@@ -61,15 +61,20 @@ $epicweb_data = json_decode($Curledepic);
 
             echo "<div class = \"flex\">";
             echo "<div class = \"flex2\">";
+            echo "<div class = \"mediaflex\">";
             echo "<h1>" . $game->game->name . "</h1>";
             echo "<p style = \"font-weight: bold;\">Release Date</p>";
             $timestamp = $game->game->first_release_date;
             echo gmdate("Y.m.d", $timestamp);
+            echo "<p style = \"font-weight: bold;\">Game mode(s)</p>";
+            foreach ($game->game->game_modes as $modes) {
+                echo "<p>" . $modes->name . "</p>";
+            }
             echo "<p style = \"font-weight: bold;\">Genres</p>";
             foreach ($game->game->genres as $genre) {
                 echo "<p>" . $genre->name . "</p>";
             }
-            echo "<p style = \"font-weight: bold;\">Developers & Publishers</p>";
+            echo "<p style = \"font-weight: bold;\">Developer(s) & Publisher(s)</p>";
             foreach ($game->game->involved_companies as $company) {
                 echo "<p>" . $company->company->name . "</p>";
             }
@@ -119,7 +124,7 @@ $epicweb_data = json_decode($Curledepic);
                     echo "</div>";
                 }
             }
-
+            echo "</div>";
 
             echo "</div>";
 
@@ -162,7 +167,14 @@ $epicweb_data = json_decode($Curledepic);
             }
 
             foreach ($screen_data as $screen) {
-                echo "<img src=\"https://" . str_replace("t_thumb", "t_1080p", $screen->url) . "\">";
+                $img_url = $screen->url;
+                if (preg_match('/\bhttps\b/', $img_url)) {
+                    echo "<img title=\"Double click to zoom\" src=\"" . str_replace("t_thumb", "t_1080p", $img_url) . "\">";
+                }
+                else {
+                    echo "<img title=\"Double click to zoom\" src=\"https:" . str_replace("t_thumb", "t_1080p", $img_url) . "\">";
+                }
+               
             }
             
             

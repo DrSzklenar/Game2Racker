@@ -2,12 +2,21 @@
 <?php
 
 
-if (isset($_GET['gameid'])) {
-    $gameRatingSQL = "SELECT ROUND(AVG(rating),2) as realrating FROM `ratingGame` WHERE ratedGame = {$id};";
+if (isset($_GET['gameid']) || isset($_GET['userid'])) {
+    if (isset($_GET['gameid'])) {
+        $whereAmI = "game";
+        $wholeGrainId = $id;
+    }
+    else if (isset($_GET['userid'])) {
+        $whereAmI = "user";
+        $wholeGrainId = $userid;
+    }
+    
+    $RatingSQL = "SELECT ROUND(AVG(rating),2) as realrating FROM `ratingTable` WHERE ratedThing = {$wholeGrainId} AND type = '{$whereAmI}';";
 
-    $queriedGameRating = mysqli_query($conn, $gameRatingSQL);
+    $queriedRating = mysqli_query($conn, $RatingSQL);
 
-    $ratingrow = mysqli_fetch_array($queriedGameRating);
+    $ratingrow = mysqli_fetch_array($queriedRating);
     if ($ratingrow['realrating'] != NULL) {
         $rating = $ratingrow['realrating'];
     } else {
@@ -15,7 +24,7 @@ if (isset($_GET['gameid'])) {
     }
 
 
-    $usersRatingSQL = "SELECT * FROM `ratingGame` WHERE  ratedGame = {$id} AND ratedBy = {$userData['userID']}";
+    $usersRatingSQL = "SELECT * FROM `ratingTable` WHERE  ratedThing = {$wholeGrainId} AND ratedBy = {$userData['userID']} AND type = '{$whereAmI}'";
     $queriedUsersRating = mysqli_query($conn, $usersRatingSQL);
     if (mysqli_num_rows($queriedUsersRating) > 0) {
         $ratingrow2 = mysqli_fetch_array($queriedUsersRating);
@@ -23,31 +32,7 @@ if (isset($_GET['gameid'])) {
     } else {
         $selfrating = "";
     }
-    $whereAmI = "game";
-    $wholeGrainId = $id;
-} else if (isset($_GET['userid'])) {
-    $userRatingSQL = "SELECT ROUND(AVG(rating),2) as realrating FROM `ratingUser` WHERE ratedUser = {$userid};";
-
-    $queriedUserRating = mysqli_query($conn, $userRatingSQL);
-
-    $ratingrow = mysqli_fetch_array($queriedUserRating);
-    if ($ratingrow['realrating'] != NULL) {
-        $rating = $ratingrow['realrating'];
-    } else {
-        $rating = "0";
-    }
-
-    $usersRatingSQL = "SELECT * FROM `ratingUser` WHERE  ratedUser = {$userid} AND ratedBy = {$userData['userID']}";
-    $queriedUsersRating = mysqli_query($conn, $usersRatingSQL);
-    if (mysqli_num_rows($queriedUsersRating) > 0) {
-        $ratingrow2 = mysqli_fetch_array($queriedUsersRating);
-        $selfrating = $ratingrow2['rating'];
-    } else {
-        $selfrating = "";
-    }
-    $wholeGrainId = $userid;
-    $whereAmI = "user";
-}
+} 
 function qhar($userid, $userData)
 {
     if (isset($_GET['userid'])) {
@@ -144,6 +129,21 @@ if (isThereValidToken($result)) {
             }
         </script>";
     }
+}
+else {
+    $ratingDiv = "<input type=\"text\" hidden name=\"rating\" id=\"rating\">
+    <ul class=\"newRating\" title = \"If you want to rate, Register!\">
+        <li class=\"star\"\" \">&#9733;</li>
+        <li class=\"star\" \" \">&#9733;</li>
+        <li class=\"star\" \" \">&#9733;</li>
+        <li class=\"star\" \"\">&#9733;</li>
+        <li class=\"star\" \" \">&#9733;</li>
+        <li class=\"star\" \" \">&#9733;</li>
+        <li class=\"star\" \" \">&#9733;</li>
+        <li class=\"star\" \" \">&#9733;</li>
+        <li class=\"star\" \" \">&#9733;</li>
+        <li class=\"star\" \" \">&#9733;</li>
+    </ul>";
 }
 
 
