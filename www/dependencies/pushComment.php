@@ -68,7 +68,7 @@ else if (isset($type) && $type == "vote") {
 }
 else if (isset($type) && $type == "delete") {
     if (isset($madeOn) && $userData != false) {
-        $deleteCommentSQL = "DELETE `comment`, ratios FROM `ratios` INNER JOIN comment ON comment.id = ratios.commentID WHERE comment.id = {$madeOn}  AND (comment.madeOn = {$userData['userID']} OR comment.madeBy = {$userData['userID']})";
+        $deleteCommentSQL = "DELETE `comment`, ratios FROM `ratios` RIGHT JOIN comment ON comment.id = ratios.commentID WHERE comment.id = '{$madeOn}'  AND (comment.madeBy = '{$userData['userID']}' OR comment.madeOn = '{$userData['userID']}')";
         mysqli_query($conn, $deleteCommentSQL);
         echo "DELETED";
     }
