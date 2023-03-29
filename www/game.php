@@ -3,8 +3,8 @@ $id = (int)$_GET['id'];
 $gameid = $_GET['gameid'];
 
 
-require("dependencies/connection.php");
-require("dependencies/curl.php");
+require("depend/connection.php");
+require("depend/curl.php");
 
 $url = "https://api.igdb.com/v4/covers";
 $urlscreen = "https://api.igdb.com/v4/screenshots";
@@ -51,7 +51,7 @@ $epicweb_data = json_decode($Curledepic);
 </head>
 
 <body>
-    <?php include("dependencies/navbar.php") ?>
+    <?php include("depend/navbar.php") ?>
     <div class="container">
         <?php
 
@@ -136,7 +136,7 @@ $epicweb_data = json_decode($Curledepic);
 
 
             echo "Rating";
-            require("dependencies/rating.php");
+            require("depend/rating.php");
 
             echo "<div class = \"buttonflex\">
             <button type=\"submit\" class = \"buttonsize\" id = \"stillplaying\" class = \"stillplayingcolor\" title = \"Playing\"></button>
@@ -188,7 +188,7 @@ $epicweb_data = json_decode($Curledepic);
 
     </div>
 
-    <?php require("dependencies/comments.php");?>
+    <?php require("depend/comments.php");?>
 
     <script src="js/vanilla.kinetic.js"></script>
     <script type="text/javascript" charset="utf-8">
@@ -215,7 +215,7 @@ $epicweb_data = json_decode($Curledepic);
     </script>
     <script src="js/modal.js"></script>
     <script src="js/imgswap.js"></script>
-    <?php require("dependencies/footer.php"); ?>
+    <?php require("depend/footer.php"); ?>
 </body>
 
 </html>

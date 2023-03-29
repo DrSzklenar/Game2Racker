@@ -1,7 +1,7 @@
 <?php
 
-require("dependencies/curl.php");
-require("dependencies/connection.php");
+require("depend/curl.php");
+require("depend/connection.php");
 
 $searchWord = $_GET["search"];
 $searchType = $_GET["type"];
@@ -59,7 +59,7 @@ if ($searchQueryUser != "") {
 </head>
 
 <body>
-    <?php include("dependencies/navbar.php"); ?>
+    <?php include("depend/navbar.php"); ?>
 
     <div class="searchResults">
         <h2>Result(s): <?php echo $searchWord ?></h2>

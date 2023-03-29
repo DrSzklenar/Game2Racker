@@ -1,6 +1,6 @@
 <?php
 
-require("dependencies/curl.php");
+require("depend/curl.php");
 
 $trendingQuery = 'f game.id,game.name,url,game.genres.name,game.first_release_date,game.summary,game.platforms.slug; where id >= 1 & game.category = 0 & game.first_release_date > 1672527600 & game.first_release_date < 1688162399 & game.platforms.slug = "win" & game.follows >= 1 & game.hypes >= 1 & game.cover.url ~ *"//images.igdb.com"*; l 500;';
 $topQuery = 'f game.name,url,game.genres.name,game.first_release_date,game.summary,game.platforms.slug,game.platforms.name, game.follows;
@@ -40,7 +40,7 @@ if ($err) {
 </head>
 
 <body>
-    <?php include("dependencies/navbar.php")?>
+    <?php include("depend/navbar.php")?>
     <div class="trending">
         <h1>New Releases</h1>
         <div id="wrapper" class="container card-content">
@@ -83,7 +83,7 @@ if ($err) {
     </div>
 
     
-    <?php require("dependencies/footer.php"); ?>
+    <?php require("depend/footer.php"); ?>
 
     <script src="js/vanilla.kinetic.js"></script>
     <script type="text/javascript" charset="utf-8">

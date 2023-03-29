@@ -41,7 +41,7 @@ if (isset($_GET['gameid']) || isset($_GET['userid'])) {
             <div class=\"leftside\">
                 <div class=\"rating flexrow littleGap\">
                     <div class=\"ratingValue\">{$commentRow['ratio']}</div>
-                    <div class=\"ratingButtons flexcol";
+                    <div class=\"ratingButtons flexcol\">";
                     
                     // select * ratio from ratios where commentid = $commentRow['commentid'] and userID = 9;
                     // if more than one row color based on ratios value.
@@ -51,16 +51,26 @@ if (isset($_GET['gameid']) || isset($_GET['userid'])) {
                     if (mysqli_num_rows($queriedRatio) > 0) {
                         $ratiorow = mysqli_fetch_array($queriedRatio);
                         if ($ratiorow['ratio'] > 0) {
-                            $commentField .= " liked";
+                            $commentField .= "<div class=\"upbutton\"><i class=\"fa fa-thumbs-up liked\"></i></div>
+                            <div class=\"downbutton\"><i class=\"fa fa-thumbs-down\"></i></div>";
                         }
                         else if($ratiorow['ratio'] < 0) {
-                            $commentField .= " disliked";
+                            $commentField .= "<div class=\"upbutton\"><i class=\"fa fa-thumbs-up\"></i></div>
+                            <div class=\"downbutton\"><i class=\"fa fa-thumbs-down disliked\"></i></div>";
+                        }
+                        else {
+                            $commentField.="
+                        <div class=\"upbutton\"><i class=\"fa fa-thumbs-up\"></i></div>
+                        <div class=\"downbutton\"><i class=\"fa fa-thumbs-down\"></i></div>";
                         }
                     }
+                    else {
+                        $commentField.="
+                        <div class=\"upbutton\"><i class=\"fa fa-thumbs-up\"></i></div>
+                        <div class=\"downbutton\"><i class=\"fa fa-thumbs-down\"></i></div>";
+                    }
                     
-                    $commentField.="\">
-                        <div class=\"upbutton\"><img src=\"img/layer1.png\" alt=\"\"></div>
-                        <div class=\"downbutton\"><img src=\"https://play-lh.googleusercontent.com/G4PFUhWRDby0PDKCzNQU8H6uCngprpDGfz_LSDpKdCXVlAj5qM-Kq6TAvlgWemtbnlA\" alt=\"\"></div>
+                    $commentField.="
                     </div>
                 </div>
             </div>
@@ -100,7 +110,7 @@ let {$commentInput} = document.getElementById(\"{$commentInput}\");
         dataForPHP.append(\"madeOn\", {$wholeGrainId});
         dataForPHP.append(\"text\", {$commentInput}.value);
         dataForPHP.append(\"type\", \"{$whereAmI}\");
-        fetch(`dependencies/pushComment.php`, {
+        fetch(`depend/pushComment.php`, {
             method: \"POST\",
             body: dataForPHP
         })
@@ -125,45 +135,53 @@ let {$commentInput} = document.getElementById(\"{$commentInput}\");
     let downbuttons = document.querySelectorAll(\".downbutton\");
     function PushVotes(element,stat=\"\"){
         let parentID = element.parentElement.parentElement.parentElement.parentElement.id;
+        console.log(parentID);
+        console.log(element.firstElementChild);
         let ratio = \"\";
         if (stat == \"plus\") {
-            if (element.parentElement.classList.contains(\"liked\")) {
+            if (element.firstElementChild.classList.contains(\"liked\")) {
                 element.parentElement.parentElement.firstChild.nextSibling.innerHTML = parseInt(element.parentElement.parentElement.firstChild.nextSibling.innerHTML) -1;
-                element.parentElement.classList.remove(\"liked\");
+                element.firstElementChild.classList.remove(\"liked\");
                 ratio = 0;
+                console.log(\"it was liked.removed!\");
             }
-            else if(element.parentElement.classList.contains(\"disliked\"))
+            else if(element.parentElement.lastElementChild.firstElementChild.classList.contains(\"disliked\"))
             {
                 element.parentElement.parentElement.firstChild.nextSibling.innerHTML = parseInt(element.parentElement.parentElement.firstChild.nextSibling.innerHTML) +2;
-                element.parentElement.classList.remove(\"disliked\");
-                element.parentElement.classList.add(\"liked\");
+                element.parentElement.lastElementChild.firstElementChild.classList.remove(\"disliked\");
+                element.firstElementChild.classList.add(\"liked\");
                 ratio = 1;
+                console.log(\"it was disliked.removed and liked!\");
             }
             else{
                 element.parentElement.parentElement.firstChild.nextSibling.innerHTML = parseInt(element.parentElement.parentElement.firstChild.nextSibling.innerHTML) +1;
-                element.parentElement.classList.remove(\"disliked\");
-                element.parentElement.classList.add(\"liked\");
+                element.firstElementChild.classList.remove(\"disliked\");
+                element.firstElementChild.classList.add(\"liked\");
                 ratio = 1;
+                console.log(\"it was on default. liked!\");
             }
         }
         else if (stat == \"minus\") {
-            if (element.parentElement.classList.contains(\"disliked\")) {
+            if (element.firstElementChild.classList.contains(\"disliked\")) {
                 element.parentElement.parentElement.firstChild.nextSibling.innerHTML = parseInt(element.parentElement.parentElement.firstChild.nextSibling.innerHTML) +1;
-                element.parentElement.classList.remove(\"disliked\");
+                element.firstElementChild.classList.remove(\"disliked\");
                 ratio = 0;
+                console.log(\"it was disliked.removed!\");
             }
-            else if(element.parentElement.classList.contains(\"liked\"))
+            else if(element.parentElement.firstElementChild.firstElementChild.classList.contains(\"liked\"))
             {
                 element.parentElement.parentElement.firstChild.nextSibling.innerHTML = parseInt(element.parentElement.parentElement.firstChild.nextSibling.innerHTML) -2;
-                element.parentElement.classList.remove(\"liked\");
-                element.parentElement.classList.add(\"disliked\");
+                element.parentElement.firstElementChild.firstElementChild.classList.remove(\"liked\");
+                element.firstElementChild.classList.add(\"disliked\");
                 ratio = -1;
+                console.log(\"it was liked.removed and disliked!\");
             }
             else{
                 element.parentElement.parentElement.firstChild.nextSibling.innerHTML = parseInt(element.parentElement.parentElement.firstChild.nextSibling.innerHTML) -1;
-                element.parentElement.classList.remove(\"liked\");
-                element.parentElement.classList.add(\"disliked\");
+                element.firstElementChild.classList.remove(\"liked\");
+                element.firstElementChild.classList.add(\"disliked\");
                 ratio = -1;
+                console.log(\"it was on default. disliked!\");
             }
         }
 
@@ -171,7 +189,7 @@ let {$commentInput} = document.getElementById(\"{$commentInput}\");
         dataForPHP.append(\"madeOn\", parentID);
         dataForPHP.append(\"ratio\", ratio);
         dataForPHP.append(\"type\", \"vote\");
-        fetch(`dependencies/pushComment.php`, {
+        fetch(`depend/pushComment.php`, {
             method: \"POST\",
             body: dataForPHP
         })
@@ -197,7 +215,7 @@ let {$commentInput} = document.getElementById(\"{$commentInput}\");
         let dataForPHP = new FormData();
         dataForPHP.append(\"madeOn\", element.parentElement.id);
         dataForPHP.append(\"type\", \"delete\");
-        fetch(`dependencies/pushComment.php`, {
+        fetch(`depend/pushComment.php`, {
             method: \"POST\",
             body: dataForPHP
         })

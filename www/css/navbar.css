@@ -15,6 +15,8 @@ body{
 
 :root{
     font-size: 20px;
+    --color1: #00b4bb8a;
+    --color2: #ff47008a;
 }
 
 .flexcol{
@@ -401,6 +403,7 @@ nav img{
 .kuka {
     justify-self: end;
     height: fit-content;
+    cursor: pointer;
 }
 
 .kuka i{
@@ -415,12 +418,41 @@ nav img{
     height: 2rem;
 }
 
+.upbutton i{
+    color: #2c98a6;
+    transform: scaleX(-1);
+}
+.downbutton i{
+    color: #b36565;
+}
+
+.upbutton:hover i{
+    color: #0e56ff;
+}
+.downbutton:hover i{
+    color: #d90000;
+}
+
 .liked{
-    background-color: green;
+    color: #4175ed !important;
+    box-shadow: 0px 0px 10px 4px var(--color1);
+    background: var(--color1);
+    border-radius: 100%;
 }
 
 .disliked{
-    background-color: red;
+    color: #ff3b00 !important;
+    box-shadow: 0px 0px 10px 4px var(--color2);
+    background: var(--color2);
+    border-radius: 100%;
+}
+
+.inactive-like{
+    color: #6d9da3 !important;
+}
+
+.inactive-dislike{
+    color: #b38c8c !important;
 }
 
 /* range on all pages */

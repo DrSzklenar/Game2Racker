@@ -105,7 +105,7 @@ if (isThereValidToken($result)) {
                 dataForPHP.append(\"ratedBy\", {$userData['userID']});
                 dataForPHP.append(\"rating\", rating.value);
                 dataForPHP.append(\"type\", \"{$whereAmI}\");
-                fetch(`dependencies/pushRating.php`, {
+                fetch(`depend/pushRating.php`, {
                     method: \"POST\",
                     body: dataForPHP
                 })

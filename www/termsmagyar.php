@@ -15,7 +15,7 @@
 </head>
 <body>
 <?php
-require("dependencies/navbar.php");
+require("depend/navbar.php");
 ?>
 </body>
 </html>

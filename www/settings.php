@@ -3,7 +3,7 @@
 $id = $_GET['userid'];
 $username = $_GET['user'];
 $gameid = $_GET['gameid'];
-require("dependencies/connection.php");
+require("depend/connection.php");
 
 
 ?>
@@ -18,7 +18,7 @@ require("dependencies/connection.php");
     <title>Document</title>
 </head>
 <body>
-    <?php require("dependencies/navbar.php");
+    <?php require("depend/navbar.php");
     
         $html = "";
 
@@ -48,7 +48,7 @@ require("dependencies/connection.php");
                 dataForPHP.append(\"userID\", {$id});
                 dataForPHP.append(\"picUrl\", picUrl.value);
         
-                fetch(`dependencies/pushSettings.php`, {
+                fetch(`depend/pushSettings.php`, {
                         method: \"POST\",
                         body: dataForPHP
                     })
@@ -84,7 +84,7 @@ require("dependencies/connection.php");
                     dataForPHP.append("userID", {$id});
                     dataForPHP.append("picUrl", picUrl.value);
             
-                    fetch(`dependencies/pushSettings.php`, {
+                    fetch(`depend/pushSettings.php`, {
                             method: "POST",
                             body: dataForPHP
                         })

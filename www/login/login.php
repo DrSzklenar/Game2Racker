@@ -1,6 +1,6 @@
 <?php
 
-require("../dependencies/connection.php");
+require("../depend/connection.php");
 
 
 $error = [];

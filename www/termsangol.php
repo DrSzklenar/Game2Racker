@@ -16,7 +16,7 @@
 </head>
 <body>
 <?php
-require("dependencies/navbar.php");
+require("depend/navbar.php");
 ?>
 
 <h1>Game2Racker General Terms and Conditions</h1>
@@ -42,7 +42,7 @@ The user may not use rude, harsh words or expressions on the banned list during 
 <br>
 
 <?php
-require("dependencies/footer.php");
+require("depend/footer.php");
 ?>
 </body>
 </html>

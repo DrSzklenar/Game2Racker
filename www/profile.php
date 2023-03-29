@@ -3,7 +3,7 @@
 
 $userid = $_GET['userid'];
 $username = $_GET['user'];
-require("dependencies/connection.php");
+require("depend/connection.php");
 
 
 $userSQL = "select * from user where id='{$userid}'";
@@ -32,7 +32,7 @@ if (mysqli_num_rows($queriedUser) === 1) {
     <title>Game2Racker</title>
 </head>
 <body>
-    <?php require("dependencies/navbar.php"); ?>
+    <?php require("depend/navbar.php"); ?>
 
 
     <div class="profilemain">
@@ -41,12 +41,12 @@ if (mysqli_num_rows($queriedUser) === 1) {
         </div>
         <div class="profiletexts">
             <h1 class="name"><?php echo $row['nev']; ?></h1>
-            <?php require("dependencies/rating.php"); ?>
+            <?php require("depend/rating.php"); ?>
         </div>
     </div>
 
-    <?php require("dependencies/comments.php"); ?>
+    <?php require("depend/comments.php"); ?>
 
-    <?php require("dependencies/footer.php"); ?>
+    <?php require("depend/footer.php"); ?>
 </body>
 </html>
