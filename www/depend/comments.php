@@ -133,55 +133,47 @@ let {$commentInput} = document.getElementById(\"{$commentInput}\");
 
     let upbuttons = document.querySelectorAll(\".upbutton\");
     let downbuttons = document.querySelectorAll(\".downbutton\");
-    function PushVotes(element,stat=\"\"){
+    function PushVotes(element,like,dislike,val,stat=\"\"){
         let parentID = element.parentElement.parentElement.parentElement.parentElement.id;
-        console.log(parentID);
-        console.log(element.firstElementChild);
         let ratio = \"\";
         if (stat == \"plus\") {
-            if (element.firstElementChild.classList.contains(\"liked\")) {
-                element.parentElement.parentElement.firstChild.nextSibling.innerHTML = parseInt(element.parentElement.parentElement.firstChild.nextSibling.innerHTML) -1;
-                element.firstElementChild.classList.remove(\"liked\");
+            if (like.classList.contains(\"liked\")) {
+                val.innerHTML = parseInt(val.innerHTML) -1;
+                like.classList.remove(\"liked\");
                 ratio = 0;
-                console.log(\"it was liked.removed!\");
             }
-            else if(element.parentElement.lastElementChild.firstElementChild.classList.contains(\"disliked\"))
+            else if(dislike.classList.contains(\"disliked\"))
             {
-                element.parentElement.parentElement.firstChild.nextSibling.innerHTML = parseInt(element.parentElement.parentElement.firstChild.nextSibling.innerHTML) +2;
-                element.parentElement.lastElementChild.firstElementChild.classList.remove(\"disliked\");
-                element.firstElementChild.classList.add(\"liked\");
+                val.innerHTML = parseInt(val.innerHTML) +2;
+                dislike.classList.remove(\"disliked\");
+                like.classList.add(\"liked\");
                 ratio = 1;
-                console.log(\"it was disliked.removed and liked!\");
             }
             else{
-                element.parentElement.parentElement.firstChild.nextSibling.innerHTML = parseInt(element.parentElement.parentElement.firstChild.nextSibling.innerHTML) +1;
-                element.firstElementChild.classList.remove(\"disliked\");
-                element.firstElementChild.classList.add(\"liked\");
+                val.innerHTML = parseInt(val.innerHTML) +1;
+                dislike.classList.remove(\"disliked\");
+                like.classList.add(\"liked\");
                 ratio = 1;
-                console.log(\"it was on default. liked!\");
             }
         }
         else if (stat == \"minus\") {
-            if (element.firstElementChild.classList.contains(\"disliked\")) {
-                element.parentElement.parentElement.firstChild.nextSibling.innerHTML = parseInt(element.parentElement.parentElement.firstChild.nextSibling.innerHTML) +1;
-                element.firstElementChild.classList.remove(\"disliked\");
+            if (dislike.classList.contains(\"disliked\")) {
+                val.innerHTML = parseInt(val.innerHTML) +1;
+                dislike.classList.remove(\"disliked\");
                 ratio = 0;
-                console.log(\"it was disliked.removed!\");
             }
-            else if(element.parentElement.firstElementChild.firstElementChild.classList.contains(\"liked\"))
+            else if(like.classList.contains(\"liked\"))
             {
-                element.parentElement.parentElement.firstChild.nextSibling.innerHTML = parseInt(element.parentElement.parentElement.firstChild.nextSibling.innerHTML) -2;
-                element.parentElement.firstElementChild.firstElementChild.classList.remove(\"liked\");
-                element.firstElementChild.classList.add(\"disliked\");
+                val.innerHTML = parseInt(val.innerHTML) -2;
+                like.classList.remove(\"liked\");
+                dislike.classList.add(\"disliked\");
                 ratio = -1;
-                console.log(\"it was liked.removed and disliked!\");
             }
             else{
-                element.parentElement.parentElement.firstChild.nextSibling.innerHTML = parseInt(element.parentElement.parentElement.firstChild.nextSibling.innerHTML) -1;
-                element.firstElementChild.classList.remove(\"liked\");
-                element.firstElementChild.classList.add(\"disliked\");
+                val.innerHTML = parseInt(val.innerHTML) -1;
+                like.classList.remove(\"liked\");
+                dislike.classList.add(\"disliked\");
                 ratio = -1;
-                console.log(\"it was on default. disliked!\");
             }
         }
 
@@ -195,7 +187,6 @@ let {$commentInput} = document.getElementById(\"{$commentInput}\");
         })
         .then(response => response.text())
         .then(data => {
-            console.log(data)
             if (data == \"NOPLIZ\") {
             }
             else if(data == \"GANTZ\"){
@@ -203,12 +194,11 @@ let {$commentInput} = document.getElementById(\"{$commentInput}\");
             }
         })
         .catch(error => console.log(error));
-        console.log(\"gag\");
         
     }
     for (let i = 0; i < upbuttons.length; i++) {
-        upbuttons[i].addEventListener('click',() => PushVotes(upbuttons[i],\"plus\"));
-        downbuttons[i].addEventListener('click',() => PushVotes(downbuttons[i],\"minus\"));
+        upbuttons[i].addEventListener('click',() => PushVotes(upbuttons[i],upbuttons[i].parentElement.firstElementChild.firstElementChild,upbuttons[i].parentElement.lastElementChild.firstElementChild,upbuttons[i].parentElement.parentElement.firstChild.nextSibling,\"plus\"));
+        downbuttons[i].addEventListener('click',() => PushVotes(downbuttons[i],downbuttons[i].parentElement.firstElementChild.firstElementChild,downbuttons[i].parentElement.lastElementChild.firstElementChild,downbuttons[i].parentElement.parentElement.firstChild.nextSibling,\"minus\"));
     }   
 
     function DeleteComment(element) {

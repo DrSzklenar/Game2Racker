@@ -1,3 +1,4 @@
+
 <?php
 
 require("depend/curl.php");
@@ -62,23 +63,25 @@ if ($searchQueryUser != "") {
     <?php include("depend/navbar.php"); ?>
 
     <div class="searchResults">
-        <h2>Result(s): <?php echo $searchWord ?></h2>
+        <h2>Result(s) for: <?php echo $searchWord ?></h2>
         <div id="wrapper" class="container card-content">
-
             <?php
+
             if ($searchQuery != "") {
                 foreach ($search_results as $result) {
+                    
                     echo "<div class=\"card\">";
                     echo    "<a href=\"game.php?id=".$result->game->cover->id."&gameid=".$result->game->cover->game."\"class=\"IdProperty\"></a>";
                     echo   
                             "<div class=\"card-body\"> ";
                     echo        "<img loading=\"lazy\" src=\"https://" . str_replace("t_thumb", "t_cover_big", $result->game->cover->url) . "\">";
-                    echo    "</div>
+                    echo            "<h3 class = \"display\">" . $result->name . "</h3>";
+                    echo    "</div>";
 
-                        <div class=\"card-header\">";
+                    echo    "<div class=\"card-header\">";
                     echo        "<h3>" . $result->name . "</h3>";
-                    echo    "</div>
-                        </div>";
+                    echo    "</div>";
+                     echo   "</div>";
                 }
             }
             ?>
@@ -95,10 +98,11 @@ if ($searchQueryUser != "") {
                         echo   
                                 "<div class=\"card-body\"> ";
                         echo        "<img loading=\"lazy\" src=\"".$searchAvatar."\">";
+                        echo       "<h3 class = \"display\">" . $userRows['nev']. "</h3>";
                         echo    "</div>
 
                             <div class=\"card-header\">";
-                        echo        "<h3>" . $userRows['nev']. "</h3>";
+                        echo        "<h3 class>" . $userRows['nev']. "</h3>";
                         echo    "</div>
                             </div>";
                     }
@@ -107,7 +111,7 @@ if ($searchQueryUser != "") {
             ?>
         </div>
     </div>
-
+               
 </body>
 
 </html>

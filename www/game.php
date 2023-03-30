@@ -63,9 +63,15 @@ $epicweb_data = json_decode($Curledepic);
             echo "<div class = \"flex2\">";
             echo "<div class = \"mediaflex\">";
             echo "<h1>" . $game->game->name . "</h1>";
-            echo "<p style = \"font-weight: bold;\">Release Date</p>";
             $timestamp = $game->game->first_release_date;
-            echo gmdate("Y.m.d", $timestamp);
+            if ($timestamp == "") {
+                echo "";
+            }
+            else {
+                echo "<p style = \"font-weight: bold;\">Release Date</p>";
+                echo gmdate("Y.m.d", $timestamp);
+            }
+           
             echo "<p style = \"font-weight: bold;\">Game mode(s)</p>";
             foreach ($game->game->game_modes as $modes) {
                 echo "<p>" . $modes->name . "</p>";

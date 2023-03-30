@@ -50,7 +50,7 @@ if ($err) {
                 echo "<div class=\"card\">";
                 echo    "<a href=\"game.php?id=". $game->id."&gameid=".$game->game->id."\"class=\"IdProperty\"></a>";
                 echo    "<div class=\"card-header\">";
-                echo        "<h3>" . $game->game->name . "</h3>";
+                echo        "<h3 class=\"name\">" . $game->game->name . "</h3>";
                 echo    "</div>
                         <div class=\"card-body\"> ";
                 echo        "<img loading=\"lazy\" src=\"https://" . str_replace("t_thumb", "t_cover_big", $game->url) . "\">";
@@ -70,7 +70,7 @@ if ($err) {
                 echo "<div class=\"card\">
                         <div class=\"card-header\">";
                 echo        "<a href=\"game.php?id=" . $game->id ."&gameid=".$game->game->id."\"class=\"IdProperty\"></a>";
-                echo        "<h3>" . $game->game->name . "</h3>";
+                echo        "<h3 class=\"name\">" . $game->game->name . "</h3>";
                 echo    "</div>
                         <div class=\"card-body\"> ";
                 echo        "<img loading=\"lazy\" src=\"https://" . str_replace("t_thumb", "t_cover_big", $game->url) . "\">";

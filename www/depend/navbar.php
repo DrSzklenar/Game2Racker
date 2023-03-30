@@ -43,7 +43,7 @@ function printBar($userData) {
         <div id=\"menu\">
             <div class=\"FirstOption\">
                 <div class=\"viewProfile\">
-                    <p>View Profile</p>
+                    <p class=\"v-p-text\" >View Profile</p>
                     <a href=\"profile.php?user=".$userData['nev']."&userid=".$userData['userID']."\"class=\"profileLink\"></a>  
                 </div>
                 <div class=\"settings\">
@@ -93,6 +93,6 @@ function printBar($userData) {
 <div id="closeMenu"></div>
 
     
-
+<link rel="icon" type="image/x-icon" href="https://fos.hu/14ud">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="js/navbar.js" defer></script>
