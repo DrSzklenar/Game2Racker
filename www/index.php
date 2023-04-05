@@ -47,14 +47,15 @@ if ($err) {
 
             <?php
             foreach ($trending_games as $game) {
-                echo "<div class=\"card\">";
-                echo    "<a href=\"game.php?id=". $game->id."&gameid=".$game->game->id."\"class=\"IdProperty\"></a>";
-                echo    "<div class=\"card-header\">";
-                echo        "<h3 class=\"name\">" . $game->game->name . "</h3>";
-                echo    "</div>
-                        <div class=\"card-body\"> ";
-                echo        "<img loading=\"lazy\" src=\"https://" . str_replace("t_thumb", "t_cover_big", $game->url) . "\">";
-                echo    "</div>
+                $name = $game->game->name;
+                echo "<div class=\"card\">
+                        <div class=\"card-header\">
+                            <a href=\"game.php?id=". $game->id."&gameid=".$game->game->id."\"class=\"IdProperty\" title = \"$name\"></a>
+                            <h3 class=\"name\">" . $game->game->name . "</h3>
+                        </div>
+                        <div class=\"card-body\">
+                            <img loading=\"lazy\" src=\"https://" . str_replace("t_thumb", "t_cover_big", $game->url) . "\">
+                        </div>
                     </div>";
             }
             ?>
@@ -67,14 +68,15 @@ if ($err) {
         <div id="wrapper2" class="container card-content">
             <?php
             foreach ($top_games as $game) {
-                echo "<div class=\"card\">
-                        <div class=\"card-header\">";
-                echo        "<a href=\"game.php?id=" . $game->id ."&gameid=".$game->game->id."\"class=\"IdProperty\"></a>";
-                echo        "<h3 class=\"name\">" . $game->game->name . "</h3>";
-                echo    "</div>
-                        <div class=\"card-body\"> ";
-                echo        "<img loading=\"lazy\" src=\"https://" . str_replace("t_thumb", "t_cover_big", $game->url) . "\">";
-                echo    "</div>
+                $name = $game->game->name;
+                echo "<div class=\"card\" >
+                        <div class=\"card-header\">
+                            <a href=\"game.php?id=" . $game->id ."&gameid=".$game->game->id."\"class=\"IdProperty\" title = \"$name\"></a>
+                            <h3 class=\"name\">" . $game->game->name . "</h3>
+                        </div>
+                        <div class=\"card-body\">
+                            <img loading=\"lazy\" src=\"https://" . str_replace("t_thumb", "t_cover_big", $game->url) . "\">
+                        </div>
                     </div>";                   
             }
 

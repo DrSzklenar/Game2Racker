@@ -6,7 +6,7 @@ $sendComment = "name".bin2hex($bytes1);
 $commentInput = "name".bin2hex($bytes2);
 $functName = "name".bin2hex($bytes3);
 
-$commentField = "<div class=\"commentSection\">
+$commentField = "<section class=\"commentSection\">
 <div class=\"innerComments flexcol littleGap\">
     <h1>Comments</h1>
     <div class=\"writeComment flexcol\">
@@ -97,7 +97,7 @@ if (isset($_GET['gameid']) || isset($_GET['userid'])) {
 $commentField .= "</div>
 
 </div>
-</div>
+</section>
 <script type=\"text/javascript\">
 let {$sendComment} = document.getElementById(\"{$sendComment}\");
 let {$commentInput} = document.getElementById(\"{$commentInput}\");
@@ -187,6 +187,7 @@ let {$commentInput} = document.getElementById(\"{$commentInput}\");
         })
         .then(response => response.text())
         .then(data => {
+            console.log(data);
             if (data == \"NOPLIZ\") {
             }
             else if(data == \"GANTZ\"){

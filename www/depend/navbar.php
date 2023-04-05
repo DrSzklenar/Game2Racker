@@ -71,7 +71,7 @@ function printBar($userData) {
     
 ?>
 <nav>
-    <a class="banner" href="/"><img id="logo" src="https://fos.hu/14ud" alt=""><p id="g2r" >Game2Racker</p></a>
+    <a class="banner" href="/"><img id="logo" src="../img/logo.png" alt=""><p id="g2r" >Game2Racker</p></a>
     <div class="search">
         <form class="searchForm" action="/search.php" method="get">
             <div class="selectParent">
