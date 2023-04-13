@@ -14,31 +14,34 @@ if(isset($_POST['submit'])){
    
    
 
-   $select = " SELECT * FROM user WHERE email = '$email' && jelszo = '$pass' ";
+   $select = "SELECT * FROM `users` WHERE email = ? && jelszo = ?";
+   $stmt = $conn->prepare($select);
+   $stmt->bind_param('ss', $email,$pass);
+   $stmt->execute();
+   $result = $stmt->get_result();
+   $row = $result->fetch_assoc();
+   $stmt->reset();
 
-   $result = mysqli_query($conn, $select);
+   if($result->num_rows == 1){
+      echo "MIVAAA!!!!!!";
+      $bytes = random_bytes(20);
+      $token = bin2hex($bytes);
+      $newId =  $row['id'];
+      $stmt = $conn->prepare("INSERT INTO `sessions`(`userID`, `active`, `token`, `expires`) VALUES (?,true,?,DATE_ADD(CURRENT_TIMESTAMP(), INTERVAL 3 DAY));");
 
-   if(mysqli_num_rows($result) ===1){
-      $row = mysqli_fetch_array($result);
-      if($row['email'] === $email && $row['password'] === $jelszo){
-         $bytes = random_bytes(20);
-         $token = bin2hex($bytes);
-         
-         $sql = "INSERT INTO `sessions`(`userID`, `active`, `token`, `acquired`, `expires`) VALUES ('".$row['id']."',   true,'$token','".date("Y-m-d H:i:s")."','".$NewDate=date('Y-m-d H:i:s', strtotime('+3 days'))."')";
-         // $sql = "INSERT INTO `sessions`(`userID`, `active`, `token`, `acquired`, `expires`) VALUES ()";
-         mysqli_query($conn, $sql);
-         if (!mysqli_query($conn, $sql_signup)) {
-            array_push($error,"Problem with connection");
-         }
-         setcookie("session", $token, time() + (60*60*24*7), "/");
+      $stmt->bind_param('ss', $row['id'],$token);
+      $stmt->execute();
+      $stmt->reset();
 
-         // $_SESSION['email'] = $row['email'];
-         // $_SESSION['jelszo'] = $row['jelszo'];
-         sleep(1);
-         header("Location: ". $_SESSION['current_page']);
-      }
-     
-   }else{
+      setcookie("session", $token, time() + (60*60*24*7), "/");
+
+      // $_SESSION['email'] = $row['email'];
+      // $_SESSION['jelszo'] = $row['jelszo'];
+      header("Location: ". $_SESSION['current_page']);
+
+   }
+   else
+   {
       array_push($error,"incorrect password or email");
    }
 

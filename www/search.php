@@ -7,6 +7,8 @@ require("depend/connection.php");
 $searchWord = $_GET["search"];
 $searchType = $_GET["type"];
 
+
+
 // where game.follows > 4
 
 $searchQuery = '';
@@ -23,11 +25,11 @@ switch ($searchType) {
         $searchQuery = 'fields *,game.*,game.cover.*; where game.category = 1 | game.category = 2 | game.category = 7 | game.category = 3 & game.cover.url ~ *"//images.igdb.com"* ; search "'.$searchWord.'"; limit 50;';
         break;
     case 'users':
-        $searchQueryUser = "SELECT * FROM `user` WHERE nev LIKE '%{$searchWord}%';";
+        $searchQueryUser = "SELECT * FROM `users` WHERE nev LIKE '%{$searchWord}%';";
         break;
     default:
         $searchQuery = 'fields *,game.*,game.cover.*; where game.cover.url ~ *"//images.igdb.com"*; search "'.$searchWord.'"; limit 50;';
-        $searchQueryUser = "SELECT * FROM `user` WHERE nev LIKE '%{$searchWord}%';";
+        $searchQueryUser = "SELECT * FROM `users` WHERE nev LIKE '%{$searchWord}%';";
     break;
         
         
@@ -69,8 +71,8 @@ if ($searchQueryUser != "") {
 
             if ($searchQuery != "") {
                 foreach ($search_results as $result) {
-                    
-                    echo "<div class=\"card\">";
+                    $gameid = $result->game->cover->id;
+                    echo "<div class=\"card\" id = \"$gameid\">";
                     echo    "<a href=\"game.php?id=".$result->game->cover->id."&gameid=".$result->game->cover->game."\"class=\"IdProperty\"></a>";
                     echo   
                             "<div class=\"card-body\"> ";
@@ -78,10 +80,15 @@ if ($searchQueryUser != "") {
                     echo            "<h3 class = \"display\">" . $result->name . "</h3>";
                     echo    "</div>";
 
-                    echo    "<div class=\"card-header\">";
+                    echo    "<div class=\"card-header\">";  
                     echo        "<h3>" . $result->name . "</h3>";
                     echo    "</div>";
+                    echo "<div class = \"listbtnsearch\">";
+                    echo "<button type=\"submit\" class = \"buttonsize\" class = \"addtolistcolor\" title = \"Add to a list\"></button>";
+                    echo   "</div>";
                      echo   "</div>";
+                    
+                     
                 }
             }
             ?>
@@ -111,7 +118,14 @@ if ($searchQueryUser != "") {
             ?>
         </div>
     </div>
-               
+    
+    <!-- lists -->
+    
+    <?php require("depend/lists.php");?>
+
+
+    
+    <script src="js/modalsearch.js" defer></script>   
 </body>
 
 </html>

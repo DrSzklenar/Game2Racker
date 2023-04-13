@@ -73,6 +73,91 @@ body{
     align-content: center;
     justify-content: center;
 }
+
+
+
+ .buttonsize {
+    background-image: url("../img/addsymbol.png");
+    background-size: contain;
+    width: 31px;
+    height: 31px;
+    border: none;
+    margin-left: 5px;
+    z-index: 1;
+    cursor: pointer;
+    
+ }
+ .hidden {
+    display: none !important;
+}
+ .listbtnsearch {
+    display: flex;
+ }
+ #lists-menu{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40vw;
+    height: 60vh;
+    background-color: #f8f8f8;
+    z-index: 20;
+    user-select: none;
+    padding: 1rem;
+    border: 1px solid black;
+}
+
+#lists-menu *{
+    color: #000000;
+}
+
+
+#close-lists{
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 30px;
+    height: 30px;
+    color: rgb(0, 0, 0);
+    background: #ede9e996;
+}
+
+ #create-opener-parent{
+    height: 10%;
+}
+
+.list-options {
+    height: 2rem;
+}
+.list-options input{
+    height: 100%;
+    border: 1px solid black;
+    padding: 0.2rem;
+}
+
+.list-item-container{
+    height: 100%;
+    overflow-y: scroll;
+}
+
+.list-item{
+    border: 1px solid #000000;
+    border-radius: 1%/11%;
+    padding: 0.5rem;
+    cursor: pointer;
+}
+
+.list-item-active{
+    background: #de5d5d;
+    color: blue;
+}
+
+#close-lists:hover{
+    color: #c92323;
+    background: #ff00003d;
+}
+
+
 @media (min-width: 801px) {
     .card-header{
         text-align: center;

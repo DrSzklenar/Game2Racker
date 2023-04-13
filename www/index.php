@@ -1,7 +1,6 @@
 <?php
 
 require("depend/curl.php");
-
 $trendingQuery = 'f game.id,game.name,url,game.genres.name,game.first_release_date,game.summary,game.platforms.slug; where id >= 1 & game.category = 0 & game.first_release_date > 1672527600 & game.first_release_date < 1688162399 & game.platforms.slug = "win" & game.follows >= 1 & game.hypes >= 1 & game.cover.url ~ *"//images.igdb.com"*; l 500;';
 $topQuery = 'f game.name,url,game.genres.name,game.first_release_date,game.summary,game.platforms.slug,game.platforms.name, game.follows;
 where game.platforms.slug = "win" & game.follows > 100 & game.cover.url ~ *"//images.igdb.com"*; l 500;';
@@ -42,7 +41,7 @@ if ($err) {
 <body>
     <?php include("depend/navbar.php")?>
     <div class="trending">
-        <h1>New Releases</h1>
+        <h1 class="wrapper-name"> New Releases</h1>
         <div id="wrapper" class="container card-content">
 
             <?php
@@ -50,7 +49,7 @@ if ($err) {
                 $name = $game->game->name;
                 echo "<div class=\"card\">
                         <div class=\"card-header\">
-                            <a href=\"game.php?id=". $game->id."&gameid=".$game->game->id."\"class=\"IdProperty\" title = \"$name\"></a>
+                            <a href=\"game.php?gameid=". $game->id."\"class=\"IdProperty\" title = \"$name\"></a>
                             <h3 class=\"name\">" . $game->game->name . "</h3>
                         </div>
                         <div class=\"card-body\">
@@ -64,14 +63,14 @@ if ($err) {
 
 
     <div class="AlltimeTop">
-        <h1>All time Top games</h1>
+        <h1 class="wrapper-name">All time Top games</h1>
         <div id="wrapper2" class="container card-content">
             <?php
             foreach ($top_games as $game) {
                 $name = $game->game->name;
                 echo "<div class=\"card\" >
                         <div class=\"card-header\">
-                            <a href=\"game.php?id=" . $game->id ."&gameid=".$game->game->id."\"class=\"IdProperty\" title = \"$name\"></a>
+                            <a href=\"game.php?gameid=" . $game->id ."\"class=\"IdProperty\" title = \"$name\"></a>
                             <h3 class=\"name\">" . $game->game->name . "</h3>
                         </div>
                         <div class=\"card-body\">

@@ -1,22 +1,18 @@
 <?php
-$id = (int)$_GET['id'];
-$gameid = $_GET['gameid'];
+$id = (int)$_GET['gameid'];
+// $gameid = $_GET['gameid'];
 
 
 require("depend/connection.php");
 require("depend/curl.php");
 
 $url = "https://api.igdb.com/v4/covers";
-$urlscreen = "https://api.igdb.com/v4/screenshots";
-$web = "https://api.igdb.com/v4/websites";
-$dataQuery = 'f game.id, game.name,url,game.first_release_date,game.summary,game.platforms.slug,game.platforms.name,game.genres.name,game.involved_companies.company.name,game.videos.video_id,game.game_modes.name; where id =' . $id . '; l 1;';
-$screenQuery = 'f url; where game = ' . $gameid . ';';
-$steamQuery = 'f url; w game = ' . $gameid . ' & url ~ *"steam"*;';
-$epicQuery = 'f url; w game = ' . $gameid . ' & url ~ *"epicgames.com/store"*;';
+$dataQuery = 'f game.id, game.name,url,game.first_release_date,game.summary,game.platforms.slug,game.platforms.name,game.genres.name,game.involved_companies.company.name,game.videos.video_id,game.game_modes.name, game.screenshots.url,game.websites.url; where id =' . $id . '; l 1;';
+
+
 $CurledData = getData($url, $dataQuery);
-$CurledScreen = getData($urlscreen, $screenQuery);
-$Curledsteam = getData($web, $steamQuery);
-$Curledepic = getdata($web, $epicQuery);
+
+
 
 // storage 
 $gameName = "";
@@ -30,9 +26,7 @@ if ($err) {
 
 //echo $response;
 $game_data = json_decode($CurledData);
-$screen_data = json_decode($CurledScreen);
-$web_data = json_decode($Curledsteam);
-$epicweb_data = json_decode($Curledepic);
+
 
 ?>
 
@@ -63,7 +57,7 @@ $epicweb_data = json_decode($Curledepic);
                 <div class = \"flex2\">
                 
                     <div class = \"mediaflex\">
-                        <h1>" . $game->game->name . "</h1>";
+                        <h1>" . $gameName . "</h1>";
                         $timestamp = $game->game->first_release_date;
                         if ($timestamp == "") {
                             echo "";
@@ -91,39 +85,20 @@ $epicweb_data = json_decode($Curledepic);
                         }
 
                             echo "<div class = \"webflex\">";
-                            foreach ($web_data as $steam) {
-                                $steam1 = $steam->url;
-                                if ($steam1 == "") {
-                                    echo "<div class = \"epic\">";
-                                    foreach ($epicweb_data as $epic) {
-                                        echo "<a href=\"$epic->url \" target=\"_blank\"></a>";
-                                    }
-
-                                    echo "</div>";
-                                } else {
+                            
+                            foreach ($game->game->websites as $web) {
+                                if (preg_match('/steam/', $web->url)) {
                                     echo "<div class = \"steam\">";
-                                    foreach ($web_data as $steam) {
-                                        echo "<a href=\"$steam->url \" target=\"_blank\"></a>";
-                                    }
+                                        echo "<a href=\"$web->url  \" target=\"_blank\"></a>";
+                                    echo "</div>";  
+                                }
+                                if (preg_match('/epicgames.com\/store/', $web->url)) {
+                                    echo "<div class = \"epic\">";
+                                        echo "<a href=\"$web->url \" target=\"_blank\"></a>";
                                     echo "</div>";
                                 }
                             }
-                            foreach ($epicweb_data as $epic) {
-                                $epic1 = $epic->url;
-                                if ($epic1 == "") {
-                                    echo "<div class = \"steam\">";
-                                    foreach ($web_data as $steam) {
-                                        echo "<a href=\"$steam->url \" target=\"_blank\"></a>";
-                                    }
-                                    echo "</div>";
-                                } else {
-                                    echo "<div class = \"epic\">";
-                                    foreach ($epicweb_data as $epic) {
-                                        echo "<a href=\"$epic->url \" target=\"_blank\"></a>";
-                                    }
-                                    echo "</div>";
-                                }
-                            }
+                      
                         echo "</div>
                     </div>
                 </div>";
@@ -136,13 +111,13 @@ $epicweb_data = json_decode($Curledepic);
                     $gamePic = "https://" . str_replace("t_thumb", "t_1080p", $game->url);
 
                     require("depend/rating.php");
-
+                   
                     echo "<div class = \"buttonflex\">
-                            <button type=\"submit\" class = \"buttonsize\" id = \"stillplaying\" class = \"stillplayingcolor\" title = \"Playing\"></button>
-                            <button type=\"submit\" class = \"buttonsize\" id = \"completed\" class = \"completedcolor\" title = \"Completed\"></button>
-                            <button type=\"submit\" class = \"buttonsize\" id = \"addtolist\" class = \"addtolistcolor\" title = \"Add to a list\"></button>
-                            <button type=\"submit\" class = \"buttonsize\" id = \"wishlist\" class = \"wishlistcolor\" title = \"Wishlist\"></button>
-                            <button type=\"submit\" class = \"buttonsize\" id = \"favorite\" class = \"favoritecolor\" title = \"Favorite\"></button>
+                        <button type=\"submit\" class = \"buttonsize\" id = \"stillplaying\" class = \"stillplayingcolor\" title = \"Playing\"></button>
+                        <button type=\"submit\" class = \"buttonsize\" id = \"completed\" class = \"completedcolor\" title = \"Completed\"></button>
+                        <button type=\"submit\" class = \"buttonsize\" id = \"addtolist\" class = \"addtolistcolor\" title = \"Add to a list\"></button>
+                        <button type=\"submit\" class = \"buttonsize\" id = \"wishlist\" class = \"wishlistcolor\" title = \"Wishlist\"></button>
+                        <button type=\"submit\" class = \"buttonsize\" id = \"favorite\" class = \"favoritecolor\" title = \"Favorite\"></button>  
                         </div>
                     </div>
             </div>
@@ -159,17 +134,18 @@ $epicweb_data = json_decode($Curledepic);
             } else {
                 echo "<iframe src=\"https://www.youtube.com/embed/$yt_video_id\"title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" allowfullscreen></iframe>";
             }
-
-            foreach ($screen_data as $screen) {
-                $img_url = $screen->url;
-                if (preg_match('/\bhttps\b/', $img_url)) {
-                    echo "<img title=\"Double click to zoom\" src=\"" . str_replace("t_thumb", "t_1080p", $img_url) . "\">";
+                
+                foreach ($game->game->screenshots as $screen) {
+                    if (preg_match('/https/', $screen->url)) {
+                        echo "<img title=\"Double click to zoom\" src=\"" . str_replace("t_thumb", "t_1080p", $screen->url) . "\">";
+                    }
+                    else {
+                        echo "<img title=\"Double click to zoom\" src=\"https:" . str_replace("t_thumb", "t_1080p", $screen->url) . "\">";
+                    }
                 }
-                else {
-                    echo "<img title=\"Double click to zoom\" src=\"https:" . str_replace("t_thumb", "t_1080p", $img_url) . "\">";
-                }
+                
             
-            }
+            
             echo "</div>";
             
         }
@@ -290,7 +266,9 @@ $epicweb_data = json_decode($Curledepic);
 
     <script src="js/vanilla.kinetic.js"></script>
     <script type="text/javascript" charset="utf-8">
-        var $id = function(id) {
+    const mediaQuery = window.matchMedia('(min-width: 800px)')
+        if (mediaQuery.matches) {
+            var $id = function(id) {
             return document.getElementById(id);
         };
 
@@ -302,6 +280,9 @@ $epicweb_data = json_decode($Curledepic);
         };
 
         new VanillaKinetic(element);
+        }
+
+        
 
         // new VanillaKinetic(document.getElementById('wrapper'), {
         //     filterTarget: function(target, e) {

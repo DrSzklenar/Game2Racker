@@ -4,28 +4,33 @@ require("../depend/connection.php");
 
 if(isset($_POST['submit'])){
 
-   $name = mysqli_real_escape_string($conn, $_POST['name']);
-   $email = mysqli_real_escape_string($conn, $_POST['email']);
+   $name = htmlspecialchars($_POST['name']);
+   $email = htmlspecialchars($_POST['email']);
    $pass = md5($_POST['password']);
    $cpass = md5($_POST['cpassword']);
    
-
-   $select = " SELECT * FROM user WHERE email = '$email' OR nev = '$name' ";
-
-   $result = mysqli_query($conn, $select);
-
-   if(mysqli_num_rows($result) > 0){
-
+   $select = "SELECT * FROM `users` WHERE email = ? OR nev = ?";
+   $stmt = $conn->prepare($select);
+   $stmt->bind_param('ss', $email,$name);
+   $stmt->execute();
+   $result = $stmt->get_result();
+   $stmt->reset();
+   
+   if($result->num_rows > 0){
+      
       $error[] = 'User already exist!';
-
+      
    }else{
       
       if($pass != $cpass){
          $error[] = 'Password not matched!';
       }else{
-         $insert = "INSERT INTO user(nev, email, jelszo) VALUES('$name','$email','$pass')";
-      
-         mysqli_query($conn, $insert);
+         $insert = "INSERT INTO `users`(nev, email, jelszo) VALUES(?,?,?)";
+         $stmt = $conn->prepare($insert);
+         $stmt->bind_param('sss', $name,$email,$pass);
+         $stmt->execute();
+         $stmt->reset();   
+         echo $name;
          header("Location: login.php");
          exit();
       }

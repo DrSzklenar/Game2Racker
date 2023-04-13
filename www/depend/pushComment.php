@@ -40,11 +40,13 @@ function Did5SecondsPass($lastCommentDate){
     }
 }
 
-$cleanText = htmlspecialchars($text);
 if (isset($type) && ($type == "user" || $type == "game")) {
     if (isset($text) && $userData != false && Did5SecondsPass($lastCommentDate) && isset($madeOn)) {
-        $pushSQL = "INSERT INTO `comment`(`madeBy`, `madeOn`, `type`, `text`) VALUES ('{$userData['userID']}','{$madeOn}','{$type}','{$cleanText}');";
-        mysqli_query($conn, $pushSQL);
+        $cleanText = htmlspecialchars($text);
+        $pushSQL = "INSERT INTO `comment`(`madeBy`, `madeOn`, `type`, `text`) VALUES (?,?,?,?);";
+        $stmt = $conn->prepare($pushSQL);
+        $stmt->bind_param('iiss', $userData['userID'],$madeOn,$type,$cleanText);
+        $stmt->execute();
         echo "NOPLIZ";
     }
     else {
@@ -69,8 +71,10 @@ else if (isset($type) && $type == "vote") {
 }
 else if (isset($type) && $type == "delete") {
     if (isset($madeOn) && $userData != false) {
-        $deleteCommentSQL = "DELETE `comment`, ratios FROM `ratios` RIGHT JOIN comment ON comment.id = ratios.commentID WHERE comment.id = '{$madeOn}'  AND (comment.madeBy = '{$userData['userID']}' OR comment.madeOn = '{$userData['userID']}')";
-        mysqli_query($conn, $deleteCommentSQL);
+        $deleteCommentSQL = "DELETE `comment`, `ratios` FROM `ratios` RIGHT JOIN `comment` ON `comment`.id = `ratios`.commentID WHERE `comment`.id = ? AND (`comment`.madeBy = ? OR `comment`.madeOn = ?)";
+        $stmt = $conn->prepare($deleteCommentSQL);
+        $stmt->bind_param('iii', $madeOn,$userData['userID'],$userData['userID']);
+        $stmt->execute();
         echo "DELETED";
     }
     else {

@@ -125,7 +125,7 @@
 }
 
 .card-header {
-    font-size: 1.4vw;
+    font-size: 1.2vw;
     max-width: 100%;
 }
 
@@ -135,7 +135,23 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     display: block;
+    max-width: 10vw;
 }
+
+.steamurl {
+    width: 50px;
+    height: 50px;
+    background-image: url("../img/steam-logo-transparent.png");
+    background-size: contain;
+    position: relative;
+ }
+ .steamurl a {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+ }
+
+
 
 @media (max-width: 1000px) {
     .card {

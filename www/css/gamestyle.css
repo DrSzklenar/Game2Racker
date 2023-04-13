@@ -351,6 +351,10 @@ h1 {
  }
 
  @media (max-width: 800px) {
+    #lists-menu {
+        width: 95vw;
+        height: 85vh;
+    }
     .flex {
         display: flex;
         flex-direction: column-reverse;

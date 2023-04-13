@@ -80,8 +80,10 @@ function Did5SecondsPass($lastListDate){
 
 if (isset($type) && $type == "create") {
     if ($userData != false && isset($listName) && isset($listVis) && Did5SecondsPass($lastListDate) && ($listVis == 1 || $listVis == 0)) {
-        $pushListSQL = "INSERT INTO `lists`(`userID`, `nev`, `visibility`) VALUES ('{$userData['userID']}','{$listName}','{$listVis}')";
-        mysqli_query($conn, $pushListSQL);
+        $pushListSQL = "INSERT INTO `lists`(`userID`, `nev`, `visibility`) VALUES (?,?,?)";
+        $stmt = $conn->prepare($pushListSQL);
+        $stmt->bind_param('isi', $userData['userID'],$listName,$listVis);
+        $stmt->execute();
         echo "INSERTED";
     }
     else {
@@ -90,11 +92,13 @@ if (isset($type) && $type == "create") {
 }
 else if (isset($type) && $type == "add") {
     if ($userData != false) {
-        $isListTheUsersSQL = "SELECT * FROM `lists` WHERE userID = '{$userData['userID']}' AND id = '{$listID}';";
-        $GameExistsSQL = "SELECT * FROM `listGames` WHERE gameID = '{$gameID}' and listID = '{$listID}';";
+        $isListTheUsersSQL = "SELECT * FROM `lists` WHERE userID = {$userData['userID']} AND id = {$listID};";
+        $GameExistsSQL = "SELECT * FROM `listGames` WHERE gameID = {$gameID} and listID = {$listID};";
         if (mysqli_num_rows(mysqli_query($conn, $isListTheUsersSQL)) > 0 && mysqli_num_rows(mysqli_query($conn, $GameExistsSQL)) == 0) {
-            $pushListGamesSQL = "INSERT INTO `listGames`(`listID`, `gameID`, `name`, `picture`) VALUES ('{$listID}','{$gameID}','{$gameName}','{$gamePic}');";
-            mysqli_query($conn, $pushListGamesSQL);
+            $pushListGamesSQL = "INSERT INTO `listGames`(`listID`, `gameID`, `name`, `picture`) VALUES (?,?,?,?);";
+            $stmt = $conn->prepare($pushListGamesSQL);
+            $stmt->bind_param('iiss',$listID,$gameID,$gameName,$gamePic);
+            $stmt->execute();
             
             echo "INSERTED";
         }

@@ -26,6 +26,10 @@ html,body{
     
 }
 
+.wrapper-name{
+    margin-left: 1vw;
+}
+
 .card{
     display: flex;
     flex-direction: column;

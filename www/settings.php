@@ -38,6 +38,19 @@ require("depend/connection.php");
             <input type=\"button\" value=\"Set\" id=\"sendSettings\">
     
             </form>
+
+            <form action=\"\">
+            <div class=\"Text\">
+            <h1>Set your steam profile link</h1>
+            
+            </div>
+
+            <input type=\"url\" name=\"Url\" id=\"steamUrl\">
+            <input type=\"button\" value=\"Set\" id=\"sendSettingsSteam\">
+    
+            </form>
+
+
             
             <script>
             let picUrl = document.getElementById(\"pictureUrl\");
@@ -60,6 +73,28 @@ require("depend/connection.php");
                     console.log(\"gag\");
                 
             });
+            let steamUrl = document.getElementById(\"steamUrl\");
+            let sendSettingsSteam = document.getElementById(\"sendSettingsSteam\");
+
+            sendSettingsSteam.addEventListener('click',() => {
+                let dataForPHP = new FormData();
+                dataForPHP.append(\"userID\", {$id});
+                dataForPHP.append(\"steamUrl\", steamUrl.value);
+        
+                fetch(`depend/pushSettings.php`, {
+                        method: \"POST\",
+                        body: dataForPHP
+                    })
+                    .then(response => response.text())
+                    .then(data => {
+                        console.log(data);
+                    })
+                    .catch(error => console.log(error));
+                    console.log(\"gag\");
+                
+            });
+
+
         </script>";
         echo $html;
 

@@ -3,10 +3,11 @@
 
 $userid = $_GET['userid'];
 $username = $_GET['user'];
+
 require("depend/connection.php");
 
 
-$userSQL = "select * from user where id='{$userid}'";
+$userSQL = "SELECT * FROM `users` WHERE id='{$userid}'";
 $queriedUser = mysqli_query($conn, $userSQL);
 if (mysqli_num_rows($queriedUser) === 1) {
     $row = mysqli_fetch_array($queriedUser);
@@ -17,6 +18,7 @@ if (mysqli_num_rows($queriedUser) === 1) {
 }
 
 $listQuery = 'f game.id, game.name,url,game.first_release_date,game.summary,game.platforms.slug,game.platforms.name,game.genres.name,game.involved_companies.company.name,game.videos.video_id,game.game_modes.name; where id =' . $id . '; l 1;';
+
 
 
 ?>
@@ -45,6 +47,22 @@ $listQuery = 'f game.id, game.name,url,game.first_release_date,game.summary,game
                 <h1 class="name"><?php echo $row['nev']; ?></h1>
                 <?php require("depend/rating.php"); ?>
             </div>
+                <?php
+                
+              
+                        if ($row['steam'] != "") {
+                            echo "<div class=\"steamurl\">
+                        <a href=\"{$row['steam']}\" target = \"_blank\"></a>
+                        </div>";
+                        }
+                   
+                            
+                
+                
+                
+               
+                    
+                    ?>
         </div>
         <div class="lists-section flexcol">
                 <?php
@@ -57,8 +75,10 @@ $listQuery = 'f game.id, game.name,url,game.first_release_date,game.summary,game
                     echo "<div id=\"{$list['id']}\" class=\"list-item\"><h1 class=\"lists-name\">{$list['nev']}</h1> <div class=\"wrapper container card-content\">";
 
                     while ($games = mysqli_fetch_array($allGamesInList)) {
+                        
                         echo "<div class=\"card\" >
                             <div class=\"card-header\">
+                            
                                 <h3 class=\"name\">" . $games['name'] . "</h3>
                             </div>
                             <div class=\"card-body\">

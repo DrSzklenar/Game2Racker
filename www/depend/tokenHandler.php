@@ -6,9 +6,9 @@ mysqli_query($conn, $queryAll);
 
 $tokenQuery = "
 SELECT 
-user.id,user.nev,user.avatar,user.email,sessions.id,sessions.userID,sessions.active,sessions.token,sessions.acquired,sessions.expires
-FROM `user` RIGHT JOIN sessions on sessions.userID = user.id
-WHERE sessions.token = '{$_COOKIE["session"]}'
+`users`.id,`users`.nev,`users`.avatar,`users`.email,`sessions`.id,`sessions`.userID,`sessions`.active,`sessions`.token,`sessions`.acquired,`sessions`.expires
+FROM `users` RIGHT JOIN `sessions` on `sessions`.userID = `users`.id
+WHERE `sessions`.token = '{$_COOKIE["session"]}'
 AND active = '1'
 ";
 

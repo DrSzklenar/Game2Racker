@@ -85,10 +85,10 @@ CREATE TABLE `sessions` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user`
+-- Table structure for table `users`
 --
 
-CREATE TABLE `user` (
+CREATE TABLE `users` (
   `id` int NOT NULL,
   `nev` varchar(255) COLLATE utf8mb4_hungarian_ci NOT NULL,
   `avatar` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_hungarian_ci DEFAULT 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png',
@@ -132,9 +132,9 @@ ALTER TABLE `sessions`
   ADD KEY `userID` (`userID`);
 
 --
--- Indexes for table `user`
+-- Indexes for table `users`
 --
-ALTER TABLE `user`
+ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -166,9 +166,9 @@ ALTER TABLE `sessions`
   MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `user`
+-- AUTO_INCREMENT for table `users`
 --
-ALTER TABLE `user`
+ALTER TABLE `users`
   MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
@@ -179,26 +179,26 @@ ALTER TABLE `user`
 -- Constraints for table `comment`
 --
 ALTER TABLE `comment`
-  ADD CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`madeBy`) REFERENCES `user` (`id`);
+  ADD CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`madeBy`) REFERENCES `users` (`id`);
 
 --
 -- Constraints for table `ratingTable`
 --
 ALTER TABLE `ratingTable`
-  ADD CONSTRAINT `ratingTable_ibfk_1` FOREIGN KEY (`ratedBy`) REFERENCES `user` (`id`);
+  ADD CONSTRAINT `ratingTable_ibfk_1` FOREIGN KEY (`ratedBy`) REFERENCES `users` (`id`);
 
 --
 -- Constraints for table `ratios`
 --
 ALTER TABLE `ratios`
-  ADD CONSTRAINT `ratios_ibfk_2` FOREIGN KEY (`userID`) REFERENCES `user` (`id`),
+  ADD CONSTRAINT `ratios_ibfk_2` FOREIGN KEY (`userID`) REFERENCES `users` (`id`),
   ADD CONSTRAINT `ratios_ibfk_3` FOREIGN KEY (`commentID`) REFERENCES `comment` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `sessions`
 --
 ALTER TABLE `sessions`
-  ADD CONSTRAINT `sessions_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `user` (`id`);
+  ADD CONSTRAINT `sessions_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `users` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

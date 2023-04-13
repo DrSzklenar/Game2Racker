@@ -375,7 +375,7 @@ nav img{
     border: 5px solid black;
     border-radius: 20px;
     width: 50%;
-    margin-top: 20px;
+    margin: 20px 0;
     padding: 20px;
     align-items: center;
 }
@@ -416,6 +416,15 @@ nav img{
     margin-left: 25px;
     word-wrap: break-word;
 }
+
+.commenter-name a{
+    text-decoration: none;
+    color: black;
+}
+.commenter-name a:hover{
+    color: brown;
+}
+
 .kuka {
     position: absolute;
     justify-self: end;

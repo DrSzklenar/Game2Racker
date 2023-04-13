@@ -27,8 +27,8 @@ if (isset($_GET['gameid']) || isset($_GET['userid'])) {
         $whereAmI = "user";
     }
     $commentsSQL = "SELECT 
-    comment.id AS 'comment_id' ,comment.parentID,comment.madeBy,comment.madeOn,comment.type,comment.date,comment.text, user.id AS 'user_id' , user.nev, user.avatar, IFNULL(SUM(ratios.ratio),0) as ratio
-    FROM `comment` LEFT JOIN `user` ON comment.madeBy = user.id 
+    comment.id AS 'comment_id' ,comment.parentID,comment.madeBy,comment.madeOn,comment.type,comment.date,comment.text, `users`.id AS 'user_id' , `users`.nev, `users`.avatar, IFNULL(SUM(ratios.ratio),0) as ratio
+    FROM `comment` LEFT JOIN `users` ON comment.madeBy = `users`.id 
     LEFT JOIN `ratios` ON ratios.commentID = comment.id 
     WHERE comment.type = '{$whereAmI}' AND comment.madeOn = '{$wholeGrainId}' GROUP BY comment.id  ORDER BY comment.date DESC;";
     $queriedComments = mysqli_query($conn, $commentsSQL);
@@ -77,7 +77,7 @@ if (isset($_GET['gameid']) || isset($_GET['userid'])) {
             <div class=\"rightside flexcol\">
                 <div class=\"nameAndDate flexrow littleGap\">
                     <img class=\"commentAvatar\" src=\"{$commentRow['avatar']}\" alt=\"\">
-                    <h2><a href=\"profile.php?user=".$commentRow['nev']."&userid=".$commentRow['user_id']."\"class=\"\">{$commentRow['nev']}</a></h2>
+                    <h2 class=\"commenter-name\"><a href=\"profile.php?user=".$commentRow['nev']."&userid=".$commentRow['user_id']."\"class=\"\">{$commentRow['nev']}</a></h2>
                     <h4>{$commentRow['date']}</h4>
                 </div>
                 <div class=\"content\">
@@ -215,6 +215,7 @@ let {$commentInput} = document.getElementById(\"{$commentInput}\");
             console.log(data)
             if (data == \"DELETED\") {
                 console.log(element.parentElement.id);
+                element.parentElement.remove();
             }
         })
         .catch(error => console.log(error));
