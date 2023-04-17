@@ -11,7 +11,7 @@ $commentField = "<section class=\"commentSection\">
     <h1>Comments</h1>
     <div class=\"writeComment flexcol\">
         <h2>Write a comment...</h2>
-        <textarea name=\"\" id=\"{$commentInput}\" cols=\"30\" rows=\"10\"></textarea>
+        <textarea name=\"\" id=\"{$commentInput}\" cols=\"30\" rows=\"10\" style = \"resize: none\"></textarea>
         <input type=\"button\" value=\"Comment\" id=\"{$sendComment}\">
     </div>
     <div class=\"commentContainer littleGap\">";

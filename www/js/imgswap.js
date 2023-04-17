@@ -1,18 +1,16 @@
 let playing = document.getElementById('stillplaying');
+let completed = document.getElementById('completed');
 
 playing.addEventListener("click",() => {
-    
-   playing.classList.toggle("stillplayingcolor");
    
+   playing.classList.add("stillplayingcolor");
+   completed.classList.remove("completedcolor");
 });
-
-
-let completed = document.getElementById('completed');
 
 completed.addEventListener("click",() => {
     
-   completed.classList.toggle("completedcolor");
-   
+   completed.classList.add("completedcolor");
+   playing.classList.remove("stillplayingcolor");
 });
 
 let addlistc = document.getElementById('addtolist');

@@ -61,9 +61,18 @@
 /* lists */
 .lists-section{
     width: calc(100% - 20%);
-    min-height: 80vh;
+    /* min-height: 80vh; */
     background-color: #e9e3e3;
     align-items: flex-start;
+    padding: 1rem;
+}
+
+.lists-section details{
+    width: 100%;
+}
+.lists-section summary{
+    cursor: pointer;
+    user-select: none;
 }
 
 .uncollapsible{

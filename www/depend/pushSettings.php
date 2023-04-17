@@ -7,9 +7,7 @@ header("Access-Control-Allow-Origin: *");
 
 require("connection.php");
 require("tokenHandler.php");
-
-$result = mysqli_query($conn, $tokenQuery);
-
+$userData = getUserData($result);
 
 
 $userID = $_POST["userID"];
@@ -29,7 +27,7 @@ else {
     $steamUrl = null;
 }
 
-if (isThereValidToken($result) && isset($userID) && isset($picUrl)) {
+if (!empty($userData) && isset($userID) && isset($picUrl)) {
     $pushSQL = "UPDATE `users` SET `avatar`= ? WHERE id = ?;";
     $stmt = $conn->prepare($pushSQL);
     $stmt->bind_param('si', $picUrl,$userID);
@@ -38,7 +36,7 @@ if (isThereValidToken($result) && isset($userID) && isset($picUrl)) {
     echo "UPDATED";   
 }
 
-if (isThereValidToken($result) && isset($userID) && isset($steamUrl) && (preg_match('/\bhttps:\/\/steamcommunity.com\/id\b/', $steamUrl) || $steamUrl = "")) {
+if (!empty($userData) && isset($userID) && isset($steamUrl) && (preg_match('/https:\/\/steamcommunity.com\/id/', $steamUrl) || $steamUrl = "")) {
     $pushSQL = "UPDATE `users` SET `steam`= ? WHERE id = ?;";
     $stmt = $conn->prepare($pushSQL);
     $stmt->bind_param('si', $steamUrl,$userID);

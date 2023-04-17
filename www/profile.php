@@ -65,6 +65,7 @@ $listQuery = 'f game.id, game.name,url,game.first_release_date,game.summary,game
                     ?>
         </div>
         <div class="lists-section flexcol">
+            <div id="opener">Nyitas</div>
                 <?php
                 
                 $queryUsersLists = "SELECT `lists`.id,`lists`.`userID`,`lists`.`nev`,`lists`.`type`,`lists`.`visibility`,`lists`.`order`,`lists`.`updated` FROM `lists` RIGHT JOIN `listGames` ON `lists`.id = `listGames`.listID WHERE `lists`.`userID` = '{$userid}' GROUP BY `lists`.`id`;";
@@ -72,7 +73,7 @@ $listQuery = 'f game.id, game.name,url,game.first_release_date,game.summary,game
                 while($list = mysqli_fetch_assoc($allListsUser)) {
                     $allGamesInListSQL = "SELECT * FROM `listGames` WHERE listID = {$list['id']};";
                     $allGamesInList = mysqli_query($conn,$allGamesInListSQL);
-                    echo "<div id=\"{$list['id']}\" class=\"list-item\"><h1 class=\"lists-name\">{$list['nev']}</h1> <div class=\"wrapper container card-content\">";
+                    echo "<details open id=\"{$list['id']}\" class=\"list-item\"><summary class=\"lists-name\">{$list['nev']}</summary> <div class=\"wrapper container card-content\">";
 
                     while ($games = mysqli_fetch_array($allGamesInList)) {
                         
@@ -88,13 +89,18 @@ $listQuery = 'f game.id, game.name,url,game.first_release_date,game.summary,game
                     }
 
 
-                    echo "</div></div>";
+                    echo "</div></details>";
                     
                     
                 }
                             
                 ?>
-            
+            <script>
+                document.getElementById('opener').addEventListener("click", (e) => {
+                e.preventDefault()
+                document.body.querySelectorAll('details').forEach((e) => (e.hasAttribute('open')) ? e.removeAttribute('open') : e.setAttribute('open', true))
+                })
+            </script>
         </div>
     </section>
 

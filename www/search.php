@@ -73,7 +73,7 @@ if ($searchQueryUser != "") {
                 foreach ($search_results as $result) {
                     $gameid = $result->game->cover->id;
                     echo "<div class=\"card\" id = \"$gameid\">";
-                    echo    "<a href=\"game.php?id=".$result->game->cover->id."&gameid=".$result->game->cover->game."\"class=\"IdProperty\"></a>";
+                    echo    "<a href=\"game.php?gameid=".$result->game->cover->id."\"class=\"IdProperty\"></a>";
                     echo   
                             "<div class=\"card-body\"> ";
                     echo        "<img loading=\"lazy\" src=\"https://" . str_replace("t_thumb", "t_cover_big", $result->game->cover->url) . "\">";

@@ -1,7 +1,9 @@
 <?php
-$queryAll = "UPDATE `sessions` SET `active`='0' WHERE expires < '".date("Y-m-d H:i:s")."'";
+// minden amihez felhaszáló autentikáció szükséges ezt a filet használja. A legtöbb oldalon ez a navbarban történik.
 
+$queryAll = "UPDATE `sessions` SET `active`='0' WHERE expires < '".date("Y-m-d H:i:s")."'";
 mysqli_query($conn, $queryAll);
+// Ez a lekérdezés invalidálja az összes lejárt tokent
 
 
 $tokenQuery = "
@@ -12,44 +14,18 @@ WHERE `sessions`.token = '{$_COOKIE["session"]}'
 AND active = '1'
 ";
 
-
-/*
-//1. eset ez a mostani megoldás: 
-//ha igaz:
-$userData = array(...);
-//ha hamis
-$userData = false (boolean);
-
-//2. erre lehetne dosni: 
-//ha igaz:
-$userData = array(userdata));
-//ha hamis
-$userData = array(ürestömb)
-*/
-
 $result = mysqli_query($conn, $tokenQuery);
-
-
-
-
-function isThereValidToken($result){
-    if (mysqli_num_rows($result) === 1) {
-        return true;
-    } else {
-        return false;
-    }
-    return false;
-}
+// Ez a lekérdezés megnézi hogy létezik e olyan sor az adatbázisban amiben a token egyezik a belépéskor beállított cookieval
 
 function getUserData($result){
-    if (isThereValidToken(($result))) {
+    if (mysqli_num_rows($result) === 1) {
         return mysqli_fetch_array($result);
     }
     else {
         return array();
     }
 }
-
+//ha van akkor visszaküldi az adatokat a function, egyébként üres tömböt küld
 
 
 ?>

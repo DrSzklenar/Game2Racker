@@ -6,11 +6,11 @@ $id = (int)$_GET['gameid'];
 require("depend/connection.php");
 require("depend/curl.php");
 
+
 $url = "https://api.igdb.com/v4/covers";
 $dataQuery = 'f game.id, game.name,url,game.first_release_date,game.summary,game.platforms.slug,game.platforms.name,game.genres.name,game.involved_companies.company.name,game.videos.video_id,game.game_modes.name, game.screenshots.url,game.websites.url; where id =' . $id . '; l 1;';
-
-
 $CurledData = getData($url, $dataQuery);
+// A játékok lekérdezéséhez el kell érni az IGDB apiját amit a curl.php-ban írtunk meg. Az url változó itt a covers táblában keres és a dataQuery váltázóban adjuk meg a lekérdezést.
 
 
 
@@ -26,6 +26,7 @@ if ($err) {
 
 //echo $response;
 $game_data = json_decode($CurledData);
+// a game_data változóban json-é alakítjuk az adatokat
 
 
 ?>
@@ -50,6 +51,7 @@ $game_data = json_decode($CurledData);
     <?php include("depend/navbar.php") ?>
     <div class="game-container">
         <?php
+        // Egy foreach ciklusban végig megyünk az adatokon és kíírunk minden számunkra szükséges információt a játékhoz
         foreach ($game_data as $game) {
             $gameName = $game->game->name;
             echo "<div class = \"flex\">
@@ -88,14 +90,14 @@ $game_data = json_decode($CurledData);
                             
                             foreach ($game->game->websites as $web) {
                                 if (preg_match('/steam/', $web->url)) {
-                                    echo "<div class = \"steam\">";
-                                        echo "<a href=\"$web->url  \" target=\"_blank\"></a>";
-                                    echo "</div>";  
+                                    echo "<div class = \"steam\">
+                                        <a href=\"$web->url  \" target=\"_blank\"></a>
+                                    </div>";  
                                 }
                                 if (preg_match('/epicgames.com\/store/', $web->url)) {
-                                    echo "<div class = \"epic\">";
-                                        echo "<a href=\"$web->url \" target=\"_blank\"></a>";
-                                    echo "</div>";
+                                    echo "<div class = \"epic\">
+                                        <a href=\"$web->url \" target=\"_blank\"></a>
+                                    </div>";
                                 }
                             }
                       
@@ -112,16 +114,20 @@ $game_data = json_decode($CurledData);
 
                     require("depend/rating.php");
                    
-                    echo "<div class = \"buttonflex\">
-                        <button type=\"submit\" class = \"buttonsize\" id = \"stillplaying\" class = \"stillplayingcolor\" title = \"Playing\"></button>
-                        <button type=\"submit\" class = \"buttonsize\" id = \"completed\" class = \"completedcolor\" title = \"Completed\"></button>
-                        <button type=\"submit\" class = \"buttonsize\" id = \"addtolist\" class = \"addtolistcolor\" title = \"Add to a list\"></button>
+                    echo "<div class = \"buttonflex\">";
+                          
+                       echo "<button type=\"submit\" class = \"buttonsize\" id = \"stillplaying\" class = \"stillplayingcolor\" title = \"Playing\"></button>";
+                      echo  "<button type=\"submit\" class = \"buttonsize\" id = \"completed\" class = \"completedcolor\" title = \"Completed\"></button>";
+
+                        
+                     echo "<button type=\"submit\" class = \"buttonsize\" id = \"addtolist\" class = \"addtolistcolor\" title = \"Add to a list\"></button>
                         <button type=\"submit\" class = \"buttonsize\" id = \"wishlist\" class = \"wishlistcolor\" title = \"Wishlist\"></button>
                         <button type=\"submit\" class = \"buttonsize\" id = \"favorite\" class = \"favoritecolor\" title = \"Favorite\"></button>  
                         </div>
                     </div>
+                    
             </div>
-
+            
             <div class = \"summary\">
                 <p>" . $game->game->summary . "</p>
             </div>

@@ -1,6 +1,5 @@
 let buttons = document.querySelectorAll('.buttonsize');
 
-let addtolist = document.getElementById('addtolist');
 let listMenu = document.getElementById('lists-menu');
 
 let closeLists = document.getElementById('close-lists');

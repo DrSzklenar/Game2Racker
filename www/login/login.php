@@ -23,7 +23,6 @@ if(isset($_POST['submit'])){
    $stmt->reset();
 
    if($result->num_rows == 1){
-      echo "MIVAAA!!!!!!";
       $bytes = random_bytes(20);
       $token = bin2hex($bytes);
       $newId =  $row['id'];

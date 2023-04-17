@@ -8,7 +8,6 @@ mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
 require("connection.php");
 require("tokenHandler.php");
-$result = mysqli_query($conn, $tokenQuery);
 $userData = getUserData($result);
 
 $madeOn = $_POST["madeOn"];
@@ -41,7 +40,7 @@ function Did5SecondsPass($lastCommentDate){
 }
 
 if (isset($type) && ($type == "user" || $type == "game")) {
-    if (isset($text) && $userData != false && Did5SecondsPass($lastCommentDate) && isset($madeOn)) {
+    if (isset($text) && !empty($userData) && Did5SecondsPass($lastCommentDate) && isset($madeOn)) {
         $cleanText = htmlspecialchars($text);
         $pushSQL = "INSERT INTO `comment`(`madeBy`, `madeOn`, `type`, `text`) VALUES (?,?,?,?);";
         $stmt = $conn->prepare($pushSQL);
@@ -54,7 +53,7 @@ if (isset($type) && ($type == "user" || $type == "game")) {
     }
 }
 else if (isset($type) && $type == "vote") {
-    if (isset($type) && $type == "vote" && $userData != false && isset($ratio) && ($ratio <= 1 && $ratio >= -1) && isset($madeOn)) {
+    if (isset($type) && $type == "vote" && !empty($userData) && isset($ratio) && ($ratio <= 1 && $ratio >= -1) && isset($madeOn)) {
         $voteSQL = "SELECT * FROM `ratios` WHERE  commentID = {$madeOn} AND userID = {$userData['userID']}";
         $queriedVote = mysqli_query($conn, $voteSQL);
         if (mysqli_num_rows($queriedVote) == 0) {
@@ -70,7 +69,7 @@ else if (isset($type) && $type == "vote") {
     }
 }
 else if (isset($type) && $type == "delete") {
-    if (isset($madeOn) && $userData != false) {
+    if (isset($madeOn) && !empty($userData)) {
         $deleteCommentSQL = "DELETE `comment`, `ratios` FROM `ratios` RIGHT JOIN `comment` ON `comment`.id = `ratios`.commentID WHERE `comment`.id = ? AND (`comment`.madeBy = ? OR `comment`.madeOn = ?)";
         $stmt = $conn->prepare($deleteCommentSQL);
         $stmt->bind_param('iii', $madeOn,$userData['userID'],$userData['userID']);
