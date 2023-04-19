@@ -367,22 +367,28 @@ nav img{
     flex-direction: column;
     overflow-x: hidden;
     height: 60vh;
-    max-width: -webkit-fill-available;
-}
-
-
-.innerComments {
-    border: 5px solid black;
-    border-radius: 20px;
-    width: 50%;
-    margin: 20px 0;
-    padding: 20px;
-    align-items: center;
+    width: -webkit-fill-available;
 }
 
 
 .writeComment{
     width: 100%;
+    border: 1px solid;
+}
+
+.writeComment textarea{
+    resize: none;
+    padding: 2vw;
+}
+
+.comment-send{
+    height: 1.5rem;
+    cursor: pointer;
+}
+
+.comment-send:hover{
+    background: #c7c7ef;
+    color: #8d37f2;
 }
 
 .nameAndDate{
@@ -402,7 +408,7 @@ nav img{
 
 .comment{
     display: grid;
-    grid-template-columns: 10% auto auto;
+    grid-template-columns: 10% auto;
     position: relative;
     border: 1px solid black;
     padding: 20px;
@@ -410,11 +416,15 @@ nav img{
 
 .rightside{
     overflow: hidden;
+    width: -webkit-fill-available;
 }
 
-.content{
-    margin-left: 25px;
-    word-wrap: break-word;
+.commenter-name{
+    width: calc(100% - 70px);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: block;
 }
 
 .commenter-name a{
@@ -425,7 +435,17 @@ nav img{
     color: brown;
 }
 
-.kuka {
+.comment-date {
+    position: absolute;
+    top: 0.5vh;
+    right: 0.5vw;
+    font-size: 0.7rem;
+    color: #7c7c7c;
+}
+
+
+
+.commentSection .kuka {
     position: absolute;
     justify-self: end;
     height: fit-content;
@@ -433,6 +453,8 @@ nav img{
     top: 26px;
     right: 14px;
 }
+
+
 
 .kuka i{
     font-size: 1.3rem;
@@ -489,6 +511,30 @@ nav img{
 .inactive-dislike{
     color: #b38c8c !important;
 }
+
+/* lists */
+
+.list-item {
+    position: relative;
+    border: 1px solid #000000;
+    border-radius: 1%/11%;
+    padding: 0.5rem;
+    cursor: pointer;
+}
+
+
+
+.list-item .kuka{
+    position: absolute;
+    justify-self: end;
+    height: fit-content;
+    cursor: pointer;
+    top: 15px;
+    right: 10px;
+}
+
+
+
 
 /* range on all pages */
 /* The slider itself */
@@ -624,6 +670,25 @@ background: #b30000;
 
 }
 
+@media (min-width: 801px) {
+    .content {
+        margin-left: 25px;
+        word-wrap: break-word;
+    }
+
+    .innerComments {
+        border: 5px solid black;
+        border-radius: 20px;
+        width: max(50%,1000px);
+        margin: 20px 0;
+        padding: 20px;
+        align-items: center;
+    }
+
+
+    
+}
+
 
 
 @media (max-width: 800px) {
@@ -669,33 +734,22 @@ background: #b30000;
         justify-content: center;
         flex-direction: row;
         align-items: stretch;
-        scale: 0.9;
     }
+
+    
 
     .comment {
         border: 1px solid black;
-        padding: 20px;
+        padding: 25px 5px;
         display: flex;
-        scale: 0.6;
     }
-    .innerComments {
-        border: 5px solid black;
-        border-radius: 20px;
-        width: 80%;
-        margin-top: 20px;
-        
-        align-items: center;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        
-    }
+
     .commentContainer {
         display: flex;
         flex-direction: column;
         overflow-x: hidden;
         max-width: 100vw;
-        height: 45vh;
+        height: 75vh;
     }
     .commentContainer::-webkit-scrollbar {
         display: none;
@@ -715,6 +769,8 @@ background: #b30000;
         z-index: 5;
         color: #ff000000;
     }
+
+
     .profile {
         position: relative;
         display: flex;
@@ -748,6 +804,21 @@ background: #b30000;
         padding: 0 10px;
         font-family: Avenir,lucida grande,tahoma,verdana,arial,sans-serif;
     }
+
+    .innerComments {
+        border-top: 5px solid black;
+        border-bottom: 5px solid black;
+        border-radius: 20px;
+        width: 100%;
+        margin: 20px 0;
+        padding: 20px;
+        align-items: center;
+    }
+
+    
+
+    
+
 }
 
 @media (max-width: 550px) {

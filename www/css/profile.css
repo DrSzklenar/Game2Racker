@@ -1,4 +1,6 @@
-
+body {
+    overflow-x: hidden;
+}
 
 #submitRate{
     cursor: pointer;
@@ -74,7 +76,9 @@
     cursor: pointer;
     user-select: none;
 }
-
+#lists-opener {
+    cursor: pointer;
+}
 .uncollapsible{
     display: flex;
     align-items: center;
@@ -98,6 +102,7 @@
     display: flex;
     align-items: center;
     cursor: grab;
+    
     
 }
 
@@ -141,6 +146,13 @@
 .name{
     overflow: hidden;
     max-width: calc(100%);
+    display: block;
+    
+}
+
+.card-name {
+    overflow: hidden;
+    max-width: calc(100%);
     white-space: nowrap;
     text-overflow: ellipsis;
     display: block;
@@ -160,17 +172,92 @@
     position: absolute;
  }
 
+ #wrapper {
+    overflow-y: hidden;
+    padding: 1vw;
+    gap: 2vw;
+  }
 
+  .container {
+    overflow: auto;
+    display: flex;
+    align-items: center;
+    cursor: grab;
+    overflow-y: hidden;
+}
 
-@media (max-width: 1000px) {
-    .card {
-        width: 32%;
+ @media (max-width: 800px) {
+
+    .profile-main {
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+        align-items: center;
+        gap: 1vw;
+        padding: 0 1vw;
     }
 
-    .card-header{
+
+    .profile-section{
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        width: max-content;
+    }
+
+    .lists-section {
+        width: calc(100% - 20%);
+        /* min-height: 80vh; */
+        background-color: #e9e3e3;
+        align-items: flex-start;
+        padding: 1rem;
+    }
+
+    .container {
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        cursor: grab;
+        /* width: 100vw; */
+    }
+
+    .wrapper {
+        
+        gap: 1px;
+    }
+
+    .card-header {
         font-size: 3vw;
     }
-}
+
+    .card-name {
+        overflow: hidden;
+        max-width: calc(100%);
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        display: block;
+        max-width: 25vw;
+    }
+
+    .card img {
+        border-radius: 12%;
+        max-height: 18vh;
+        object-fit: contain;
+        /* max-width: min-content; */
+    }
+
+    .container {
+        overflow: auto;
+        display: flex;
+        align-items: center;
+        cursor: grab;
+        overflow-y: hidden;
+    }
+ }
+
 
 
 

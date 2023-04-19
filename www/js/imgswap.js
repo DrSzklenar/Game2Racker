@@ -13,13 +13,13 @@ completed.addEventListener("click",() => {
    playing.classList.remove("stillplayingcolor");
 });
 
-let addlistc = document.getElementById('addtolist');
+// let addlistc = document.getElementById('addtolist');
 
-addlistc.addEventListener("click",() => {
+// addlistc.addEventListener("click",() => {
     
-   addlistc.classList.toggle("addtolistcolor");
+//    addlistc.classList.toggle("addtolistcolor");
    
-});
+// });
 
 let wishlist = document.getElementById('wishlist');
 

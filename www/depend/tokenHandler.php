@@ -27,5 +27,7 @@ function getUserData($result){
 }
 //ha van akkor visszaküldi az adatokat a function, egyébként üres tömböt küld
 
+$userData = getUserData($result);
+// eltároljuk egy változóban ezt
 
 ?>

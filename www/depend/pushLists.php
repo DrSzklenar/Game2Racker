@@ -7,8 +7,6 @@ mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
 require("connection.php");
 require("tokenHandler.php");
-$result = mysqli_query($conn, $tokenQuery);
-$userData = getUserData($result);
 
 // create list
 
@@ -79,11 +77,12 @@ function Did5SecondsPass($lastListDate){
 }
 
 if (isset($type) && $type == "create") {
-    if ($userData != false && isset($listName) && isset($listVis) && Did5SecondsPass($lastListDate) && ($listVis == 1 || $listVis == 0)) {
+    if (!empty($userData) && isset($listName) && isset($listVis) && Did5SecondsPass($lastListDate) && ($listVis == 1 || $listVis == 0)) {
         $pushListSQL = "INSERT INTO `lists`(`userID`, `nev`, `visibility`) VALUES (?,?,?)";
         $stmt = $conn->prepare($pushListSQL);
         $stmt->bind_param('isi', $userData['userID'],$listName,$listVis);
         $stmt->execute();
+        $stmt->reset();
         echo "INSERTED";
     }
     else {
@@ -91,15 +90,38 @@ if (isset($type) && $type == "create") {
     }
 }
 else if (isset($type) && $type == "add") {
-    if ($userData != false) {
+    if (!empty($userData)) {
         $isListTheUsersSQL = "SELECT * FROM `lists` WHERE userID = {$userData['userID']} AND id = {$listID};";
-        $GameExistsSQL = "SELECT * FROM `listGames` WHERE gameID = {$gameID} and listID = {$listID};";
-        if (mysqli_num_rows(mysqli_query($conn, $isListTheUsersSQL)) > 0 && mysqli_num_rows(mysqli_query($conn, $GameExistsSQL)) == 0) {
-            $pushListGamesSQL = "INSERT INTO `listGames`(`listID`, `gameID`, `name`, `picture`) VALUES (?,?,?,?);";
-            $stmt = $conn->prepare($pushListGamesSQL);
-            $stmt->bind_param('iiss',$listID,$gameID,$gameName,$gamePic);
+        $isGameOnListSQL = "SELECT * FROM `listGames` WHERE gameID = {$gameID} and listID = {$listID};";
+        $isGameInDbSQL = "SELECT * FROM `games` WHERE `gameID` = ?";
+
+        $stmt = $conn->prepare($isGameInDbSQL);
+            $stmt->bind_param('s',$gameID);
             $stmt->execute();
+            $result = $stmt->get_result();
+            $stmt->reset();
+            if($result->num_rows < 1){
+                $putGameInDbSQL = "INSERT INTO `games`(`gameID`, `name`, `picture`) VALUES (?,?,?)";
+                $stmt = $conn->prepare($putGameInDbSQL);
+                $stmt->bind_param('sss',$gameID,$gameName,$gamePic);
+                $stmt->execute();
+                $stmt->reset();
+            }
+
+        if (mysqli_num_rows(mysqli_query($conn, $isListTheUsersSQL)) > 0 && mysqli_num_rows(mysqli_query($conn, $isGameOnListSQL)) == 0) {
+            $pushListGamesSQL = "INSERT INTO `listGames`(`listID`, `gameID`) VALUES (?,?);";
+            $stmt = $conn->prepare($pushListGamesSQL);
+            $stmt->bind_param('ss',$listID,$gameID);
+            $stmt->execute();
+            $stmt->reset();
+
+
+
             
+            
+
+
+
             echo "INSERTED";
         }
         else {

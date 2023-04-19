@@ -7,8 +7,6 @@ header("Access-Control-Allow-Origin: *");
 
 require("connection.php");
 require("tokenHandler.php");
-$userData = getUserData($result);
-
 
 $userID = $_POST["userID"];
 

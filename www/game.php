@@ -99,8 +99,7 @@ $game_data = json_decode($CurledData);
                                         <a href=\"$web->url \" target=\"_blank\"></a>
                                     </div>";
                                 }
-                            }
-                      
+                            }     
                         echo "</div>
                     </div>
                 </div>";
@@ -113,16 +112,25 @@ $game_data = json_decode($CurledData);
                     $gamePic = "https://" . str_replace("t_thumb", "t_1080p", $game->url);
 
                     require("depend/rating.php");
-                   
-                    echo "<div class = \"buttonflex\">";
-                          
-                       echo "<button type=\"submit\" class = \"buttonsize\" id = \"stillplaying\" class = \"stillplayingcolor\" title = \"Playing\"></button>";
-                      echo  "<button type=\"submit\" class = \"buttonsize\" id = \"completed\" class = \"completedcolor\" title = \"Completed\"></button>";
+                    echo "<div class = \"buttonflex\">";     
+                        echo "<button type=\"submit\" class = \"buttonsize\" id = \"stillplaying\"  title = \"Playing\"></button>";
 
-                        
-                     echo "<button type=\"submit\" class = \"buttonsize\" id = \"addtolist\" class = \"addtolistcolor\" title = \"Add to a list\"></button>
-                        <button type=\"submit\" class = \"buttonsize\" id = \"wishlist\" class = \"wishlistcolor\" title = \"Wishlist\"></button>
-                        <button type=\"submit\" class = \"buttonsize\" id = \"favorite\" class = \"favoritecolor\" title = \"Favorite\"></button>  
+                        echo  "<button type=\"submit\" class = \"buttonsize\" id = \"completed\"  title = \"Completed\"></button>";
+
+                    $isGameInUsersLists = "SELECT `lists`.`id` FROM `lists` INNER JOIN `listGames` on `listGames`.`listID` = `lists`.`id` WHERE `lists`.`userID` = ? AND `listGames`.`gameID` = ?;";
+                    $stmt = $conn->prepare($isGameInUsersLists);
+                    $stmt->bind_param('ss',$userData['userID'],$id);
+                    $stmt->execute();
+                    $result = $stmt->get_result();
+                    $stmt->reset();
+                    if($result->num_rows > 0){
+                        echo "<button type=\"submit\" class = \"buttonsize addtolistcolor\" id = \"addtolist\" title = \"Add to a list\"></button>";
+                    }
+                    else {
+                        echo "<button type=\"submit\" class = \"buttonsize\" id = \"addtolist\" title = \"Add to a list\"></button>";
+                    }
+                        echo "<button type=\"submit\" class = \"buttonsize\" id = \"wishlist\"  title = \"Wishlist\"></button>
+                        <button type=\"submit\" class = \"buttonsize\" id = \"favorite\"  title = \"Favorite\"></button>  
                         </div>
                     </div>
                     
@@ -169,106 +177,7 @@ $game_data = json_decode($CurledData);
     
     
 
-    <div id="lists-menu" class="littleGap flexcol hidden">
-        <input id="close-lists" type="button" value="X">
-        <h1>Save to...</h1>
-        <div class="list-item-container littleGap flexcol">
-        <?php 
-        
-        $queryUsersLists = "SELECT * FROM `lists` WHERE `userID` = {$userData['userID']}";
-        $allListsUser = mysqli_query($conn,$queryUsersLists);
-        
-        
-        
-        while($row = mysqli_fetch_assoc($allListsUser)) {
-            if ($row['type'] == "custom") {
-                $GameExistsSQL = "SELECT * FROM `listGames` WHERE gameID = '{$id}' and listID = '{$row['id']}';";
-                if (mysqli_num_rows(mysqli_query($conn, $GameExistsSQL)) > 0) {
-                    
-                    echo "<div id=\"{$row['id']}\" class=\"list-item list-item-active\"><h2>{$row['nev']}</h2></div>";
-                }
-                else {
-                    echo "<div id=\"{$row['id']}\" class=\"list-item\"><h2>{$row['nev']}</h2></div>";
-                }
-            }
-        }
-        
-        ?>
-        </div>
-        <div id="create-opener-parent">
-            <input id="create-opener" type="button" value="Create new list">
-            
-        </div>
-
-        <script defer>
-            
-            let createOpener = document.getElementById('create-opener');
-            let createOpenerParent = document.getElementById('create-opener-parent');
-            createOpener.addEventListener('click',()=>{
-                createOpenerParent.innerHTML += `<div class="list-options">
-                <input type="text" name="name" id="list-name">
-                <select id="list-visibility" name="visibility" id="list-visibility">
-                    <option value="1">Public</option>
-                    <option value="0">Private</option>
-                </select>
-                <input id="create-list" type="button" value="Create">
-                </div>`;
-
-                let listName = document.getElementById('list-name');
-                let listVisibility = document.getElementById('list-visibility');
-                let createListBtn = document.getElementById('create-list');
-                createListBtn.addEventListener('click', () => {
-                    console.log("gag");
-                    let dataForPHP = new FormData();
-                    dataForPHP.append("name", listName.value);
-                    dataForPHP.append("vis", listVisibility.value);
-                    dataForPHP.append("type", "create");
-                    fetch(`depend/pushLists.php`, {
-                        method: "POST",
-                        body: dataForPHP
-                    })
-                    .then(response => response.text())
-                    .then(data => {
-                        console.log(data);
-                        console.log("Bob");
-                    })
-                    .catch(error => console.log(error));
-                    console.log("gag");
-    
-                });
-            });
-
-            let listItems = document.querySelectorAll(".list-item");
-            for (let i = 0; i < listItems.length; i++) {
-                listItems[i].addEventListener('click',() => {
-                    listItems[i].classList.add("list-item-active");
-
-                    let listName = document.getElementById('list-name');
-                    let listVisibility = document.getElementById('list-visibility');
-                    let createListBtn = document.getElementById('create-list');
-                        let dataForPHP = new FormData();
-                        dataForPHP.append("gameID", <?php echo $id; ?>);
-                        dataForPHP.append("listID", listItems[i].id);
-                        dataForPHP.append("gameName", "<?php echo $gameName?>");
-                        dataForPHP.append("gamePic", "<?php echo $gamePic?>");
-                        dataForPHP.append("type", "add");
-                        fetch(`depend/pushLists.php`, {
-                            method: "POST",
-                            body: dataForPHP
-                        })
-                        .then(response => response.text())
-                        .then(data => {
-                            console.log(data);
-                            console.log("Bob");
-                        })
-                        .catch(error => console.log(error));
-                        console.log("gag");
-                })
-                
-            }
-
-        </script>
-    </div>
+    <?php require("depend/lists.php"); ?>
 
     <script src="js/vanilla.kinetic.js"></script>
     <script type="text/javascript" charset="utf-8">

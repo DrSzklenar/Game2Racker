@@ -1,8 +1,6 @@
 <?php
 require("connection.php");
 require("tokenHandler.php");
-$userData = getUserData($result);
-
 
 session_start();
 $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
@@ -13,13 +11,11 @@ $_SESSION['current_page'] = $_SERVER['REQUEST_URI'];
 function printBar($userData) {
     $bar = "";
     if (!empty($userData)) {
-        $navAvatar = $userData['avatar'] == "" ? "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" : $userData['avatar'];
-            
         $bar = "<div class=\"profile\">
             <h1 id=\"name\">{$userData['nev']}</h1>
             <div class=\"avatar\">
                 <a href=\"profile.php?user=".$userData['nev']."&userid=".$userData['userID']."\"class=\"profileLink\">
-                    <img class=\"avatarPic\" src=\"{$navAvatar}\" alt=\"\">
+                    <img class=\"avatarPic\" src=\"{$userData['avatar']}\" alt=\"\">
                 </a>
             </div>
             <div id=\"menu\">

@@ -6,47 +6,51 @@ $sendComment = "name".bin2hex($bytes1);
 $commentInput = "name".bin2hex($bytes2);
 $functName = "name".bin2hex($bytes3);
 
+//random generált változónevek a rosszindulatú javascript parancsok kiadásának megnehezítésére (ebben az esetben comment spam)
+
 $commentField = "<section class=\"commentSection\">
 <div class=\"innerComments flexcol littleGap\">
     <h1>Comments</h1>
-    <div class=\"writeComment flexcol\">
-        <h2>Write a comment...</h2>
-        <textarea name=\"\" id=\"{$commentInput}\" cols=\"30\" rows=\"10\" style = \"resize: none\"></textarea>
-        <input type=\"button\" value=\"Comment\" id=\"{$sendComment}\">
-    </div>
+    <form class=\"writeComment flexcol\">
+        <textarea name=\"\" id=\"{$commentInput}\" cols=\"30\" rows=\"10\" placeholder=\"Write a comment...\" onkeypress=\"Enter(event)\"></textarea>
+        <input type=\"submit\" value=\"Comment\" class=\"comment-send\" id=\"{$sendComment}\">
+    </form>
     <div class=\"commentContainer littleGap\">";
-
+//megkezdjük felépíteni a komment szekciót, az egészet egy php változóban tároljuk el stringként (ami jelen esetben html kód lesz) A végén az egészet ki írjuk.
 
 if (isset($_GET['gameid']) || isset($_GET['userid'])) {
+    $pageData = array("type" => "", "id" => "");
     if (isset($_GET['gameid'])) {
-        $whereAmI = "game";
-        $wholeGrainId = $id;
+        $pageData['type'] = "game";
+        $pageData['id'] = $id;
     }
     else if (isset($_GET['userid'])) {
-        $wholeGrainId = $userid;
-        $whereAmI = "user";
+        $pageData['type'] = "user";
+        $pageData['id'] = $userid;
     }
+    //get metódus alapján értéket adunk a pagedata asszociatív tömbnek
     $commentsSQL = "SELECT 
     comment.id AS 'comment_id' ,comment.parentID,comment.madeBy,comment.madeOn,comment.type,comment.date,comment.text, `users`.id AS 'user_id' , `users`.nev, `users`.avatar, IFNULL(SUM(ratios.ratio),0) as ratio
     FROM `comment` LEFT JOIN `users` ON comment.madeBy = `users`.id 
     LEFT JOIN `ratios` ON ratios.commentID = comment.id 
-    WHERE comment.type = '{$whereAmI}' AND comment.madeOn = '{$wholeGrainId}' GROUP BY comment.id  ORDER BY comment.date DESC;";
+    WHERE comment.type = '{$pageData['type']}' AND comment.madeOn = '{$pageData['id']}' GROUP BY comment.id  ORDER BY comment.date DESC;";
     $queriedComments = mysqli_query($conn, $commentsSQL);
-    
-    $ratiosSQL = "SELECT * FROM `ratios` WHERE ratios.commentID = '{$wholeGrainId}' AND ratios.userID = '{$wholeGrainId}'";
-    $querieRatios = mysqli_query($conn, $ratiosSQL);
-    
+    //lekérdezzük az összes kommentet  a pagedata alapján , és hozzá tartozó ratiokat a commentid idegen kulcs alapján, LEFT JOINT, használunk hogy azok a kommentek is megjelenjenek amikhez nem tartozik ratio.
+    //GROUP BY comment.id miatt tudjuk SUM-olni a ratiokat- amik egy egyedelőforduláshoz tartoznak, hogy egyszerre egy komment csak egyszer legyen kilistázva, mellette kollektívan a ratio tábla lényege
+    //látszik hogy egy kommentnek milyen egy kommentnek az értéke(felhasználók által)
+    //IFNULL, ha egy komment még nem lenne értékelve akkor NULL érték helyett 0-t tudunk adni neki így ha ki akarjuk írni ez sem fog hibát okozni.
+
+
     while ($commentRow = mysqli_fetch_array($queriedComments)) {
         $commentField .= "<div id=\"{$commentRow['comment_id']}\" class=\"comment flexrow littleGap\">
-            <div class=\"leftside\">
-                <div class=\"rating flexrow littleGap\">
-                    <div class=\"ratingValue\">{$commentRow['ratio']}</div>
-                    <div class=\"ratingButtons flexcol\">";
-                    
-                    // select * ratio from ratios where commentid = $commentRow['commentid'] and userID = 9;
-                    // if more than one row color based on ratios value.
-                    $RatioSQL = "SELECT * FROM `ratios` WHERE  commentID = {$commentRow['comment_id']} AND userID = {$userData['userID']}";
-                    $queriedRatio = mysqli_query($conn, $RatioSQL);
+        <div class=\"leftside\">
+        <div class=\"rating flexrow littleGap\">
+        <div class=\"ratingValue\">{$commentRow['ratio']}</div>
+        <div class=\"ratingButtons flexcol\">";
+        
+        $RatioSQL = "SELECT * FROM `ratios` WHERE  commentID = {$commentRow['comment_id']} AND userID = {$userData['userID']}";
+        $queriedRatio = mysqli_query($conn, $RatioSQL);
+    //elkezdünk végigmenni a lekért kommenteken és mindegyik kommenthez lekérjük az adatbázisból a hozzá tartozó like- okat és dislike- okat
                 
                     if (mysqli_num_rows($queriedRatio) > 0) {
                         $ratiorow = mysqli_fetch_array($queriedRatio);
@@ -69,7 +73,9 @@ if (isset($_GET['gameid']) || isset($_GET['userid'])) {
                         <div class=\"upbutton\"><i class=\"fa fa-thumbs-up\"></i></div>
                         <div class=\"downbutton\"><i class=\"fa fa-thumbs-down\"></i></div>";
                     }
-                    
+                    //Ez a kódsor a like, dislike gombok megjelenéséért felel, ha a belépett felhasználó interaktált egy kommenten ezekkel (like -ot, vagy dislike -ot adott) akkor azt megfelelően beszinezi
+                    //ha a like -ot adott akkor azt a stringet adja hozzá a komment php változóhoz amiben a html kód tartalmazza azt a classt ami a like gomb szinezéséért felel
+                    //ha dislike-ot akkor azt,  ha meg nem interaktált még a felhasználó a jelen vizsgált kommentel akkor alap kinézettel kerül oda.
                     $commentField.="
                     </div>
                 </div>
@@ -78,21 +84,25 @@ if (isset($_GET['gameid']) || isset($_GET['userid'])) {
                 <div class=\"nameAndDate flexrow littleGap\">
                     <img class=\"commentAvatar\" src=\"{$commentRow['avatar']}\" alt=\"\">
                     <h2 class=\"commenter-name\"><a href=\"profile.php?user=".$commentRow['nev']."&userid=".$commentRow['user_id']."\"class=\"\">{$commentRow['nev']}</a></h2>
-                    <h4>{$commentRow['date']}</h4>
+                    <h4 class= \"comment-date\">{$commentRow['date']}</h4>
                 </div>
                 <div class=\"content\">
                     <p>{$commentRow['text']}</p>
                 </div>
             </div>";
-                    
-            if ($userData['userID'] == $wholeGrainId || $commentRow['user_id'] == $userData['userID']) {
+            // felépítjük a kommentet, benne lesz a user avatárja, neve, küldés dátuma, és maga az üzenet.
+
+            if ($userData['userID'] == $pageData['id'] || $commentRow['user_id'] == $userData['userID']) {
                 $commentField .= "<div class=\"kuka\"><i class=\"fa fa-trash\"></i></div>";
                 
             }
+            //ha a felhasználó a saját profilján van, VAGY a vizsgált komment a saját kommentje, kirakjuk a kukát, amivel tudja az adott kommentet törölni
             $commentField .="
         </div>";
     } 
 }
+
+//ˇˇˇˇ következő szekcióban a scriptek vannak amik a külömböző eseményeket kezelik amik a komment szekcióban történnek. Ezeket szintén a komment változóba tesszük egy html script tagen belül.
 
 $commentField .= "</div>
 
@@ -102,14 +112,15 @@ $commentField .= "</div>
 let {$sendComment} = document.getElementById(\"{$sendComment}\");
 let {$commentInput} = document.getElementById(\"{$commentInput}\");
 
-{$sendComment}.addEventListener('click',function $functName(){
+
+{$sendComment}.addEventListener('click',function $functName(event){
+    event.preventDefault();
     if ({$commentInput}.value != \"\") {
         {$sendComment}.removeEventListener('click',$functName);
-        
         let dataForPHP = new FormData();
-        dataForPHP.append(\"madeOn\", {$wholeGrainId});
+        dataForPHP.append(\"madeOn\", {$pageData['id']});
         dataForPHP.append(\"text\", {$commentInput}.value);
-        dataForPHP.append(\"type\", \"{$whereAmI}\");
+        dataForPHP.append(\"type\", \"{$pageData['type']}\");
         fetch(`depend/pushComment.php`, {
             method: \"POST\",
             body: dataForPHP
@@ -130,6 +141,19 @@ let {$commentInput} = document.getElementById(\"{$commentInput}\");
         console.log(\"gag\");
     }
     });
+    
+
+    function Enter(event){
+        if (event.keyCode == 13)
+        {
+            if (!event.shiftKey)
+            {
+                {$sendComment}.click();
+            }
+            return false;
+        }
+    }
+
 
     let upbuttons = document.querySelectorAll(\".upbutton\");
     let downbuttons = document.querySelectorAll(\".downbutton\");
@@ -177,6 +201,7 @@ let {$commentInput} = document.getElementById(\"{$commentInput}\");
             }
         }
 
+        
         let dataForPHP = new FormData();
         dataForPHP.append(\"madeOn\", parentID);
         dataForPHP.append(\"ratio\", ratio);
@@ -191,7 +216,7 @@ let {$commentInput} = document.getElementById(\"{$commentInput}\");
             if (data == \"NOPLIZ\") {
             }
             else if(data == \"GANTZ\"){
-                console.log(\"gatya van\")
+                console.log(\"hiba van\")
             }
         })
         .catch(error => console.log(error));
@@ -225,9 +250,23 @@ let {$commentInput} = document.getElementById(\"{$commentInput}\");
     let kukas = document.querySelectorAll(\".kuka\");
     for (let i = 0; i < kukas.length; i++) {
         kukas[i].addEventListener('click',() => DeleteComment(kukas[i]));
-    }
-
-        
+    }  
 </script>";
+
+
+// 117-144 elősször megnézzük hogy üres e a komment input mező és csak akkor haladunk tovább ha nem az.
+//létrehozunk egy formdata változót és hozzá adjuk a komment adatait: mi alá került a komment: a játék vagy felhasználó idje; a típusa: játék vagy felhasználó alá került; és magát az üzenetet.
+//fetch apival meghívjuk a pushcomment.php filet post metódussal átadjuk neki a formDatát.
+//a pushComment file ezeket a post-olt form adatokat várja.
+
+
+//147-156 Komment írásakor enterrel el lehet küldeni a kommentet de shift + enterrel új sort kezdünk.
+
+//159-203 A like és dislikeokat kezeli, ha már be van like olva akkor le veszi róla és levon egyet a számból, ugyan ez a dislike val csak ott hozzá ad, ha meg likeről rakja át dislike ra akkor
+//kettőt von ki (1- le veszi a like ott, és még 1, rárakja a dislikeot). Ugyan ez a dislikeről like ra csak ott 2-t ad
+
+//206 - 229. Itt az előbb történt módosítást az adatbázisba is fel rakja, Ezt is egy fetch apival ami ugyan azt a filrt hívja meg csak más paramétereket küld a form datában.
+
+//231 - 254 A kommentek törléséért felel. Ez a backend része a fentebb létrehozott kukáknak. Ezt is a fetcht használja.
 echo $commentField;
 ?>

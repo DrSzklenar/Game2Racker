@@ -8,7 +8,6 @@ mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
 require("connection.php");
 require("tokenHandler.php");
-$userData = getUserData($result);
 
 $madeOn = $_POST["madeOn"];
 $type = $_POST["type"];
@@ -30,8 +29,8 @@ else {
 
 $lastCommentDate = mysqli_fetch_row(mysqli_query($conn ,"SELECT date FROM `comment` WHERE madeBy = {$userData['userID']} ORDER BY date desc LIMIT 1"));
 
-function Did5SecondsPass($lastCommentDate){
-    if (date("Y-m-d H:i:s",strtotime($lastCommentDate['0']) + 3) < date("Y-m-d H:i:s")) {
+function DidSecondsPass($lastCommentDate, $howlong = "3"){
+    if (date("Y-m-d H:i:s",strtotime($lastCommentDate['0']) + $howlong) < date("Y-m-d H:i:s")) {
         return true;
     }
     else {
@@ -40,7 +39,7 @@ function Did5SecondsPass($lastCommentDate){
 }
 
 if (isset($type) && ($type == "user" || $type == "game")) {
-    if (isset($text) && !empty($userData) && Did5SecondsPass($lastCommentDate) && isset($madeOn)) {
+    if (isset($text) && !empty($userData) && DidSecondsPass($lastCommentDate, 3) && isset($madeOn)) {
         $cleanText = htmlspecialchars($text);
         $pushSQL = "INSERT INTO `comment`(`madeBy`, `madeOn`, `type`, `text`) VALUES (?,?,?,?);";
         $stmt = $conn->prepare($pushSQL);
@@ -77,7 +76,7 @@ else if (isset($type) && $type == "delete") {
         echo "DELETED";
     }
     else {
-        echo "Mit csinálsz te gatya fejű";
+        echo "Problem happened!";
     }
 
 }
