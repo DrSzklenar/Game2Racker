@@ -11,19 +11,15 @@ modal.addEventListener("click", () => {
 });
 
 let addtolist = document.getElementById('addtolist');
-let listMenu = document.getElementById('lists-menu');
 
-let closeLists = document.getElementById('close-lists');
 
 closeLists.addEventListener('click',()=>{
     listMenu.classList.add("hidden");
-    console.log("FaSZ");
 });
 
 
 addtolist.addEventListener('click',()=>{
     console.log(listMenu);
     listMenu.classList.remove("hidden");
-    console.log("fos");
 });
 

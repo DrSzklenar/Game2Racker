@@ -57,7 +57,7 @@ if(isset($_POST['submit'])){
    <title>Game2Racker</title>
 
    
-   <link rel="stylesheet" href="../css/style.css">
+   <link rel="stylesheet" href="../css/login.css">
 
 </head>
 <body>

@@ -84,7 +84,19 @@ if ($searchQueryUser != "") {
                     echo        "<h3>" . $result->name . "</h3>";
                     echo    "</div>";
                     echo "<div class = \"listbtnsearch\">";
-                    echo "<button type=\"submit\" class = \"buttonsize\" class = \"addtolistcolor\" title = \"Add to a list\"></button>";
+
+                    $isGameInUsersLists = "SELECT `lists`.`id` FROM `lists` INNER JOIN `listGames` on `listGames`.`listID` = `lists`.`id` WHERE `lists`.`userID` = ? AND `listGames`.`gameID` = ?;";
+                    $stmt = $conn->prepare($isGameInUsersLists);
+                    $stmt->bind_param('ss',$userData['userID'],$result->game->cover->id);
+                    $stmt->execute();
+                    $result = $stmt->get_result();
+                    $stmt->reset();
+                    if($result->num_rows > 0){
+                        echo "<button type=\"button\" class=\"search-addtolist addtolistcolor\" title=\"Add to a list\"></button>";
+                    }
+                    else {
+                        echo "<button type=\"button\" class = \"search-addtolist\" title = \"Add to a list\"></button>";
+                    }
                     echo   "</div>";
                      echo   "</div>";
                     
@@ -125,7 +137,7 @@ if ($searchQueryUser != "") {
 
 
     
-    <script src="js/modalsearch.js" defer></script>   
+    <!-- <script src="js/modalsearch.js" defer></script>    -->
 </body>
 
 </html>

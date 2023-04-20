@@ -86,7 +86,7 @@ if (isset($type) && $type == "create") {
         echo "INSERTED";
     }
     else {
-        echo "Mit csinálsz te gatya fejű";
+        echo "Problem happened when creating list";
     }
 }
 else if (isset($type) && $type == "add") {
@@ -114,28 +114,34 @@ else if (isset($type) && $type == "add") {
             $stmt->bind_param('ss',$listID,$gameID);
             $stmt->execute();
             $stmt->reset();
-
-
-
-            
-            
-
-
-
             echo "INSERTED";
         }
         else {
-            echo "Mit csinálsz te gatya fejű";
+            echo "Problem happened when inserting game";
         }
         
     }
     else {
-        echo "Mit csinálsz te gatya fejű";
+        echo "UserData doesnt exist";
     }
     
 }
+else if (isset($type) && $type == "delete") {
+    if (isset($listID) && !empty($userData)) {
+        $deleteListSQL = "DELETE FROM `lists` WHERE `id` = ? AND `userID` = ?";
+        $stmt = $conn->prepare($deleteListSQL);
+        $stmt->bind_param('ss', $listID,$userData['userID']);
+        $stmt->execute();
+        $stmt->reset();
+        echo "DELETED";
+    }
+    else {
+        echo "Problem happened! when deleting";
+    }
+
+}
 else {
-    echo "Mit csinálsz te gatya fejű";
+    echo "Problem with action type";
 }
 
 

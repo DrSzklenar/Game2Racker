@@ -77,7 +77,7 @@ if ($result->num_rows == 1) {
                         echo " open ";
                     }
                     
-                    echo  " id=\"{$list['id']}\" class=\"list-item\"><summary class=\"lists-name\">{$list['nev']} ";
+                    echo  " id=\"{$list['id']}\" class=\"list\"><summary class=\"list-name\">{$list['nev']} ";
                     
                     
                                     if ($list['visibility'] == 0) {
