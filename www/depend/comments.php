@@ -30,7 +30,7 @@ if (isset($_GET['gameid']) || isset($_GET['userid'])) {
     }
     //get metódus alapján értéket adunk a pagedata asszociatív tömbnek
     $commentsSQL = "SELECT 
-    comment.id AS 'comment_id' ,comment.parentID,comment.madeBy,comment.madeOn,comment.type,comment.date,comment.text, `users`.id AS 'user_id' , `users`.nev, `users`.avatar, IFNULL(SUM(ratios.ratio),0) as ratio
+    comment.id AS 'comment_id' ,comment.madeBy,comment.madeOn,comment.type,comment.date,comment.text, `users`.id AS 'user_id' , `users`.nev, `users`.avatar, IFNULL(SUM(ratios.ratio),0) as ratio
     FROM `comment` LEFT JOIN `users` ON comment.madeBy = `users`.id 
     LEFT JOIN `ratios` ON ratios.commentID = comment.id 
     WHERE comment.type = '{$pageData['type']}' AND comment.madeOn = '{$pageData['id']}' GROUP BY comment.id  ORDER BY comment.date DESC;";

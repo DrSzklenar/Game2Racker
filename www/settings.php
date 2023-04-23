@@ -18,8 +18,8 @@ require("depend/connection.php");
     <title>Document</title>
 </head>
 <body>
+   
     <?php require("depend/navbar.php");
-    
         $html = "";
 
         if ($id == $userData['userID']) {

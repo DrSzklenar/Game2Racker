@@ -113,9 +113,9 @@ $game_data = json_decode($CurledData);
 
                     require("depend/rating.php");
                     echo "<div class = \"buttonflex\">";     
-                        echo "<button type=\"submit\" class = \"buttonsize\" id = \"stillplaying\"  title = \"Playing\"></button>";
+                        // echo "<button type=\"submit\" class = \"buttonsize\" id = \"stillplaying\"  title = \"Playing\"></button>";
 
-                        echo  "<button type=\"submit\" class = \"buttonsize\" id = \"completed\"  title = \"Completed\"></button>";
+                        // echo  "<button type=\"submit\" class = \"buttonsize\" id = \"completed\"  title = \"Completed\"></button>";
 
                     $isGameInUsersLists = "SELECT `lists`.`id` FROM `lists` INNER JOIN `listGames` on `listGames`.`listID` = `lists`.`id` WHERE `lists`.`userID` = ? AND `listGames`.`gameID` = ?;";
                     $stmt = $conn->prepare($isGameInUsersLists);
@@ -129,12 +129,12 @@ $game_data = json_decode($CurledData);
                     else {
                         echo "<button type=\"submit\" class = \"buttonsize\" id = \"addtolist\" title = \"Add to a list\"></button>";
                     }
-                        echo "<button type=\"submit\" class = \"buttonsize\" id = \"wishlist\"  title = \"Wishlist\"></button>
-                        <button type=\"submit\" class = \"buttonsize\" id = \"favorite\"  title = \"Favorite\"></button>  
-                        </div>
+                    //     echo "<button type=\"submit\" class = \"buttonsize\" id = \"wishlist\"  title = \"Wishlist\"></button>
+                    //     <button type=\"submit\" class = \"buttonsize\" id = \"favorite\"  title = \"Favorite\"></button>  
+                    echo  "</div>
                     </div>
                     
-            </div>
+                </div>
             
             <div class = \"summary\">
                 <p>" . $game->game->summary . "</p>

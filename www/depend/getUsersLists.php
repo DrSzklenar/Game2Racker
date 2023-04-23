@@ -15,12 +15,14 @@ if (isset($_POST["id"]))
             $GameExistsSQL = "SELECT * FROM `listGames` WHERE gameID = '{$id}' and listID = '{$row['id']}';";
             if (mysqli_num_rows(mysqli_query($conn, $GameExistsSQL)) > 0) {
                 
-                $html .= "<div id=\"{$row['id']}\" class=\"list-menu-item list-menu-item-active\"><h2>{$row['nev']}</h2>
+                $html .= "<div data-id=\"{$row['id']}\" class=\"list-menu-item\">
+                <div id=\"{$row['id']}\" class=\"list-menu-item-clicker list-menu-item-active\"><h2>{$row['nev']}</h2></div>
                 <div class=\"list-menu-kuka kuka\"><i class=\"fa fa-trash\"></i></div>
             </div>";
             }
             else {
-                $html .= "<div id=\"{$row['id']}\" class=\"list-menu-item\"><h2>{$row['nev']}</h2>
+                $html .= "<div data-id=\"{$row['id']}\" class=\"list-menu-item\">
+                <div id=\"{$row['id']}\" class=\"list-menu-item-clicker\"><h2>{$row['nev']}</h2></div>
                 <div class=\"list-menu-kuka kuka\"><i class=\"fa fa-trash\"></i></div>
             </div>";
             }
@@ -28,7 +30,5 @@ if (isset($_POST["id"]))
     }
     echo $html;
 }
-else {
-    echo $id;
-}
+
 ?>

@@ -122,20 +122,30 @@ body {
     
 }
 .card img{
-    border-radius: 12%;
+    border-radius: 12px;
     max-height: 20vh;
     object-fit: contain;
-    /* max-width: min-content; */
+    max-width: min-content;
 
 }
+
+
 .card-body{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-content: center;
     justify-content: center;
+    align-items: center;
     overflow-y: hidden;
-    /* max-width: 100%;  */
+    max-width: 100%; 
 }
+
+.card-body-star {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
 .card-header{
     text-align: center;
     font-size: 1.4vw;

@@ -110,7 +110,7 @@ h1 {
     flex-wrap: nowrap;
     justify-content: flex-start;
     align-items: stretch;
-    overflow-x: scroll;
+    overflow-x: auto;
     overflow-y: hidden;
     user-select: none;
     
@@ -268,7 +268,7 @@ h1 {
         flex-wrap: nowrap;
         justify-content: flex-start;
         align-items: center;
-        overflow-x: scroll;
+        overflow-x: auto;
         overflow-y: hidden;
         user-select: none;
     }

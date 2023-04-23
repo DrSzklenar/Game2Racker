@@ -1,21 +1,18 @@
 <?php
 
+session_start();
 require("../depend/connection.php");
-
 if(isset($_POST['submit'])){
-
    $name = htmlspecialchars($_POST['name']);
    $email = htmlspecialchars($_POST['email']);
    $pass = md5($_POST['password']);
    $cpass = md5($_POST['cpassword']);
-   
    $select = "SELECT * FROM `users` WHERE email = ? OR nev = ?";
    $stmt = $conn->prepare($select);
    $stmt->bind_param('ss', $email,$name);
    $stmt->execute();
    $result = $stmt->get_result();
    $stmt->reset();
-   
    if($result->num_rows > 0){
       
       $error[] = 'User already exist!';
@@ -30,7 +27,36 @@ if(isset($_POST['submit'])){
          $stmt->bind_param('sss', $name,$email,$pass);
          $stmt->execute();
          $stmt->reset();   
-         echo $name;
+
+         $getNewUsersId = "SELECT `users`.`id` FROM `users` WHERE nev = ? AND email = ?";
+         $stmt = $conn->prepare($getNewUsersId);
+         $stmt->bind_param('ss', $name,$email);
+         $stmt->execute();
+         $newUsersId = $stmt->get_result();
+         $row = $newUsersId->fetch_assoc();
+         $stmt->reset();
+         
+         // mysqli_query($conn,"INSERT INTO `lists`(`userID`, `nev`, `type`, `order`) VALUES ('{$row['id']}','favorite','favorite',5)");
+         // mysqli_query($conn,"INSERT INTO `lists`(`userID`, `nev`, `type`, `order`) VALUES ('{$row['id']}','wishlist','wishlist',4)");
+         // mysqli_query($conn,"INSERT INTO `lists`(`userID`, `nev`, `type`, `order`) VALUES ('{$row['id']}','completed','completed',3)");
+         // mysqli_query($conn,"INSERT INTO `lists`(`userID`, `nev`, `type`, `order`) VALUES ('{$row['id']}','playing','playing'),2");
+         $_SESSION['registered'] = "
+         
+         <script type=\"text/javascript\" defer>
+         console.log(\"adadawda\");
+         Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'You registered successfully',
+            showConfirmButton: false,
+            timer: 1000
+          })
+          </script>
+         
+         
+         
+         
+         ";
          header("Location: login.php");
          exit();
       }
@@ -74,6 +100,7 @@ if(isset($_POST['submit'])){
    </form>
 
 </div>
+<script defer src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </body>
 </html>

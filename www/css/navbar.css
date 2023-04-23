@@ -530,6 +530,10 @@ nav img{
     border: 1px solid black;
 }
 
+#list-menu h1{
+text-align: center;
+}
+
 
 
 #close-lists{
@@ -545,7 +549,9 @@ nav img{
 
 
 #create-opener{
-
+    width: 8vw;
+    height: 2vh;
+    border: 1px solid black;
 }
 #create-opener-parent{
     height: 10%;
@@ -562,7 +568,7 @@ nav img{
 
 #list-menu-item-container{
     height: 100%;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 
@@ -570,9 +576,15 @@ nav img{
     position: relative;
     border: 1px solid #000000;
     border-radius: 1%/11%;
-    padding: 0.5rem;
+    
     cursor: pointer;
     width: 90%;
+}
+
+.list-menu-item-clicker {
+    width: 100%;
+    height: 100%;
+    padding: 0.5rem;
 }
 
 
@@ -583,7 +595,7 @@ nav img{
     height: fit-content;
     cursor: pointer;
     top: 15px;
-    right: -35px;
+    right: -7%;
 }
 
 
@@ -925,8 +937,34 @@ background: #b30000;
         align-items: center;
     }
 
-    
+    #list-menu {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100vw;
+        height: 70vh;
+        background-color: #f8f8f8;
+        z-index: 20;
+        user-select: none;
+        padding: 1rem;
+        border: 1px solid black;
+    }
 
+    .list-menu-item .kuka {
+        position: absolute;
+        justify-self: end;
+        height: fit-content;
+        cursor: pointer;
+        top: 15px;
+        right: -10%;
+    }
+    
+    #create-opener {
+        width: 25vw;
+        height: 3vh;
+        border: 1px solid black;
+    }
     
 
 }

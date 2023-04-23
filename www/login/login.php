@@ -6,6 +6,7 @@ require("../depend/connection.php");
 $error = [];
 session_start();
 
+
 if(isset($_POST['submit'])){
 
    $name = mysqli_real_escape_string($conn, $_POST['name']);
@@ -32,11 +33,20 @@ if(isset($_POST['submit'])){
       $stmt->execute();
       $stmt->reset();
 
+      // if (mysqli_num_rows(mysqli_query($conn,"SELECT `lists`.`id`,`lists`.`type` FROM `lists` WHERE `userID` = {$row['id']} AND type = 'favorite'")) < 1) {
+      //    mysqli_query($conn,"INSERT INTO `lists`(`userID`, `nev`, `type`, `order`) VALUES ('{$row['id']}','favorite','favorite',5)");
+      //    mysqli_query($conn,"INSERT INTO `lists`(`userID`, `nev`, `type`, `order`) VALUES ('{$row['id']}','wishlist','wishlist',4)");
+      //    mysqli_query($conn,"INSERT INTO `lists`(`userID`, `nev`, `type`, `order`) VALUES ('{$row['id']}','completed','completed',3)");
+      //    mysqli_query($conn,"INSERT INTO `lists`(`userID`, `nev`, `type`, `order`) VALUES ('{$row['id']}','playing','playing'),2");
+      // }
+
+
       setcookie("session", $token, time() + (60*60*24*7), "/");
 
       // $_SESSION['email'] = $row['email'];
       // $_SESSION['jelszo'] = $row['jelszo'];
-      header("Location: ". $_SESSION['current_page']);
+      
+     header("Location: ". $_SESSION['current_page']);
 
    }
    else
@@ -46,6 +56,7 @@ if(isset($_POST['submit'])){
 
 };
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -80,6 +91,11 @@ if(isset($_POST['submit'])){
    </form>
 
 </div>
+<script defer src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<?php echo $_SESSION['registered']; 
+
+unset($_SESSION["registered"])
+?>
 
 </body>
 </html>

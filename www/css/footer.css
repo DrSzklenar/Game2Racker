@@ -8,6 +8,7 @@ footer .footer-container {
 footer .row {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 footer ul {

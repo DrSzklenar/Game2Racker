@@ -1,3 +1,9 @@
+form {
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
+
 #informamos{
     width: 30px;
     cursor: pointer;
@@ -26,4 +32,49 @@
     align-items: center;
     gap: 0.5rem;
 
+}
+
+#pictureUrl ,#steamUrl {
+    width: 15vw;
+    height: 2vh;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+#sendSettings ,#sendSettingsSteam {
+    width: 5vw;
+    height: 2vh;
+    background-color: #c5c5f5;
+    border-radius: 3px;
+}
+
+#sendSettings:hover ,#sendSettingsSteam:hover {
+    background-color: #b0b0f7;
+}
+
+
+@media (max-width: 800px) {
+    form h1 {
+        font-size: 25px;
+    }
+    #informamos{
+        display: none;
+        width: 30px;
+        cursor: pointer;
+        position: relative;
+    }
+
+    #pictureUrl ,#steamUrl {
+        width: 35vw;
+        height: 2vh;
+        border: 1px solid black;
+        border-radius: 5px;
+    }
+
+    #sendSettings ,#sendSettingsSteam {
+        width: 15vw;
+        height: 2vh;
+        background-color: #c5c5f5;
+        border-radius: 3px;
+    }
 }

@@ -76,14 +76,46 @@ function Did5SecondsPass($lastListDate){
     }
 }
 
+
+
+
+
+
 if (isset($type) && $type == "create") {
     if (!empty($userData) && isset($listName) && isset($listVis) && Did5SecondsPass($lastListDate) && ($listVis == 1 || $listVis == 0)) {
+        $isGameInDbSQL = "SELECT * FROM `games` WHERE `gameID` = ?";
+
+        $stmt = $conn->prepare($isGameInDbSQL);
+        $stmt->bind_param('s',$gameID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $stmt->reset();
+        if($result->num_rows < 1){
+            $putGameInDbSQL = "INSERT INTO `games`(`gameID`, `name`, `picture`) VALUES (?,?,?)";
+            $stmt = $conn->prepare($putGameInDbSQL);
+            $stmt->bind_param('sss',$gameID,$gameName,$gamePic);
+            $stmt->execute();
+            $stmt->reset();
+        }
+
+        
         $pushListSQL = "INSERT INTO `lists`(`userID`, `nev`, `visibility`) VALUES (?,?,?)";
         $stmt = $conn->prepare($pushListSQL);
         $stmt->bind_param('isi', $userData['userID'],$listName,$listVis);
         $stmt->execute();
         $stmt->reset();
-        echo "INSERTED";
+
+        $newListsId = mysqli_fetch_row(mysqli_query($conn,"SELECT `lists`.`id` FROM `lists` WHERE `lists`.`userID` = {$userData['userID']}  ORDER BY `lists`.`updated` DESC LIMIT 1;"));
+
+        $pushListGamesSQL = "INSERT INTO `listGames`(`listID`, `gameID`) VALUES (?,?);";
+            $stmt = $conn->prepare($pushListGamesSQL);
+            $stmt->bind_param('ss',$newListsId['0'],$gameID);
+            $stmt->execute();
+            $stmt->reset();
+            
+            echo "CREATED";
+            
+        
     }
     else {
         echo "Problem happened when creating list";
@@ -96,17 +128,17 @@ else if (isset($type) && $type == "add") {
         $isGameInDbSQL = "SELECT * FROM `games` WHERE `gameID` = ?";
 
         $stmt = $conn->prepare($isGameInDbSQL);
-            $stmt->bind_param('s',$gameID);
+        $stmt->bind_param('s',$gameID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $stmt->reset();
+        if($result->num_rows < 1){
+            $putGameInDbSQL = "INSERT INTO `games`(`gameID`, `name`, `picture`) VALUES (?,?,?)";
+            $stmt = $conn->prepare($putGameInDbSQL);
+            $stmt->bind_param('sss',$gameID,$gameName,$gamePic);
             $stmt->execute();
-            $result = $stmt->get_result();
             $stmt->reset();
-            if($result->num_rows < 1){
-                $putGameInDbSQL = "INSERT INTO `games`(`gameID`, `name`, `picture`) VALUES (?,?,?)";
-                $stmt = $conn->prepare($putGameInDbSQL);
-                $stmt->bind_param('sss',$gameID,$gameName,$gamePic);
-                $stmt->execute();
-                $stmt->reset();
-            }
+        }
 
         if (mysqli_num_rows(mysqli_query($conn, $isListTheUsersSQL)) > 0 && mysqli_num_rows(mysqli_query($conn, $isGameOnListSQL)) == 0) {
             $pushListGamesSQL = "INSERT INTO `listGames`(`listID`, `gameID`) VALUES (?,?);";
@@ -116,8 +148,16 @@ else if (isset($type) && $type == "add") {
             $stmt->reset();
             echo "INSERTED";
         }
+        else if(mysqli_num_rows(mysqli_query($conn, $isListTheUsersSQL)) > 0 && mysqli_num_rows(mysqli_query($conn, $isGameOnListSQL)) == 1){
+            $deleteGameFromListSQL = "DELETE FROM `listGames` WHERE `listID` = ? AND `gameID` = ?";
+            $stmt = $conn->prepare($deleteGameFromListSQL);
+            $stmt->bind_param('ss',$listID,$gameID);
+            $stmt->execute();
+            $stmt->reset();
+            echo "REMOVED";
+        }
         else {
-            echo "Problem happened when inserting game";
+            echo "Problem happened when clicking game";
         }
         
     }
@@ -128,7 +168,7 @@ else if (isset($type) && $type == "add") {
 }
 else if (isset($type) && $type == "delete") {
     if (isset($listID) && !empty($userData)) {
-        $deleteListSQL = "DELETE FROM `lists` WHERE `id` = ? AND `userID` = ?";
+        $deleteListSQL = "DELETE FROM `lists` WHERE `lists`.`id` = ? AND `lists`.`userID` = ?";
         $stmt = $conn->prepare($deleteListSQL);
         $stmt->bind_param('ss', $listID,$userData['userID']);
         $stmt->execute();

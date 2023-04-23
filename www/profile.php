@@ -62,9 +62,9 @@ if ($result->num_rows == 1) {
                 <div id="lists-opener"><?php echo $profileData['nev'] ?>'s Lists</div>
                 <?php
 
-                $queryUsersLists = "SELECT `lists`.id,`lists`.`userID`,`lists`.`nev`,`lists`.`type`,`lists`.`visibility`,`lists`.`order`,`lists`.`updated` FROM `lists` RIGHT JOIN `listGames` ON `lists`.id = `listGames`.listID WHERE `lists`.`userID` = '{$userid}'  AND `lists`.`visibility` = 1 GROUP BY `lists`.`id`;";
+                $queryUsersLists = "SELECT `lists`.id,`lists`.`userID`,`lists`.`nev`,`lists`.`type`,`lists`.`visibility`,`lists`.`order`,`lists`.`updated` FROM `lists` RIGHT JOIN `listGames` ON `lists`.id = `listGames`.listID WHERE `lists`.`userID` = '{$userid}'  AND `lists`.`visibility` = 1 GROUP BY `lists`.`id` ORDER BY `lists`.`order` DESC;";
                 if ($userData['userID'] == $userid) {
-                    $queryUsersLists = "SELECT `lists`.id,`lists`.`userID`,`lists`.`nev`,`lists`.`type`,`lists`.`visibility`,`lists`.`order`,`lists`.`updated` FROM `lists` RIGHT JOIN `listGames` ON `lists`.id = `listGames`.listID WHERE `lists`.`userID` = '{$userid}' GROUP BY `lists`.`id`;";
+                    $queryUsersLists = "SELECT `lists`.id,`lists`.`userID`,`lists`.`nev`,`lists`.`type`,`lists`.`visibility`,`lists`.`order`,`lists`.`updated` FROM `lists` RIGHT JOIN `listGames` ON `lists`.id = `listGames`.listID WHERE `lists`.`userID` = '{$userid}' GROUP BY `lists`.`id` ORDER BY `lists`.`order` DESC;";
                 }
                 $allListsUser = mysqli_query($conn, $queryUsersLists);
 
@@ -92,8 +92,17 @@ if ($result->num_rows == 1) {
                                     <h3 class=\"card-name\">{$games['name']}</h3>
                                 </div>
                                 <div class=\"card-body\">
-                                    <img loading=\"lazy\" src=\"" . $games['picture'] . "\">
-                                </div>
+                                <img loading=\"lazy\" src=\"" . $games['picture'] . "\">
+                                <div class=\"card-body-star\" >";
+
+                                        $thisGamesRatingSQL = "SELECT `ratingTable`.`rating` FROM `ratingTable` WHERE ratedThing = {$games['gameID']} AND ratedBy = {$userid} AND type = 'game' LIMIT 1";
+                                        $thisGamesRatingRes = mysqli_fetch_assoc(mysqli_query($conn, $thisGamesRatingSQL));
+                                        echo ($thisGamesRatingRes['rating'] != NULL) ? "<i class=\"fa fa-star selected\"></i> <h2>{$thisGamesRatingRes['rating']}</h2>": "<i class=\"fa fa-star\"></i> <h2>0</h2>";
+                                        echo "
+                                    </div>
+                                    ";  
+
+                                echo "</div>
                             </div>";
                     }
                     echo "</div></details>";

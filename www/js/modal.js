@@ -10,16 +10,7 @@ modal.addEventListener("click", () => {
     modal.classList.add("hidden");
 });
 
-let addtolist = document.getElementById('addtolist');
 
 
-closeLists.addEventListener('click',()=>{
-    listMenu.classList.add("hidden");
-});
 
-
-addtolist.addEventListener('click',()=>{
-    console.log(listMenu);
-    listMenu.classList.remove("hidden");
-});
 
