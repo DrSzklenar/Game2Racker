@@ -43,7 +43,6 @@ if(isset($_POST['submit'])){
          $_SESSION['registered'] = "
          
          <script type=\"text/javascript\" defer>
-         console.log(\"adadawda\");
          Swal.fire({
             position: 'top-end',
             icon: 'success',

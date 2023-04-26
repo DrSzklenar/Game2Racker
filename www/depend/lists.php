@@ -119,7 +119,6 @@
                     })
                     .then(response => response.text())
                     .then(data => {
-                        console.log(data);
                         if (data == "REMOVED") {
                             element.classList.remove("list-menu-item-active");
                         }
@@ -147,7 +146,6 @@
                 })
                 .then(response => response.text())
                 .then(data => {
-                    console.log(data)
                     if (data == "DELETED") {
                         element.parentElement.remove();
                     }
