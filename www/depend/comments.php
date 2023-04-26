@@ -127,18 +127,16 @@ let {$commentInput} = document.getElementById(\"{$commentInput}\");
         })
         .then(response => response.text())
         .then(data => {
-            console.log(data)
-            if (data == \"NOPLIZ\") {
+            if (data == \"SUCCESSFUL\") {
                 {$commentInput}.value = \"\";
                 {$sendComment}.addEventListener('click',$functName);
                 window.location.reload();
             }
-            else if(data == \"GANTZ\"){
+            else if(data == \"BAD\"){
                 setTimeout({$sendComment}.addEventListener('click',$functName),5000)
             }
         })
         .catch(error => console.log(error));
-        console.log(\"gag\");
     }
     });
     
@@ -212,12 +210,6 @@ let {$commentInput} = document.getElementById(\"{$commentInput}\");
         })
         .then(response => response.text())
         .then(data => {
-            console.log(data);
-            if (data == \"NOPLIZ\") {
-            }
-            else if(data == \"GANTZ\"){
-                console.log(\"hiba van\")
-            }
         })
         .catch(error => console.log(error));
         
@@ -237,14 +229,11 @@ let {$commentInput} = document.getElementById(\"{$commentInput}\");
         })
         .then(response => response.text())
         .then(data => {
-            console.log(data)
             if (data == \"DELETED\") {
-                console.log(element.parentElement.id);
                 element.parentElement.remove();
             }
         })
         .catch(error => console.log(error));
-        console.log(\"gag\");
     }
 
     let kukas = document.querySelectorAll(\".kuka\");

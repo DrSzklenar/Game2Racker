@@ -113,9 +113,7 @@ if (isset($type) && $type == "create") {
             $stmt->execute();
             $stmt->reset();
             
-            echo "CREATED";
-            
-        
+            echo "CREATED"; 
     }
     else {
         echo "Problem happened when creating list";
@@ -139,7 +137,6 @@ else if (isset($type) && $type == "add") {
             $stmt->execute();
             $stmt->reset();
         }
-
         if (mysqli_num_rows(mysqli_query($conn, $isListTheUsersSQL)) > 0 && mysqli_num_rows(mysqli_query($conn, $isGameOnListSQL)) == 0) {
             $pushListGamesSQL = "INSERT INTO `listGames`(`listID`, `gameID`) VALUES (?,?);";
             $stmt = $conn->prepare($pushListGamesSQL);
@@ -159,12 +156,10 @@ else if (isset($type) && $type == "add") {
         else {
             echo "Problem happened when clicking game";
         }
-        
     }
     else {
         echo "UserData doesnt exist";
     }
-    
 }
 else if (isset($type) && $type == "delete") {
     if (isset($listID) && !empty($userData)) {

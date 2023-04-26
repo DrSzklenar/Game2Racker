@@ -5,7 +5,6 @@ error_reporting(E_ALL);
 header("Access-Control-Allow-Origin: *");
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
-
 require("connection.php");
 require("tokenHandler.php");
 
@@ -45,19 +44,23 @@ if (isset($type) && ($type == "user" || $type == "game")) {
         $stmt = $conn->prepare($pushSQL);
         $stmt->bind_param('iiss', $userData['userID'],$madeOn,$type,$cleanText);
         $stmt->execute();
-        echo "NOPLIZ";
+        $stmt->reset();
+        echo "SUCCESSFUL";
     }
     else {
-        echo "GANTZ";
+        echo "BAD";
     }
 }
 else if (isset($type) && $type == "vote") {
-    if (isset($type) && $type == "vote" && !empty($userData) && isset($ratio) && ($ratio <= 1 && $ratio >= -1) && isset($madeOn)) {
+    if (isset($ratio) && !empty($userData) && ($ratio <= 1 && $ratio >= -1) && isset($madeOn)) {
         $voteSQL = "SELECT * FROM `ratios` WHERE  commentID = {$madeOn} AND userID = {$userData['userID']}";
         $queriedVote = mysqli_query($conn, $voteSQL);
         if (mysqli_num_rows($queriedVote) == 0) {
-            $pushSQL = "INSERT INTO `ratios`(`commentID`, `userID`, `ratio`) VALUES ('{$madeOn}','{$userData['userID']}','$ratio')";
-            mysqli_query($conn, $pushSQL);
+            $pushSQL = "INSERT INTO `ratios`(`commentID`, `userID`, `ratio`) VALUES (?,?,?)";
+            $stmt = $conn->prepare($pushSQL);
+            $stmt->bind_param('sss', $madeOn,$userData['userID'],$ratio);
+            $stmt->execute();
+            $stmt->reset();
             echo "INSERTED NEW ROW";
         }
         else {
@@ -73,6 +76,7 @@ else if (isset($type) && $type == "delete") {
         $stmt = $conn->prepare($deleteCommentSQL);
         $stmt->bind_param('iii', $madeOn,$userData['userID'],$userData['userID']);
         $stmt->execute();
+        $stmt->reset();
         echo "DELETED";
     }
     else {

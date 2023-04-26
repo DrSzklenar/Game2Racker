@@ -2,7 +2,6 @@
 function getData($url = "",  $postFields = "")
 {
     $curl = curl_init();
-
     curl_setopt_array($curl, array(
         CURLOPT_URL => $url,
         CURLOPT_RETURNTRANSFER => true,
@@ -20,11 +19,8 @@ function getData($url = "",  $postFields = "")
             'Cookie: __cf_bm=i6Ct3Bu80LLr8boRVUD1wxvgulosh8XFKTwuawwkfJQ-1678262079-0-AS34GswIhE0/1Ex1L6yfy/Av/Bcd19Ks+BwZ4W9MqR2TanALgtaOjKY62QlTvCm+BpUKZUqUeQ+J7autpnE0eo4='
         ),
     ));
-
     $response = curl_exec($curl);
-
     curl_close($curl);
-
     return $response;
 }
 ?>

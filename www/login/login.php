@@ -15,7 +15,7 @@ if(isset($_POST['submit'])){
    
    
 
-   $select = "SELECT * FROM `users` WHERE email = ? && jelszo = ?";
+   $select = "SELECT `users`.`id` FROM `users` WHERE email = ? && jelszo = ?";
    $stmt = $conn->prepare($select);
    $stmt->bind_param('ss', $email,$pass);
    $stmt->execute();
@@ -32,7 +32,8 @@ if(isset($_POST['submit'])){
       $stmt->bind_param('ss', $row['id'],$token);
       $stmt->execute();
       $stmt->reset();
-
+      
+      setcookie("session", $token, time() + (60*60*24*3), "/");
       // if (mysqli_num_rows(mysqli_query($conn,"SELECT `lists`.`id`,`lists`.`type` FROM `lists` WHERE `userID` = {$row['id']} AND type = 'favorite'")) < 1) {
       //    mysqli_query($conn,"INSERT INTO `lists`(`userID`, `nev`, `type`, `order`) VALUES ('{$row['id']}','favorite','favorite',5)");
       //    mysqli_query($conn,"INSERT INTO `lists`(`userID`, `nev`, `type`, `order`) VALUES ('{$row['id']}','wishlist','wishlist',4)");
@@ -41,7 +42,6 @@ if(isset($_POST['submit'])){
       // }
 
 
-      setcookie("session", $token, time() + (60*60*24*7), "/");
 
       // $_SESSION['email'] = $row['email'];
       // $_SESSION['jelszo'] = $row['jelszo'];

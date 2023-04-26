@@ -42,7 +42,7 @@ if ($err) {
     <?php include("depend/navbar.php")?>
     <div class="trending">
         <h1 class="wrapper-name"> New Releases</h1>
-        <div id="wrapper" class="container card-content">
+        <div id="wrapper" class="wrapper container card-content">
 
             <?php
             foreach ($trending_games as $game) {
@@ -64,7 +64,7 @@ if ($err) {
 
     <div class="AlltimeTop">
         <h1 class="wrapper-name">All time Top games</h1>
-        <div id="wrapper2" class="container card-content">
+        <div id="wrapper2" class="wrapper container card-content">
             <?php
             foreach ($top_games as $game) {
                 $name = $game->game->name;
@@ -93,16 +93,18 @@ if ($err) {
             var $id = function(id) {
             return document.getElementById(id);
         };
-        let element = document.getElementById("wrapper");
-        let element2 = document.getElementById("wrapper2");
+            
         var $click = function(elem, fn) {
             return elem.addEventListener('click', function(e) {
                 fn.apply(elem, [e]);
             }, false);
         };
 
-        new VanillaKinetic(element);
-        new VanillaKinetic(element2);
+        let rapper = document.getElementsByClassName("wrapper");
+        for (let i = 0; i < rapper.length; i++) {
+            new VanillaKinetic(rapper[i]);
+            
+        }
         }
         
 

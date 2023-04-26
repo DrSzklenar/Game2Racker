@@ -129,20 +129,20 @@ if ($result->num_rows == 1) {
 
                     const mediaQuery = window.matchMedia('(min-width: 800px)')
                     if (mediaQuery.matches) {
-                        var $id = function(id) {
-                            return document.getElementById(id);
-                        };
-                        let element = document.getElementsByClassName("wrapper");
+                        // var $id = function(id) {
+                        //     return document.getElementById(id);
+                        // };
                         
-                        var $click = function(elem, fn) {
-                            return elem.addEventListener('click', function(e) {
-                                fn.apply(elem, [e]);
-                            }, false);
-                        };
-                            for (let i = 0; i < element.length; i++) {
-                                new VanillaKinetic(element[i]);
-                                
-                            }
+                        // var $click = function(elem, fn) {
+                        //     return elem.addEventListener('click', function(e) {
+                        //         fn.apply(elem, [e]);
+                        //     }, false);
+                        // };
+                        let element = document.getElementsByClassName("wrapper");
+                        for (let i = 0; i < element.length; i++) {
+                            new VanillaKinetic(element[i]);
+                            
+                        }
                         
                     }
                         

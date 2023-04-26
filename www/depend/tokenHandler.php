@@ -10,16 +10,18 @@ $tokenQuery = "
 SELECT 
 `users`.id,`users`.nev,`users`.avatar,`users`.email,`sessions`.id,`sessions`.userID,`sessions`.active,`sessions`.token,`sessions`.acquired,`sessions`.expires
 FROM `users` RIGHT JOIN `sessions` on `sessions`.userID = `users`.id
-WHERE `sessions`.token = '{$_COOKIE["session"]}'
+WHERE `sessions`.token = ?
 AND active = '1'
 ";
-
-$result = mysqli_query($conn, $tokenQuery);
+$stmt = $conn->prepare($tokenQuery);
+$stmt->bind_param('s', $_COOKIE["session"]);
+$stmt->execute();
+$result = $stmt->get_result();
 // Ez a lekérdezés megnézi hogy létezik e olyan sor az adatbázisban amiben a token egyezik a belépéskor beállított cookieval
 
 function getUserData($result){
-    if (mysqli_num_rows($result) === 1) {
-        return mysqli_fetch_array($result);
+    if ($result->num_rows === 1) {
+        return $result->fetch_array();
     }
     else {
         return array();

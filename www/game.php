@@ -26,7 +26,7 @@ if ($err) {
 
 //echo $response;
 $game_data = json_decode($CurledData);
-// a game_data változóban json-é alakítjuk az adatokat
+// a game_data változónak értőkül adjuk aszzociatív tömmbé alakított az curledData json értékű változót
 
 
 ?>
@@ -171,13 +171,9 @@ $game_data = json_decode($CurledData);
         <button>×</button>
 
     </div>
-
-
     <?php require("depend/comments.php");?>
-    
-    
-
     <?php require("depend/lists.php"); ?>
+    <?php require("depend/footer.php"); ?>
 
     <script src="js/vanilla.kinetic.js"></script>
     <script type="text/javascript" charset="utf-8">
@@ -207,28 +203,7 @@ $game_data = json_decode($CurledData);
         //     }
         // });
     </script>
-    <script defer>
-        let buton = document.getElementById('addtolist');
-        buton.addEventListener('click',()=>{
-
-            // let dataForPHP = new FormData();
-            // fetch(`depend/pushLists.php`, {
-            //     method: "POST",
-            //     body: dataForPHP
-            // })
-            // .then(response => response.text())
-            // .then(data => {
-            //     console.log(data);
-            // })
-            // .catch(error => console.log(error));
-            // console.log("gaga");
-        });
-        
-    
-    </script>
     <script src="js/modal.js" defer></script>
     <script src="js/imgswap.js"></script>
-    <?php require("depend/footer.php"); ?>
 </body>
-
 </html>
