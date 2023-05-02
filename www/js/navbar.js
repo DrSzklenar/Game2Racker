@@ -8,6 +8,7 @@ let closeMenu = document.getElementById("closeMenu");
 nameBtn.addEventListener('click', () => {
     menu.classList.toggle("menuShown");
     closeMenu.classList.add("wideMan");
+    console.log("répa");
 });
 
 

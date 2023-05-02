@@ -67,8 +67,10 @@ require("depend/connection.php");
                     })
                     .then(response => response.text())
                     .then(data => {
+                        console.log(data);
                     })
                     .catch(error => console.log(error));
+                    console.log(\"gag\");
                 
             });
             let steamUrl = document.getElementById(\"steamUrl\");
